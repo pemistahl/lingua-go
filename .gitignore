@@ -13,3 +13,37 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+.idea
+.project
+.c9/
+*.launch
+.settings/
+.metadata/
+*.sublime-workspace
+bin/
+tmp/
+out/
+*.iml
+*.ipr
+*.iws
+*.bak
+*.tmp
+*.class
+.buildpath
+.classpath
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+.DS_Store
+Thumbs.db
+$RECYCLE.BIN/
+._*
+.AppleDouble
+.LSOverride
+*.lnk
+Desktop.ini
+ehthumbs.db
