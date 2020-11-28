@@ -47,3 +47,5 @@ $RECYCLE.BIN/
 *.lnk
 Desktop.ini
 ehthumbs.db
+
+main.go
