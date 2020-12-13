@@ -97,8 +97,8 @@ const (
 )
 
 func AllLanguages() []Language {
-	languages := make([]Language, Zulu)
-	for i := 0; i < int(Zulu); i++ {
+	languages := make([]Language, amountOfSupportedLanguages())
+	for i := 0; i <= amountOfSupportedLanguages()-1; i++ {
 		languages[i] = Language(i)
 	}
 	return languages
@@ -129,15 +129,6 @@ func AllLanguagesWithLatinScript() []Language {
 	return allLanguagesWithScript(latin)
 }
 
-func allLanguagesWithScript(script alphabet) (languages []Language) {
-	for _, language := range AllLanguages() {
-		if language.alphabets()[0] == script {
-			languages = append(languages, language)
-		}
-	}
-	return
-}
-
 func GetLanguageFromIsoCode639_1(isoCode IsoCode639_1) Language {
 	for _, language := range AllLanguages() {
 		if language.IsoCode639_1() == isoCode {
@@ -154,6 +145,19 @@ func GetLanguageFromIsoCode639_3(isoCode IsoCode639_3) Language {
 		}
 	}
 	return -1
+}
+
+func allLanguagesWithScript(script alphabet) (languages []Language) {
+	for _, language := range AllLanguages() {
+		if language.alphabets()[0] == script {
+			languages = append(languages, language)
+		}
+	}
+	return
+}
+
+func amountOfSupportedLanguages() int {
+	return int(Zulu + 1)
 }
 
 func (language Language) IsoCode639_1() IsoCode639_1 {
