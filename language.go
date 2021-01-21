@@ -1,5 +1,5 @@
 /*
- * Copyright © 2020 Peter M. Stahl pemistahl@gmail.com
+ * Copyright © 2021 Peter M. Stahl pemistahl@gmail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,12 @@
  */
 
 package lingua
+
+import (
+	"encoding/json"
+	"fmt"
+	"strings"
+)
 
 //go:generate stringer -type=Language
 type Language int
@@ -612,4 +618,23 @@ func (language Language) uniqueCharacters() string {
 	default:
 		return ""
 	}
+}
+
+func (language Language) MarshalJSON() ([]byte, error) {
+	return json.Marshal(strings.ToUpper(language.String()))
+}
+
+func (language *Language) UnmarshalJSON(bytes []byte) error {
+	var s string
+	if err := json.Unmarshal(bytes, &s); err != nil {
+		return err
+	}
+	for _, l := range AllLanguages() {
+		str := strings.ToUpper(l.String())
+		if str == s {
+			*language = l
+			return nil
+		}
+	}
+	return fmt.Errorf("string \"%v\" cannot be unmarshalled to an instance of type Language", s)
 }

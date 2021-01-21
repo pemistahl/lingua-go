@@ -1,5 +1,5 @@
 /*
- * Copyright © 2020 Peter M. Stahl pemistahl@gmail.com
+ * Copyright © 2021 Peter M. Stahl pemistahl@gmail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,8 @@
 package lingua
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -255,4 +257,20 @@ func TestAllLanguagesWithLatinScript(t *testing.T) {
 			Zulu,
 		},
 		AllLanguagesWithLatinScript())
+}
+
+func TestLanguage_MarshalJSON(t *testing.T) {
+	language, err := json.Marshal(German)
+	assert.Equal(t, "\"GERMAN\"", string(language))
+	assert.Equal(t, nil, err)
+}
+
+func TestLanguage_UnmarshalJSON(t *testing.T) {
+	var language Language
+	err := json.Unmarshal([]byte("\"GERMAN\""), &language)
+	assert.Equal(t, German, language)
+	assert.Equal(t, nil, err)
+
+	err = json.Unmarshal([]byte("\"GERM\""), &language)
+	assert.Equal(t, fmt.Errorf("string \"GERM\" cannot be unmarshalled to an instance of type Language"), err)
 }
