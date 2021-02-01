@@ -23,40 +23,40 @@ import (
 
 func TestLanguageDetectorBuilder_FromAllLanguages(t *testing.T) {
 	builder := NewLanguageDetectorBuilder().FromAllLanguages()
-	assert.Equal(t, AllLanguages(), builder.languages)
-	assert.Equal(t, 0.0, builder.minimumRelativeDistance)
+	assert.Equal(t, AllLanguages(), builder.getLanguages())
+	assert.Equal(t, 0.0, builder.getMinimumRelativeDistance())
 
 	builder.WithMinimumRelativeDistance(0.2)
-	assert.Equal(t, 0.2, builder.minimumRelativeDistance)
+	assert.Equal(t, 0.2, builder.getMinimumRelativeDistance())
 }
 
 func TestLanguageDetectorBuilder_FromAllSpokenLanguages(t *testing.T) {
 	builder := NewLanguageDetectorBuilder().FromAllSpokenLanguages()
-	assert.Equal(t, AllSpokenLanguages(), builder.languages)
-	assert.Equal(t, 0.0, builder.minimumRelativeDistance)
+	assert.Equal(t, AllSpokenLanguages(), builder.getLanguages())
+	assert.Equal(t, 0.0, builder.getMinimumRelativeDistance())
 
 	builder.WithMinimumRelativeDistance(0.2)
-	assert.Equal(t, 0.2, builder.minimumRelativeDistance)
+	assert.Equal(t, 0.2, builder.getMinimumRelativeDistance())
 }
 
 func TestLanguageDetectorBuilder_FromAllLanguagesWithArabicScript(t *testing.T) {
 	builder := NewLanguageDetectorBuilder().FromAllLanguagesWithArabicScript()
-	assert.Equal(t, AllLanguagesWithArabicScript(), builder.languages)
+	assert.Equal(t, AllLanguagesWithArabicScript(), builder.getLanguages())
 }
 
 func TestLanguageDetectorBuilder_FromAllLanguagesWithCyrillicScript(t *testing.T) {
 	builder := NewLanguageDetectorBuilder().FromAllLanguagesWithCyrillicScript()
-	assert.Equal(t, AllLanguagesWithCyrillicScript(), builder.languages)
+	assert.Equal(t, AllLanguagesWithCyrillicScript(), builder.getLanguages())
 }
 
 func TestLanguageDetectorBuilder_FromAllLanguagesWithDevanagariScript(t *testing.T) {
 	builder := NewLanguageDetectorBuilder().FromAllLanguagesWithDevanagariScript()
-	assert.Equal(t, AllLanguagesWithDevanagariScript(), builder.languages)
+	assert.Equal(t, AllLanguagesWithDevanagariScript(), builder.getLanguages())
 }
 
 func TestLanguageDetectorBuilder_FromAllLanguagesWithLatinScript(t *testing.T) {
 	builder := NewLanguageDetectorBuilder().FromAllLanguagesWithLatinScript()
-	assert.Equal(t, AllLanguagesWithLatinScript(), builder.languages)
+	assert.Equal(t, AllLanguagesWithLatinScript(), builder.getLanguages())
 }
 
 func TestLanguageDetectorBuilder_FromAllLanguagesWithout(t *testing.T) {
@@ -137,7 +137,7 @@ func TestLanguageDetectorBuilder_FromAllLanguagesWithout(t *testing.T) {
 			Yoruba,
 			Zulu,
 		},
-		builder.languages,
+		builder.getLanguages(),
 	)
 }
 
@@ -153,7 +153,7 @@ func TestLanguageDetectorBuilder_FromAllLanguagesWithout_Panics(t *testing.T) {
 
 func TestLanguageDetectorBuilder_FromLanguages(t *testing.T) {
 	builder := NewLanguageDetectorBuilder().FromLanguages([]Language{German, English})
-	assert.Equal(t, []Language{German, English}, builder.languages)
+	assert.Equal(t, []Language{German, English}, builder.getLanguages())
 }
 
 func TestLanguageDetectorBuilder_FromLanguages_Panics(t *testing.T) {
@@ -168,7 +168,7 @@ func TestLanguageDetectorBuilder_FromLanguages_Panics(t *testing.T) {
 
 func TestLanguageDetectorBuilder_FromIsoCodes639_1(t *testing.T) {
 	builder := NewLanguageDetectorBuilder().FromIsoCodes639_1([]IsoCode639_1{DE, SV})
-	assert.Equal(t, []Language{German, Swedish}, builder.languages)
+	assert.Equal(t, []Language{German, Swedish}, builder.getLanguages())
 }
 
 func TestLanguageDetectorBuilder_FromIsoCodes639_1_Panics(t *testing.T) {
@@ -183,7 +183,7 @@ func TestLanguageDetectorBuilder_FromIsoCodes639_1_Panics(t *testing.T) {
 
 func TestLanguageDetectorBuilder_FromIsoCodes639_3(t *testing.T) {
 	builder := NewLanguageDetectorBuilder().FromIsoCodes639_3([]IsoCode639_3{DEU, SWE})
-	assert.Equal(t, []Language{German, Swedish}, builder.languages)
+	assert.Equal(t, []Language{German, Swedish}, builder.getLanguages())
 }
 
 func TestLanguageDetectorBuilder_FromIsoCodes639_3_Panics(t *testing.T) {
@@ -212,16 +212,6 @@ func TestLanguageDetectorBuilder_WithMinimumRelativeDistance_Panics_2(t *testing
 		"Minimum relative distance must lie in between 0.0 and 0.99",
 		func() {
 			NewLanguageDetectorBuilder().FromAllLanguages().WithMinimumRelativeDistance(1.7)
-		},
-	)
-}
-
-func TestLanguageDetectorBuilder_Build_Panics(t *testing.T) {
-	assert.PanicsWithValue(
-		t,
-		"LanguageDetector cannot be built as no languages have been specified",
-		func() {
-			NewLanguageDetectorBuilder().Build()
 		},
 	)
 }

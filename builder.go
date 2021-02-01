@@ -18,40 +18,60 @@ package lingua
 
 const missingLanguageMessage = "LanguageDetector needs at least 2 languages to choose from"
 
-type LanguageDetectorBuilder struct {
+type UnconfiguredLanguageDetectorBuilder interface {
+	FromAllLanguages() LanguageDetectorBuilder
+	FromAllSpokenLanguages() LanguageDetectorBuilder
+	FromAllLanguagesWithArabicScript() LanguageDetectorBuilder
+	FromAllLanguagesWithCyrillicScript() LanguageDetectorBuilder
+	FromAllLanguagesWithDevanagariScript() LanguageDetectorBuilder
+	FromAllLanguagesWithLatinScript() LanguageDetectorBuilder
+	FromAllLanguagesWithout(languages []Language) LanguageDetectorBuilder
+	FromLanguages(languages []Language) LanguageDetectorBuilder
+	FromIsoCodes639_1(isoCodes []IsoCode639_1) LanguageDetectorBuilder
+	FromIsoCodes639_3(isoCodes []IsoCode639_3) LanguageDetectorBuilder
+}
+
+type LanguageDetectorBuilder interface {
+	getLanguages() []Language
+	getMinimumRelativeDistance() float64
+	WithMinimumRelativeDistance(distance float64) LanguageDetectorBuilder
+	Build() LanguageDetector
+}
+
+type languageDetectorBuilder struct {
 	languages               []Language
 	minimumRelativeDistance float64
 }
 
-func NewLanguageDetectorBuilder() *LanguageDetectorBuilder {
-	return &LanguageDetectorBuilder{}
+func NewLanguageDetectorBuilder() UnconfiguredLanguageDetectorBuilder {
+	return &languageDetectorBuilder{}
 }
 
-func (builder *LanguageDetectorBuilder) FromAllLanguages() *LanguageDetectorBuilder {
+func (builder *languageDetectorBuilder) FromAllLanguages() LanguageDetectorBuilder {
 	return builder.from(AllLanguages())
 }
 
-func (builder *LanguageDetectorBuilder) FromAllSpokenLanguages() *LanguageDetectorBuilder {
+func (builder *languageDetectorBuilder) FromAllSpokenLanguages() LanguageDetectorBuilder {
 	return builder.from(AllSpokenLanguages())
 }
 
-func (builder *LanguageDetectorBuilder) FromAllLanguagesWithArabicScript() *LanguageDetectorBuilder {
+func (builder *languageDetectorBuilder) FromAllLanguagesWithArabicScript() LanguageDetectorBuilder {
 	return builder.from(AllLanguagesWithArabicScript())
 }
 
-func (builder *LanguageDetectorBuilder) FromAllLanguagesWithCyrillicScript() *LanguageDetectorBuilder {
+func (builder *languageDetectorBuilder) FromAllLanguagesWithCyrillicScript() LanguageDetectorBuilder {
 	return builder.from(AllLanguagesWithCyrillicScript())
 }
 
-func (builder *LanguageDetectorBuilder) FromAllLanguagesWithDevanagariScript() *LanguageDetectorBuilder {
+func (builder *languageDetectorBuilder) FromAllLanguagesWithDevanagariScript() LanguageDetectorBuilder {
 	return builder.from(AllLanguagesWithDevanagariScript())
 }
 
-func (builder *LanguageDetectorBuilder) FromAllLanguagesWithLatinScript() *LanguageDetectorBuilder {
+func (builder *languageDetectorBuilder) FromAllLanguagesWithLatinScript() LanguageDetectorBuilder {
 	return builder.from(AllLanguagesWithLatinScript())
 }
 
-func (builder *LanguageDetectorBuilder) FromAllLanguagesWithout(languages []Language) *LanguageDetectorBuilder {
+func (builder *languageDetectorBuilder) FromAllLanguagesWithout(languages []Language) LanguageDetectorBuilder {
 	languagesToLoad := AllLanguages()
 	for _, languageToRemove := range languages {
 		for i, currentLanguage := range languagesToLoad {
@@ -67,14 +87,14 @@ func (builder *LanguageDetectorBuilder) FromAllLanguagesWithout(languages []Lang
 	return builder.from(languagesToLoad)
 }
 
-func (builder *LanguageDetectorBuilder) FromLanguages(languages []Language) *LanguageDetectorBuilder {
+func (builder *languageDetectorBuilder) FromLanguages(languages []Language) LanguageDetectorBuilder {
 	if len(languages) < 2 {
 		panic(missingLanguageMessage)
 	}
 	return builder.from(languages)
 }
 
-func (builder *LanguageDetectorBuilder) FromIsoCodes639_1(isoCodes []IsoCode639_1) *LanguageDetectorBuilder {
+func (builder *languageDetectorBuilder) FromIsoCodes639_1(isoCodes []IsoCode639_1) LanguageDetectorBuilder {
 	if len(isoCodes) < 2 {
 		panic(missingLanguageMessage)
 	}
@@ -85,7 +105,7 @@ func (builder *LanguageDetectorBuilder) FromIsoCodes639_1(isoCodes []IsoCode639_
 	return builder.from(languages)
 }
 
-func (builder *LanguageDetectorBuilder) FromIsoCodes639_3(isoCodes []IsoCode639_3) *LanguageDetectorBuilder {
+func (builder *languageDetectorBuilder) FromIsoCodes639_3(isoCodes []IsoCode639_3) LanguageDetectorBuilder {
 	if len(isoCodes) < 2 {
 		panic(missingLanguageMessage)
 	}
@@ -96,7 +116,7 @@ func (builder *LanguageDetectorBuilder) FromIsoCodes639_3(isoCodes []IsoCode639_
 	return builder.from(languages)
 }
 
-func (builder *LanguageDetectorBuilder) WithMinimumRelativeDistance(distance float64) *LanguageDetectorBuilder {
+func (builder *languageDetectorBuilder) WithMinimumRelativeDistance(distance float64) LanguageDetectorBuilder {
 	if distance < 0.0 || distance > 0.99 {
 		panic("Minimum relative distance must lie in between 0.0 and 0.99")
 	}
@@ -104,14 +124,19 @@ func (builder *LanguageDetectorBuilder) WithMinimumRelativeDistance(distance flo
 	return builder
 }
 
-func (builder *LanguageDetectorBuilder) Build() LanguageDetector {
-	if len(builder.languages) == 0 {
-		panic("LanguageDetector cannot be built as no languages have been specified")
-	}
+func (builder *languageDetectorBuilder) Build() LanguageDetector {
 	return LanguageDetector{}
 }
 
-func (builder *LanguageDetectorBuilder) from(languages []Language) *LanguageDetectorBuilder {
+func (builder *languageDetectorBuilder) getLanguages() []Language {
+	return builder.languages
+}
+
+func (builder *languageDetectorBuilder) getMinimumRelativeDistance() float64 {
+	return builder.minimumRelativeDistance
+}
+
+func (builder *languageDetectorBuilder) from(languages []Language) LanguageDetectorBuilder {
 	builder.languages = languages
 	builder.minimumRelativeDistance = 0.0
 	return builder
