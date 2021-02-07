@@ -22,11 +22,11 @@ import (
 	"unicode/utf8"
 )
 
-const maxNgramLength = 5
-
 type ngram struct {
 	value string
 }
+
+type ngramSlice []ngram
 
 func newNgram(value string) ngram {
 	charCount := utf8.RuneCountInString(value)
@@ -79,4 +79,16 @@ func (n *ngram) UnmarshalJSON(bytes []byte) error {
 	}
 	*n = newNgram(s)
 	return nil
+}
+
+func (ngrams ngramSlice) Len() int {
+	return len(ngrams)
+}
+
+func (ngrams ngramSlice) Less(i, j int) bool {
+	return ngrams[i].value < ngrams[j].value
+}
+
+func (ngrams ngramSlice) Swap(i, j int) {
+	ngrams[i], ngrams[j] = ngrams[j], ngrams[i]
 }
