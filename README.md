@@ -1,4 +1,8 @@
 # lingua-go
+
+[![Build Status](https://github.com/pemistahl/lingua-go/workflows/Lingua%20CI/badge.svg?branch=main)](https://github.com/pemistahl/lingua-go/actions?query=workflow%3A%22Lingua+CI%22+branch%3Amain)
+[![codecov](https://codecov.io/gh/pemistahl/lingua-go/branch/main/graph/badge.svg)](https://codecov.io/gh/pemistahl/lingua-go)
+
 The most accurate natural language detection library in the Go ecosystem, 
 suitable for long and short text alike
 
