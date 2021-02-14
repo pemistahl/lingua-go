@@ -36,7 +36,7 @@ func newNgram(value string) ngram {
 	return ngram{value: value}
 }
 
-func getNgramNameByLength(ngramLength uint32) string {
+func getNgramNameByLength(ngramLength int) string {
 	switch ngramLength {
 	case 1:
 		return "unigram"

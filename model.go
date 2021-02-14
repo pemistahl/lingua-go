@@ -59,9 +59,9 @@ func newTrainingDataLanguageModel(
 	}
 }
 
-func newTrainingDataLanguageModelFromJson(jsonData string) trainingDataLanguageModel {
+func newTrainingDataLanguageModelFromJson(jsonData []byte) trainingDataLanguageModel {
 	var jsonModel jsonLanguageModel
-	err := json.Unmarshal([]byte(jsonData), &jsonModel)
+	err := json.Unmarshal(jsonData, &jsonModel)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -82,7 +82,7 @@ func newTrainingDataLanguageModelFromJson(jsonData string) trainingDataLanguageM
 	}
 }
 
-func (model trainingDataLanguageModel) toJson() string {
+func (model trainingDataLanguageModel) toJson() []byte {
 	ratsToNgrams := make(map[string]ngramSlice)
 	for ngram, rat := range model.relativeFrequencies {
 		r := rat.String()
@@ -105,7 +105,7 @@ func (model trainingDataLanguageModel) toJson() string {
 	if err != nil {
 		panic(err.Error())
 	}
-	return string(serializedJsonModel)
+	return serializedJsonModel
 }
 
 func newTestDataLanguageModel(text string, ngramLength int) testDataLanguageModel {
