@@ -68,6 +68,7 @@ const (
 	Lithuanian
 	Macedonian
 	Malay
+	Maori
 	Marathi
 	Mongolian
 	Nynorsk
@@ -506,6 +507,7 @@ func (language Language) alphabets() []alphabet {
 		Latvian,
 		Lithuanian,
 		Malay,
+		Maori,
 		Nynorsk,
 		Polish,
 		Portuguese,

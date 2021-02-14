@@ -106,6 +106,7 @@ func TestLanguageDetectorBuilder_FromAllLanguagesWithout(t *testing.T) {
 			Lithuanian,
 			Macedonian,
 			Malay,
+			Maori,
 			Marathi,
 			Mongolian,
 			Nynorsk,
