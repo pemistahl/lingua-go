@@ -101,6 +101,7 @@ const (
 	Xhosa
 	Yoruba
 	Zulu
+	Unknown
 )
 
 func AllLanguages() []Language {
@@ -253,6 +254,8 @@ func (language Language) IsoCode639_1() IsoCode639_1 {
 		return MK
 	case Malay:
 		return MS
+	case Maori:
+		return MI
 	case Marathi:
 		return MR
 	case Mongolian:
@@ -317,6 +320,8 @@ func (language Language) IsoCode639_1() IsoCode639_1 {
 		return YO
 	case Zulu:
 		return ZU
+	case Unknown:
+		return UnknownIsoCode639_1
 	default:
 		return -1
 	}
@@ -408,6 +413,8 @@ func (language Language) IsoCode639_3() IsoCode639_3 {
 		return MKD
 	case Malay:
 		return MSA
+	case Maori:
+		return MRI
 	case Marathi:
 		return MAR
 	case Mongolian:
@@ -472,6 +479,8 @@ func (language Language) IsoCode639_3() IsoCode639_3 {
 		return YOR
 	case Zulu:
 		return ZUL
+	case Unknown:
+		return UnknownIsoCode639_3
 	default:
 		return -1
 	}
@@ -639,4 +648,13 @@ func (language *Language) UnmarshalJSON(bytes []byte) error {
 		}
 	}
 	return fmt.Errorf("string \"%v\" cannot be unmarshalled to an instance of type Language", s)
+}
+
+func containsLanguage(languages []Language, language Language) bool {
+	for _, l := range languages {
+		if l == language {
+			return true
+		}
+	}
+	return false
 }

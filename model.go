@@ -108,6 +108,13 @@ func (model trainingDataLanguageModel) toJson() []byte {
 	return serializedJsonModel
 }
 
+func (model trainingDataLanguageModel) getRelativeFrequency(ngram ngram) float64 {
+	if frequency, exists := model.jsonRelativeFrequencies[ngram]; exists {
+		return frequency
+	}
+	return 0
+}
+
 func newTestDataLanguageModel(text string, ngramLength int) testDataLanguageModel {
 	if ngramLength > maxNgramLength {
 		panic(fmt.Sprintf("ngram length %v is greater than %v", ngramLength, maxNgramLength))

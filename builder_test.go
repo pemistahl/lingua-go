@@ -23,7 +23,7 @@ import (
 
 func TestLanguageDetectorBuilder_FromAllLanguages(t *testing.T) {
 	builder := NewLanguageDetectorBuilder().FromAllLanguages()
-	assert.Equal(t, AllLanguages(), builder.getLanguages())
+	assert.ElementsMatch(t, AllLanguages(), builder.getLanguages())
 	assert.Equal(t, 0.0, builder.getMinimumRelativeDistance())
 
 	builder.WithMinimumRelativeDistance(0.2)
@@ -32,7 +32,7 @@ func TestLanguageDetectorBuilder_FromAllLanguages(t *testing.T) {
 
 func TestLanguageDetectorBuilder_FromAllSpokenLanguages(t *testing.T) {
 	builder := NewLanguageDetectorBuilder().FromAllSpokenLanguages()
-	assert.Equal(t, AllSpokenLanguages(), builder.getLanguages())
+	assert.ElementsMatch(t, AllSpokenLanguages(), builder.getLanguages())
 	assert.Equal(t, 0.0, builder.getMinimumRelativeDistance())
 
 	builder.WithMinimumRelativeDistance(0.2)
@@ -46,7 +46,7 @@ func TestLanguageDetectorBuilder_FromAllLanguagesWithArabicScript(t *testing.T) 
 
 func TestLanguageDetectorBuilder_FromAllLanguagesWithCyrillicScript(t *testing.T) {
 	builder := NewLanguageDetectorBuilder().FromAllLanguagesWithCyrillicScript()
-	assert.Equal(t, AllLanguagesWithCyrillicScript(), builder.getLanguages())
+	assert.ElementsMatch(t, AllLanguagesWithCyrillicScript(), builder.getLanguages())
 }
 
 func TestLanguageDetectorBuilder_FromAllLanguagesWithDevanagariScript(t *testing.T) {
@@ -56,12 +56,12 @@ func TestLanguageDetectorBuilder_FromAllLanguagesWithDevanagariScript(t *testing
 
 func TestLanguageDetectorBuilder_FromAllLanguagesWithLatinScript(t *testing.T) {
 	builder := NewLanguageDetectorBuilder().FromAllLanguagesWithLatinScript()
-	assert.Equal(t, AllLanguagesWithLatinScript(), builder.getLanguages())
+	assert.ElementsMatch(t, AllLanguagesWithLatinScript(), builder.getLanguages())
 }
 
 func TestLanguageDetectorBuilder_FromAllLanguagesWithout(t *testing.T) {
-	builder := NewLanguageDetectorBuilder().FromAllLanguagesWithout([]Language{Turkish, Romanian})
-	assert.Equal(
+	builder := NewLanguageDetectorBuilder().FromAllLanguagesWithout(Turkish, Romanian)
+	assert.ElementsMatch(
 		t,
 		[]Language{
 			Afrikaans,
@@ -147,14 +147,14 @@ func TestLanguageDetectorBuilder_FromAllLanguagesWithout_Panics(t *testing.T) {
 		t,
 		"LanguageDetector needs at least 2 languages to choose from",
 		func() {
-			NewLanguageDetectorBuilder().FromAllLanguagesWithout(AllLanguages()[1:])
+			NewLanguageDetectorBuilder().FromAllLanguagesWithout(AllLanguages()[1:]...)
 		},
 	)
 }
 
 func TestLanguageDetectorBuilder_FromLanguages(t *testing.T) {
-	builder := NewLanguageDetectorBuilder().FromLanguages([]Language{German, English})
-	assert.Equal(t, []Language{German, English}, builder.getLanguages())
+	builder := NewLanguageDetectorBuilder().FromLanguages(German, English)
+	assert.ElementsMatch(t, []Language{German, English}, builder.getLanguages())
 }
 
 func TestLanguageDetectorBuilder_FromLanguages_Panics(t *testing.T) {
@@ -162,14 +162,14 @@ func TestLanguageDetectorBuilder_FromLanguages_Panics(t *testing.T) {
 		t,
 		"LanguageDetector needs at least 2 languages to choose from",
 		func() {
-			NewLanguageDetectorBuilder().FromLanguages([]Language{German})
+			NewLanguageDetectorBuilder().FromLanguages(German)
 		},
 	)
 }
 
 func TestLanguageDetectorBuilder_FromIsoCodes639_1(t *testing.T) {
-	builder := NewLanguageDetectorBuilder().FromIsoCodes639_1([]IsoCode639_1{DE, SV})
-	assert.Equal(t, []Language{German, Swedish}, builder.getLanguages())
+	builder := NewLanguageDetectorBuilder().FromIsoCodes639_1(DE, SV)
+	assert.ElementsMatch(t, []Language{German, Swedish}, builder.getLanguages())
 }
 
 func TestLanguageDetectorBuilder_FromIsoCodes639_1_Panics(t *testing.T) {
@@ -177,14 +177,14 @@ func TestLanguageDetectorBuilder_FromIsoCodes639_1_Panics(t *testing.T) {
 		t,
 		"LanguageDetector needs at least 2 languages to choose from",
 		func() {
-			NewLanguageDetectorBuilder().FromIsoCodes639_1([]IsoCode639_1{DE})
+			NewLanguageDetectorBuilder().FromIsoCodes639_1(DE)
 		},
 	)
 }
 
 func TestLanguageDetectorBuilder_FromIsoCodes639_3(t *testing.T) {
-	builder := NewLanguageDetectorBuilder().FromIsoCodes639_3([]IsoCode639_3{DEU, SWE})
-	assert.Equal(t, []Language{German, Swedish}, builder.getLanguages())
+	builder := NewLanguageDetectorBuilder().FromIsoCodes639_3(DEU, SWE)
+	assert.ElementsMatch(t, []Language{German, Swedish}, builder.getLanguages())
 }
 
 func TestLanguageDetectorBuilder_FromIsoCodes639_3_Panics(t *testing.T) {
@@ -192,7 +192,7 @@ func TestLanguageDetectorBuilder_FromIsoCodes639_3_Panics(t *testing.T) {
 		t,
 		"LanguageDetector needs at least 2 languages to choose from",
 		func() {
-			NewLanguageDetectorBuilder().FromIsoCodes639_3([]IsoCode639_3{DEU})
+			NewLanguageDetectorBuilder().FromIsoCodes639_3(DEU)
 		},
 	)
 }

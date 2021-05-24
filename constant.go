@@ -26,6 +26,7 @@ var multipleWhitespace = regexp.MustCompile("\\s+")
 var noLetter = regexp.MustCompile("^[^\\p{L}]+$")
 var numbers = regexp.MustCompile("\\p{N}")
 var punctuation = regexp.MustCompile("\\p{P}")
+var languagesSupportingLogograms = []Language{Chinese, Japanese, Korean}
 
 var charsToLanguagesMapping = map[string][]Language{
 	"Ãã":     {Portuguese, Vietnamese},
@@ -38,13 +39,13 @@ var charsToLanguagesMapping = map[string][]Language{
 	"İıĞğ":   {Azerbaijani, Turkish},
 	"ЈјЉљЊњ": {Macedonian, Serbian},
 	"ẸẹỌọ":   {Vietnamese, Yoruba},
+	"ÐðÞþ":   {Icelandic, Turkish},
+	"Ûû":     {French, Hungarian},
 	"Ōō":     {Maori, Yoruba},
 
 	"ĀāĒēĪī": {Latvian, Maori, Yoruba},
 	"Şş":     {Azerbaijani, Romanian, Turkish},
 	"Ďď":     {Czech, Romanian, Slovak},
-	"ÐðÞþ":   {Icelandic, Latvian, Turkish},
-	"Ûû":     {French, Hungarian, Latvian},
 	"Ćć":     {Bosnian, Croatian, Polish},
 	"Đđ":     {Bosnian, Croatian, Vietnamese},
 	"Іі":     {Belarusian, Kazakh, Ukrainian},
@@ -59,19 +60,19 @@ var charsToLanguagesMapping = map[string][]Language{
 	"Ôô":     {French, Portuguese, Slovak, Vietnamese},
 	"ЁёЫыЭэ": {Belarusian, Kazakh, Mongolian, Russian},
 	"ЩщЪъ":   {Bulgarian, Kazakh, Mongolian, Russian},
+	"Òò":     {Catalan, Italian, Vietnamese, Yoruba},
+	"Ââ":     {Portuguese, Romanian, Turkish, Vietnamese},
 	"Ææ":     {Bokmal, Danish, Icelandic, Nynorsk},
 	"Åå":     {Bokmal, Danish, Nynorsk, Swedish},
 
-	"Òò": {Catalan, Italian, Latvian, Vietnamese, Yoruba},
 	"Ýý": {Czech, Icelandic, Slovak, Turkish, Vietnamese},
 	"Ää": {Estonian, Finnish, German, Slovak, Swedish},
-	"Ââ": {Latvian, Portuguese, Romanian, Turkish, Vietnamese},
 	"Àà": {Catalan, French, Italian, Portuguese, Vietnamese},
 
 	"Üü":     {Azerbaijani, Catalan, Estonian, German, Hungarian, Spanish, Turkish},
 	"ČčŠšŽž": {Bosnian, Czech, Croatian, Latvian, Lithuanian, Slovak, Slovene},
+	"Çç":     {Albanian, Azerbaijani, Basque, Catalan, French, Portuguese, Turkish},
 
-	"Çç": {Albanian, Azerbaijani, Basque, Catalan, French, Latvian, Portuguese, Turkish},
 	"Öö": {Azerbaijani, Estonian, Finnish, German, Hungarian, Icelandic, Swedish, Turkish},
 
 	"Óó":     {Catalan, Hungarian, Icelandic, Irish, Polish, Portuguese, Slovak, Spanish, Vietnamese, Yoruba},

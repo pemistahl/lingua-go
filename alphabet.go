@@ -117,6 +117,15 @@ func allAlphabets() []alphabet {
 	return alphabets
 }
 
+func containsAlphabet(alphabets []alphabet, alphabet alphabet) bool {
+	for _, a := range alphabets {
+		if a == alphabet {
+			return true
+		}
+	}
+	return false
+}
+
 var (
 	arabicChars     = createRegexp("Arabic")
 	armenianChars   = createRegexp("Armenian")

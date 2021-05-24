@@ -62,6 +62,7 @@ const (
 	LG
 	LT
 	LV
+	MI
 	MK
 	MN
 	MR
@@ -97,6 +98,7 @@ const (
 	YO
 	ZH
 	ZU
+	UnknownIsoCode639_1
 )
 
 const (
@@ -141,6 +143,7 @@ const (
 	MAR
 	MKD
 	MON
+	MRI
 	MSA
 	NLD
 	NNO
@@ -174,4 +177,5 @@ const (
 	YOR
 	ZHO
 	ZUL
+	UnknownIsoCode639_3
 )

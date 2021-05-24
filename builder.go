@@ -25,22 +25,24 @@ type UnconfiguredLanguageDetectorBuilder interface {
 	FromAllLanguagesWithCyrillicScript() LanguageDetectorBuilder
 	FromAllLanguagesWithDevanagariScript() LanguageDetectorBuilder
 	FromAllLanguagesWithLatinScript() LanguageDetectorBuilder
-	FromAllLanguagesWithout(languages []Language) LanguageDetectorBuilder
-	FromLanguages(languages []Language) LanguageDetectorBuilder
-	FromIsoCodes639_1(isoCodes []IsoCode639_1) LanguageDetectorBuilder
-	FromIsoCodes639_3(isoCodes []IsoCode639_3) LanguageDetectorBuilder
+	FromAllLanguagesWithout(languages ...Language) LanguageDetectorBuilder
+	FromLanguages(languages ...Language) LanguageDetectorBuilder
+	FromIsoCodes639_1(isoCodes ...IsoCode639_1) LanguageDetectorBuilder
+	FromIsoCodes639_3(isoCodes ...IsoCode639_3) LanguageDetectorBuilder
 }
 
 type LanguageDetectorBuilder interface {
 	getLanguages() []Language
 	getMinimumRelativeDistance() float64
 	WithMinimumRelativeDistance(distance float64) LanguageDetectorBuilder
+	WithPreloadedLanguageModels() LanguageDetectorBuilder
 	Build() LanguageDetector
 }
 
 type languageDetectorBuilder struct {
-	languages               []Language
-	minimumRelativeDistance float64
+	languages                     []Language
+	minimumRelativeDistance       float64
+	isEveryLanguageModelPreloaded bool
 }
 
 func NewLanguageDetectorBuilder() UnconfiguredLanguageDetectorBuilder {
@@ -71,7 +73,7 @@ func (builder *languageDetectorBuilder) FromAllLanguagesWithLatinScript() Langua
 	return builder.from(AllLanguagesWithLatinScript())
 }
 
-func (builder *languageDetectorBuilder) FromAllLanguagesWithout(languages []Language) LanguageDetectorBuilder {
+func (builder *languageDetectorBuilder) FromAllLanguagesWithout(languages ...Language) LanguageDetectorBuilder {
 	languagesToLoad := AllLanguages()
 	for _, languageToRemove := range languages {
 		for i, currentLanguage := range languagesToLoad {
@@ -87,14 +89,14 @@ func (builder *languageDetectorBuilder) FromAllLanguagesWithout(languages []Lang
 	return builder.from(languagesToLoad)
 }
 
-func (builder *languageDetectorBuilder) FromLanguages(languages []Language) LanguageDetectorBuilder {
+func (builder *languageDetectorBuilder) FromLanguages(languages ...Language) LanguageDetectorBuilder {
 	if len(languages) < 2 {
 		panic(missingLanguageMessage)
 	}
 	return builder.from(languages)
 }
 
-func (builder *languageDetectorBuilder) FromIsoCodes639_1(isoCodes []IsoCode639_1) LanguageDetectorBuilder {
+func (builder *languageDetectorBuilder) FromIsoCodes639_1(isoCodes ...IsoCode639_1) LanguageDetectorBuilder {
 	if len(isoCodes) < 2 {
 		panic(missingLanguageMessage)
 	}
@@ -105,7 +107,7 @@ func (builder *languageDetectorBuilder) FromIsoCodes639_1(isoCodes []IsoCode639_
 	return builder.from(languages)
 }
 
-func (builder *languageDetectorBuilder) FromIsoCodes639_3(isoCodes []IsoCode639_3) LanguageDetectorBuilder {
+func (builder *languageDetectorBuilder) FromIsoCodes639_3(isoCodes ...IsoCode639_3) LanguageDetectorBuilder {
 	if len(isoCodes) < 2 {
 		panic(missingLanguageMessage)
 	}
@@ -124,8 +126,17 @@ func (builder *languageDetectorBuilder) WithMinimumRelativeDistance(distance flo
 	return builder
 }
 
+func (builder *languageDetectorBuilder) WithPreloadedLanguageModels() LanguageDetectorBuilder {
+	builder.isEveryLanguageModelPreloaded = true
+	return builder
+}
+
 func (builder *languageDetectorBuilder) Build() LanguageDetector {
-	return LanguageDetector{}
+	return newLanguageDetector(
+		builder.languages,
+		builder.minimumRelativeDistance,
+		builder.isEveryLanguageModelPreloaded,
+	)
 }
 
 func (builder *languageDetectorBuilder) getLanguages() []Language {
@@ -137,7 +148,25 @@ func (builder *languageDetectorBuilder) getMinimumRelativeDistance() float64 {
 }
 
 func (builder *languageDetectorBuilder) from(languages []Language) LanguageDetectorBuilder {
-	builder.languages = languages
+	builder.languages = removeDuplicateLanguages(languages)
 	builder.minimumRelativeDistance = 0.0
+	builder.isEveryLanguageModelPreloaded = false
 	return builder
+}
+
+func removeDuplicateLanguages(languages []Language) []Language {
+	languageSet := make(map[Language]struct{})
+	for _, language := range languages {
+		_, exists := languageSet[language]
+		if !exists {
+			languageSet[language] = struct{}{}
+		}
+	}
+	languageKeys := make([]Language, len(languageSet))
+	i := 0
+	for k := range languageSet {
+		languageKeys[i] = k
+		i++
+	}
+	return languageKeys
 }
