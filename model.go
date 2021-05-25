@@ -41,6 +41,8 @@ type testDataLanguageModel struct {
 	ngrams map[ngram]bool
 }
 
+type lazyTrainingDataLanguageModelMap = map[Language]func() *trainingDataLanguageModel
+
 func newTrainingDataLanguageModel(
 	text []string,
 	language Language,

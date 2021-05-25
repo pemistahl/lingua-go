@@ -34,11 +34,11 @@ type languageDetector struct {
 	minimumRelativeDistance       float64
 	languagesWithUniqueCharacters []Language
 	oneLanguageAlphabets          map[alphabet]Language
-	unigramLanguageModels         map[Language]func() *trainingDataLanguageModel
-	bigramLanguageModels          map[Language]func() *trainingDataLanguageModel
-	trigramLanguageModels         map[Language]func() *trainingDataLanguageModel
-	quadrigramLanguageModels      map[Language]func() *trainingDataLanguageModel
-	fivegramLanguageModels        map[Language]func() *trainingDataLanguageModel
+	unigramLanguageModels         lazyTrainingDataLanguageModelMap
+	bigramLanguageModels          lazyTrainingDataLanguageModelMap
+	trigramLanguageModels         lazyTrainingDataLanguageModelMap
+	quadrigramLanguageModels      lazyTrainingDataLanguageModelMap
+	fivegramLanguageModels        lazyTrainingDataLanguageModelMap
 }
 
 func newLanguageDetector(
@@ -46,6 +46,9 @@ func newLanguageDetector(
 	minimumRelativeDistance float64,
 	isEveryLanguageModelPreloaded bool,
 ) LanguageDetector {
+	if isEveryLanguageModelPreloaded {
+		preloadLanguageModels(languages)
+	}
 	return languageDetector{
 		languages,
 		minimumRelativeDistance,
@@ -56,6 +59,23 @@ func newLanguageDetector(
 		trigramModels,
 		quadrigramModels,
 		fivegramModels,
+	}
+}
+
+func preloadLanguageModels(languages []Language) {
+	languageModels := []lazyTrainingDataLanguageModelMap{
+		unigramModels,
+		bigramModels,
+		trigramModels,
+		quadrigramModels,
+		fivegramModels,
+	}
+	for _, models := range languageModels {
+		go func(models lazyTrainingDataLanguageModelMap) {
+			for _, language := range languages {
+				models[language]()
+			}
+		}(models)
 	}
 }
 
