@@ -20,85 +20,85 @@ import (
 	"sync"
 )
 
-var bigramModels = map[Language]func() *trainingDataLanguageModel{
-	Afrikaans:   loadAfrikaansBigramModelFunc(),
-	Albanian:    loadAlbanianBigramModelFunc(),
-	Arabic:      loadArabicBigramModelFunc(),
-	Armenian:    loadArmenianBigramModelFunc(),
-	Azerbaijani: loadAzerbaijaniBigramModelFunc(),
-	Basque:      loadBasqueBigramModelFunc(),
-	Belarusian:  loadBelarusianBigramModelFunc(),
-	Bengali:     loadBengaliBigramModelFunc(),
-	Bokmal:      loadBokmalBigramModelFunc(),
-	Bosnian:     loadBosnianBigramModelFunc(),
-	Bulgarian:   loadBulgarianBigramModelFunc(),
-	Catalan:     loadCatalanBigramModelFunc(),
-	Chinese:     loadChineseBigramModelFunc(),
-	Croatian:    loadCroatianBigramModelFunc(),
-	Czech:       loadCzechBigramModelFunc(),
-	Danish:      loadDanishBigramModelFunc(),
-	Dutch:       loadDutchBigramModelFunc(),
-	English:     loadEnglishBigramModelFunc(),
-	Esperanto:   loadEsperantoBigramModelFunc(),
-	Estonian:    loadEstonianBigramModelFunc(),
-	Finnish:     loadFinnishBigramModelFunc(),
-	French:      loadFrenchBigramModelFunc(),
-	Ganda:       loadGandaBigramModelFunc(),
-	Georgian:    loadGeorgianBigramModelFunc(),
-	German:      loadGermanBigramModelFunc(),
-	Greek:       loadGreekBigramModelFunc(),
-	Gujarati:    loadGujaratiBigramModelFunc(),
-	Hebrew:      loadHebrewBigramModelFunc(),
-	Hindi:       loadHindiBigramModelFunc(),
-	Hungarian:   loadHungarianBigramModelFunc(),
-	Icelandic:   loadIcelandicBigramModelFunc(),
-	Indonesian:  loadIndonesianBigramModelFunc(),
-	Irish:       loadIrishBigramModelFunc(),
-	Italian:     loadItalianBigramModelFunc(),
-	Japanese:    loadJapaneseBigramModelFunc(),
-	Kazakh:      loadKazakhBigramModelFunc(),
-	Korean:      loadKoreanBigramModelFunc(),
-	Latin:       loadLatinBigramModelFunc(),
-	Latvian:     loadLatvianBigramModelFunc(),
-	Lithuanian:  loadLithuanianBigramModelFunc(),
-	Macedonian:  loadMacedonianBigramModelFunc(),
-	Malay:       loadMalayBigramModelFunc(),
-	Maori:       loadMaoriBigramModelFunc(),
-	Marathi:     loadMarathiBigramModelFunc(),
-	Mongolian:   loadMongolianBigramModelFunc(),
-	Nynorsk:     loadNynorskBigramModelFunc(),
-	Persian:     loadPersianBigramModelFunc(),
-	Polish:      loadPolishBigramModelFunc(),
-	Portuguese:  loadPortugueseBigramModelFunc(),
-	Punjabi:     loadPunjabiBigramModelFunc(),
-	Romanian:    loadRomanianBigramModelFunc(),
-	Russian:     loadRussianBigramModelFunc(),
-	Serbian:     loadSerbianBigramModelFunc(),
-	Shona:       loadShonaBigramModelFunc(),
-	Slovak:      loadSlovakBigramModelFunc(),
-	Slovene:     loadSloveneBigramModelFunc(),
-	Somali:      loadSomaliBigramModelFunc(),
-	Sotho:       loadSothoBigramModelFunc(),
-	Spanish:     loadSpanishBigramModelFunc(),
-	Swahili:     loadSwahiliBigramModelFunc(),
-	Swedish:     loadSwedishBigramModelFunc(),
-	Tagalog:     loadTagalogBigramModelFunc(),
-	Tamil:       loadTamilBigramModelFunc(),
-	Telugu:      loadTeluguBigramModelFunc(),
-	Thai:        loadThaiBigramModelFunc(),
-	Tsonga:      loadTsongaBigramModelFunc(),
-	Tswana:      loadTswanaBigramModelFunc(),
-	Turkish:     loadTurkishBigramModelFunc(),
-	Ukrainian:   loadUkrainianBigramModelFunc(),
-	Urdu:        loadUrduBigramModelFunc(),
-	Vietnamese:  loadVietnameseBigramModelFunc(),
-	Welsh:       loadWelshBigramModelFunc(),
-	Xhosa:       loadXhosaBigramModelFunc(),
-	Yoruba:      loadYorubaBigramModelFunc(),
-	Zulu:        loadZuluBigramModelFunc(),
+var bigramModels = map[Language]lazyTrainingDataLanguageModel{
+	Afrikaans:   afrikaansBigramModel(),
+	Albanian:    albanianBigramModel(),
+	Arabic:      arabicBigramModel(),
+	Armenian:    armenianBigramModel(),
+	Azerbaijani: azerbaijaniBigramModel(),
+	Basque:      basqueBigramModel(),
+	Belarusian:  belarusianBigramModel(),
+	Bengali:     bengaliBigramModel(),
+	Bokmal:      bokmalBigramModel(),
+	Bosnian:     bosnianBigramModel(),
+	Bulgarian:   bulgarianBigramModel(),
+	Catalan:     catalanBigramModel(),
+	Chinese:     chineseBigramModel(),
+	Croatian:    croatianBigramModel(),
+	Czech:       czechBigramModel(),
+	Danish:      danishBigramModel(),
+	Dutch:       dutchBigramModel(),
+	English:     englishBigramModel(),
+	Esperanto:   esperantoBigramModel(),
+	Estonian:    estonianBigramModel(),
+	Finnish:     finnishBigramModel(),
+	French:      frenchBigramModel(),
+	Ganda:       gandaBigramModel(),
+	Georgian:    georgianBigramModel(),
+	German:      germanBigramModel(),
+	Greek:       greekBigramModel(),
+	Gujarati:    gujaratiBigramModel(),
+	Hebrew:      hebrewBigramModel(),
+	Hindi:       hindiBigramModel(),
+	Hungarian:   hungarianBigramModel(),
+	Icelandic:   icelandicBigramModel(),
+	Indonesian:  indonesianBigramModel(),
+	Irish:       irishBigramModel(),
+	Italian:     italianBigramModel(),
+	Japanese:    japaneseBigramModel(),
+	Kazakh:      kazakhBigramModel(),
+	Korean:      koreanBigramModel(),
+	Latin:       latinBigramModel(),
+	Latvian:     latvianBigramModel(),
+	Lithuanian:  lithuanianBigramModel(),
+	Macedonian:  macedonianBigramModel(),
+	Malay:       malayBigramModel(),
+	Maori:       maoriBigramModel(),
+	Marathi:     marathiBigramModel(),
+	Mongolian:   mongolianBigramModel(),
+	Nynorsk:     nynorskBigramModel(),
+	Persian:     persianBigramModel(),
+	Polish:      polishBigramModel(),
+	Portuguese:  portugueseBigramModel(),
+	Punjabi:     punjabiBigramModel(),
+	Romanian:    romanianBigramModel(),
+	Russian:     russianBigramModel(),
+	Serbian:     serbianBigramModel(),
+	Shona:       shonaBigramModel(),
+	Slovak:      slovakBigramModel(),
+	Slovene:     sloveneBigramModel(),
+	Somali:      somaliBigramModel(),
+	Sotho:       sothoBigramModel(),
+	Spanish:     spanishBigramModel(),
+	Swahili:     swahiliBigramModel(),
+	Swedish:     swedishBigramModel(),
+	Tagalog:     tagalogBigramModel(),
+	Tamil:       tamilBigramModel(),
+	Telugu:      teluguBigramModel(),
+	Thai:        thaiBigramModel(),
+	Tsonga:      tsongaBigramModel(),
+	Tswana:      tswanaBigramModel(),
+	Turkish:     turkishBigramModel(),
+	Ukrainian:   ukrainianBigramModel(),
+	Urdu:        urduBigramModel(),
+	Vietnamese:  vietnameseBigramModel(),
+	Welsh:       welshBigramModel(),
+	Xhosa:       xhosaBigramModel(),
+	Yoruba:      yorubaBigramModel(),
+	Zulu:        zuluBigramModel(),
 }
 
-func loadAfrikaansBigramModelFunc() func() *trainingDataLanguageModel {
+func afrikaansBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -109,7 +109,7 @@ func loadAfrikaansBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadAlbanianBigramModelFunc() func() *trainingDataLanguageModel {
+func albanianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -120,7 +120,7 @@ func loadAlbanianBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadArabicBigramModelFunc() func() *trainingDataLanguageModel {
+func arabicBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -131,7 +131,7 @@ func loadArabicBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadArmenianBigramModelFunc() func() *trainingDataLanguageModel {
+func armenianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -142,7 +142,7 @@ func loadArmenianBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadAzerbaijaniBigramModelFunc() func() *trainingDataLanguageModel {
+func azerbaijaniBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -153,7 +153,7 @@ func loadAzerbaijaniBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBasqueBigramModelFunc() func() *trainingDataLanguageModel {
+func basqueBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -164,7 +164,7 @@ func loadBasqueBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBelarusianBigramModelFunc() func() *trainingDataLanguageModel {
+func belarusianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -175,7 +175,7 @@ func loadBelarusianBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBengaliBigramModelFunc() func() *trainingDataLanguageModel {
+func bengaliBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -186,7 +186,7 @@ func loadBengaliBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBokmalBigramModelFunc() func() *trainingDataLanguageModel {
+func bokmalBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -197,7 +197,7 @@ func loadBokmalBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBosnianBigramModelFunc() func() *trainingDataLanguageModel {
+func bosnianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -208,7 +208,7 @@ func loadBosnianBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBulgarianBigramModelFunc() func() *trainingDataLanguageModel {
+func bulgarianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -219,7 +219,7 @@ func loadBulgarianBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadCatalanBigramModelFunc() func() *trainingDataLanguageModel {
+func catalanBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -230,7 +230,7 @@ func loadCatalanBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadChineseBigramModelFunc() func() *trainingDataLanguageModel {
+func chineseBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -241,7 +241,7 @@ func loadChineseBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadCroatianBigramModelFunc() func() *trainingDataLanguageModel {
+func croatianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -252,7 +252,7 @@ func loadCroatianBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadCzechBigramModelFunc() func() *trainingDataLanguageModel {
+func czechBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -263,7 +263,7 @@ func loadCzechBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadDanishBigramModelFunc() func() *trainingDataLanguageModel {
+func danishBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -274,7 +274,7 @@ func loadDanishBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadDutchBigramModelFunc() func() *trainingDataLanguageModel {
+func dutchBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -285,7 +285,7 @@ func loadDutchBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadEnglishBigramModelFunc() func() *trainingDataLanguageModel {
+func englishBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -296,7 +296,7 @@ func loadEnglishBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadEsperantoBigramModelFunc() func() *trainingDataLanguageModel {
+func esperantoBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -307,7 +307,7 @@ func loadEsperantoBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadEstonianBigramModelFunc() func() *trainingDataLanguageModel {
+func estonianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -318,7 +318,7 @@ func loadEstonianBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadFinnishBigramModelFunc() func() *trainingDataLanguageModel {
+func finnishBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -329,7 +329,7 @@ func loadFinnishBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadFrenchBigramModelFunc() func() *trainingDataLanguageModel {
+func frenchBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -340,7 +340,7 @@ func loadFrenchBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadGandaBigramModelFunc() func() *trainingDataLanguageModel {
+func gandaBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -351,7 +351,7 @@ func loadGandaBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadGeorgianBigramModelFunc() func() *trainingDataLanguageModel {
+func georgianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -362,7 +362,7 @@ func loadGeorgianBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadGermanBigramModelFunc() func() *trainingDataLanguageModel {
+func germanBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -373,7 +373,7 @@ func loadGermanBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadGreekBigramModelFunc() func() *trainingDataLanguageModel {
+func greekBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -384,7 +384,7 @@ func loadGreekBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadGujaratiBigramModelFunc() func() *trainingDataLanguageModel {
+func gujaratiBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -395,7 +395,7 @@ func loadGujaratiBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadHebrewBigramModelFunc() func() *trainingDataLanguageModel {
+func hebrewBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -406,7 +406,7 @@ func loadHebrewBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadHindiBigramModelFunc() func() *trainingDataLanguageModel {
+func hindiBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -417,7 +417,7 @@ func loadHindiBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadHungarianBigramModelFunc() func() *trainingDataLanguageModel {
+func hungarianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -428,7 +428,7 @@ func loadHungarianBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadIcelandicBigramModelFunc() func() *trainingDataLanguageModel {
+func icelandicBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -439,7 +439,7 @@ func loadIcelandicBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadIndonesianBigramModelFunc() func() *trainingDataLanguageModel {
+func indonesianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -450,7 +450,7 @@ func loadIndonesianBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadIrishBigramModelFunc() func() *trainingDataLanguageModel {
+func irishBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -461,7 +461,7 @@ func loadIrishBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadItalianBigramModelFunc() func() *trainingDataLanguageModel {
+func italianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -472,7 +472,7 @@ func loadItalianBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadJapaneseBigramModelFunc() func() *trainingDataLanguageModel {
+func japaneseBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -483,7 +483,7 @@ func loadJapaneseBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadKazakhBigramModelFunc() func() *trainingDataLanguageModel {
+func kazakhBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -494,7 +494,7 @@ func loadKazakhBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadKoreanBigramModelFunc() func() *trainingDataLanguageModel {
+func koreanBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -505,7 +505,7 @@ func loadKoreanBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadLatinBigramModelFunc() func() *trainingDataLanguageModel {
+func latinBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -516,7 +516,7 @@ func loadLatinBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadLatvianBigramModelFunc() func() *trainingDataLanguageModel {
+func latvianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -527,7 +527,7 @@ func loadLatvianBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadLithuanianBigramModelFunc() func() *trainingDataLanguageModel {
+func lithuanianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -538,7 +538,7 @@ func loadLithuanianBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadMacedonianBigramModelFunc() func() *trainingDataLanguageModel {
+func macedonianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -549,7 +549,7 @@ func loadMacedonianBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadMalayBigramModelFunc() func() *trainingDataLanguageModel {
+func malayBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -560,7 +560,7 @@ func loadMalayBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadMaoriBigramModelFunc() func() *trainingDataLanguageModel {
+func maoriBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -571,7 +571,7 @@ func loadMaoriBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadMarathiBigramModelFunc() func() *trainingDataLanguageModel {
+func marathiBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -582,7 +582,7 @@ func loadMarathiBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadMongolianBigramModelFunc() func() *trainingDataLanguageModel {
+func mongolianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -593,7 +593,7 @@ func loadMongolianBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadNynorskBigramModelFunc() func() *trainingDataLanguageModel {
+func nynorskBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -604,7 +604,7 @@ func loadNynorskBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadPersianBigramModelFunc() func() *trainingDataLanguageModel {
+func persianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -615,7 +615,7 @@ func loadPersianBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadPolishBigramModelFunc() func() *trainingDataLanguageModel {
+func polishBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -626,7 +626,7 @@ func loadPolishBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadPortugueseBigramModelFunc() func() *trainingDataLanguageModel {
+func portugueseBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -637,7 +637,7 @@ func loadPortugueseBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadPunjabiBigramModelFunc() func() *trainingDataLanguageModel {
+func punjabiBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -648,7 +648,7 @@ func loadPunjabiBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadRomanianBigramModelFunc() func() *trainingDataLanguageModel {
+func romanianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -659,7 +659,7 @@ func loadRomanianBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadRussianBigramModelFunc() func() *trainingDataLanguageModel {
+func russianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -670,7 +670,7 @@ func loadRussianBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSerbianBigramModelFunc() func() *trainingDataLanguageModel {
+func serbianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -681,7 +681,7 @@ func loadSerbianBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadShonaBigramModelFunc() func() *trainingDataLanguageModel {
+func shonaBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -692,7 +692,7 @@ func loadShonaBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSlovakBigramModelFunc() func() *trainingDataLanguageModel {
+func slovakBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -703,7 +703,7 @@ func loadSlovakBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSloveneBigramModelFunc() func() *trainingDataLanguageModel {
+func sloveneBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -714,7 +714,7 @@ func loadSloveneBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSomaliBigramModelFunc() func() *trainingDataLanguageModel {
+func somaliBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -725,7 +725,7 @@ func loadSomaliBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSothoBigramModelFunc() func() *trainingDataLanguageModel {
+func sothoBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -736,7 +736,7 @@ func loadSothoBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSpanishBigramModelFunc() func() *trainingDataLanguageModel {
+func spanishBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -747,7 +747,7 @@ func loadSpanishBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSwahiliBigramModelFunc() func() *trainingDataLanguageModel {
+func swahiliBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -758,7 +758,7 @@ func loadSwahiliBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSwedishBigramModelFunc() func() *trainingDataLanguageModel {
+func swedishBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -769,7 +769,7 @@ func loadSwedishBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTagalogBigramModelFunc() func() *trainingDataLanguageModel {
+func tagalogBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -780,7 +780,7 @@ func loadTagalogBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTamilBigramModelFunc() func() *trainingDataLanguageModel {
+func tamilBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -791,7 +791,7 @@ func loadTamilBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTeluguBigramModelFunc() func() *trainingDataLanguageModel {
+func teluguBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -802,7 +802,7 @@ func loadTeluguBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadThaiBigramModelFunc() func() *trainingDataLanguageModel {
+func thaiBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -813,7 +813,7 @@ func loadThaiBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTsongaBigramModelFunc() func() *trainingDataLanguageModel {
+func tsongaBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -824,7 +824,7 @@ func loadTsongaBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTswanaBigramModelFunc() func() *trainingDataLanguageModel {
+func tswanaBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -835,7 +835,7 @@ func loadTswanaBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTurkishBigramModelFunc() func() *trainingDataLanguageModel {
+func turkishBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -846,7 +846,7 @@ func loadTurkishBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadUkrainianBigramModelFunc() func() *trainingDataLanguageModel {
+func ukrainianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -857,7 +857,7 @@ func loadUkrainianBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadUrduBigramModelFunc() func() *trainingDataLanguageModel {
+func urduBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -868,7 +868,7 @@ func loadUrduBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadVietnameseBigramModelFunc() func() *trainingDataLanguageModel {
+func vietnameseBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -879,7 +879,7 @@ func loadVietnameseBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadWelshBigramModelFunc() func() *trainingDataLanguageModel {
+func welshBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -890,7 +890,7 @@ func loadWelshBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadXhosaBigramModelFunc() func() *trainingDataLanguageModel {
+func xhosaBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -901,7 +901,7 @@ func loadXhosaBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadYorubaBigramModelFunc() func() *trainingDataLanguageModel {
+func yorubaBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -912,7 +912,7 @@ func loadYorubaBigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadZuluBigramModelFunc() func() *trainingDataLanguageModel {
+func zuluBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {

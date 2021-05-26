@@ -16,89 +16,87 @@
 
 package lingua
 
-import (
-	"sync"
-)
+import "sync"
 
-var unigramModels = map[Language]func() *trainingDataLanguageModel{
-	Afrikaans:   loadAfrikaansUnigramModelFunc(),
-	Albanian:    loadAlbanianUnigramModelFunc(),
-	Arabic:      loadArabicUnigramModelFunc(),
-	Armenian:    loadArmenianUnigramModelFunc(),
-	Azerbaijani: loadAzerbaijaniUnigramModelFunc(),
-	Basque:      loadBasqueUnigramModelFunc(),
-	Belarusian:  loadBelarusianUnigramModelFunc(),
-	Bengali:     loadBengaliUnigramModelFunc(),
-	Bokmal:      loadBokmalUnigramModelFunc(),
-	Bosnian:     loadBosnianUnigramModelFunc(),
-	Bulgarian:   loadBulgarianUnigramModelFunc(),
-	Catalan:     loadCatalanUnigramModelFunc(),
-	Chinese:     loadChineseUnigramModelFunc(),
-	Croatian:    loadCroatianUnigramModelFunc(),
-	Czech:       loadCzechUnigramModelFunc(),
-	Danish:      loadDanishUnigramModelFunc(),
-	Dutch:       loadDutchUnigramModelFunc(),
-	English:     loadEnglishUnigramModelFunc(),
-	Esperanto:   loadEsperantoUnigramModelFunc(),
-	Estonian:    loadEstonianUnigramModelFunc(),
-	Finnish:     loadFinnishUnigramModelFunc(),
-	French:      loadFrenchUnigramModelFunc(),
-	Ganda:       loadGandaUnigramModelFunc(),
-	Georgian:    loadGeorgianUnigramModelFunc(),
-	German:      loadGermanUnigramModelFunc(),
-	Greek:       loadGreekUnigramModelFunc(),
-	Gujarati:    loadGujaratiUnigramModelFunc(),
-	Hebrew:      loadHebrewUnigramModelFunc(),
-	Hindi:       loadHindiUnigramModelFunc(),
-	Hungarian:   loadHungarianUnigramModelFunc(),
-	Icelandic:   loadIcelandicUnigramModelFunc(),
-	Indonesian:  loadIndonesianUnigramModelFunc(),
-	Irish:       loadIrishUnigramModelFunc(),
-	Italian:     loadItalianUnigramModelFunc(),
-	Japanese:    loadJapaneseUnigramModelFunc(),
-	Kazakh:      loadKazakhUnigramModelFunc(),
-	Korean:      loadKoreanUnigramModelFunc(),
-	Latin:       loadLatinUnigramModelFunc(),
-	Latvian:     loadLatvianUnigramModelFunc(),
-	Lithuanian:  loadLithuanianUnigramModelFunc(),
-	Macedonian:  loadMacedonianUnigramModelFunc(),
-	Malay:       loadMalayUnigramModelFunc(),
-	Maori:       loadMaoriUnigramModelFunc(),
-	Marathi:     loadMarathiUnigramModelFunc(),
-	Mongolian:   loadMongolianUnigramModelFunc(),
-	Nynorsk:     loadNynorskUnigramModelFunc(),
-	Persian:     loadPersianUnigramModelFunc(),
-	Polish:      loadPolishUnigramModelFunc(),
-	Portuguese:  loadPortugueseUnigramModelFunc(),
-	Punjabi:     loadPunjabiUnigramModelFunc(),
-	Romanian:    loadRomanianUnigramModelFunc(),
-	Russian:     loadRussianUnigramModelFunc(),
-	Serbian:     loadSerbianUnigramModelFunc(),
-	Shona:       loadShonaUnigramModelFunc(),
-	Slovak:      loadSlovakUnigramModelFunc(),
-	Slovene:     loadSloveneUnigramModelFunc(),
-	Somali:      loadSomaliUnigramModelFunc(),
-	Sotho:       loadSothoUnigramModelFunc(),
-	Spanish:     loadSpanishUnigramModelFunc(),
-	Swahili:     loadSwahiliUnigramModelFunc(),
-	Swedish:     loadSwedishUnigramModelFunc(),
-	Tagalog:     loadTagalogUnigramModelFunc(),
-	Tamil:       loadTamilUnigramModelFunc(),
-	Telugu:      loadTeluguUnigramModelFunc(),
-	Thai:        loadThaiUnigramModelFunc(),
-	Tsonga:      loadTsongaUnigramModelFunc(),
-	Tswana:      loadTswanaUnigramModelFunc(),
-	Turkish:     loadTurkishUnigramModelFunc(),
-	Ukrainian:   loadUkrainianUnigramModelFunc(),
-	Urdu:        loadUrduUnigramModelFunc(),
-	Vietnamese:  loadVietnameseUnigramModelFunc(),
-	Welsh:       loadWelshUnigramModelFunc(),
-	Xhosa:       loadXhosaUnigramModelFunc(),
-	Yoruba:      loadYorubaUnigramModelFunc(),
-	Zulu:        loadZuluUnigramModelFunc(),
+var unigramModels = map[Language]lazyTrainingDataLanguageModel{
+	Afrikaans:   afrikaansUnigramModel(),
+	Albanian:    albanianUnigramModel(),
+	Arabic:      arabicUnigramModel(),
+	Armenian:    armenianUnigramModel(),
+	Azerbaijani: azerbaijaniUnigramModel(),
+	Basque:      basqueUnigramModel(),
+	Belarusian:  belarusianUnigramModel(),
+	Bengali:     bengaliUnigramModel(),
+	Bokmal:      bokmalUnigramModel(),
+	Bosnian:     bosnianUnigramModel(),
+	Bulgarian:   bulgarianUnigramModel(),
+	Catalan:     catalanUnigramModel(),
+	Chinese:     chineseUnigramModel(),
+	Croatian:    croatianUnigramModel(),
+	Czech:       czechUnigramModel(),
+	Danish:      danishUnigramModel(),
+	Dutch:       dutchUnigramModel(),
+	English:     englishUnigramModel(),
+	Esperanto:   esperantoUnigramModel(),
+	Estonian:    estonianUnigramModel(),
+	Finnish:     finnishUnigramModel(),
+	French:      frenchUnigramModel(),
+	Ganda:       gandaUnigramModel(),
+	Georgian:    georgianUnigramModel(),
+	German:      germanUnigramModel(),
+	Greek:       greekUnigramModel(),
+	Gujarati:    gujaratiUnigramModel(),
+	Hebrew:      hebrewUnigramModel(),
+	Hindi:       hindiUnigramModel(),
+	Hungarian:   hungarianUnigramModel(),
+	Icelandic:   icelandicUnigramModel(),
+	Indonesian:  indonesianUnigramModel(),
+	Irish:       irishUnigramModel(),
+	Italian:     italianUnigramModel(),
+	Japanese:    japaneseUnigramModel(),
+	Kazakh:      kazakhUnigramModel(),
+	Korean:      koreanUnigramModel(),
+	Latin:       latinUnigramModel(),
+	Latvian:     latvianUnigramModel(),
+	Lithuanian:  lithuanianUnigramModel(),
+	Macedonian:  macedonianUnigramModel(),
+	Malay:       malayUnigramModel(),
+	Maori:       maoriUnigramModel(),
+	Marathi:     marathiUnigramModel(),
+	Mongolian:   mongolianUnigramModel(),
+	Nynorsk:     nynorskUnigramModel(),
+	Persian:     persianUnigramModel(),
+	Polish:      polishUnigramModel(),
+	Portuguese:  portugueseUnigramModel(),
+	Punjabi:     punjabiUnigramModel(),
+	Romanian:    romanianUnigramModel(),
+	Russian:     russianUnigramModel(),
+	Serbian:     serbianUnigramModel(),
+	Shona:       shonaUnigramModel(),
+	Slovak:      slovakUnigramModel(),
+	Slovene:     sloveneUnigramModel(),
+	Somali:      somaliUnigramModel(),
+	Sotho:       sothoUnigramModel(),
+	Spanish:     spanishUnigramModel(),
+	Swahili:     swahiliUnigramModel(),
+	Swedish:     swedishUnigramModel(),
+	Tagalog:     tagalogUnigramModel(),
+	Tamil:       tamilUnigramModel(),
+	Telugu:      teluguUnigramModel(),
+	Thai:        thaiUnigramModel(),
+	Tsonga:      tsongaUnigramModel(),
+	Tswana:      tswanaUnigramModel(),
+	Turkish:     turkishUnigramModel(),
+	Ukrainian:   ukrainianUnigramModel(),
+	Urdu:        urduUnigramModel(),
+	Vietnamese:  vietnameseUnigramModel(),
+	Welsh:       welshUnigramModel(),
+	Xhosa:       xhosaUnigramModel(),
+	Yoruba:      yorubaUnigramModel(),
+	Zulu:        zuluUnigramModel(),
 }
 
-func loadAfrikaansUnigramModelFunc() func() *trainingDataLanguageModel {
+func afrikaansUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -109,7 +107,7 @@ func loadAfrikaansUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadAlbanianUnigramModelFunc() func() *trainingDataLanguageModel {
+func albanianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -120,7 +118,7 @@ func loadAlbanianUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadArabicUnigramModelFunc() func() *trainingDataLanguageModel {
+func arabicUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -131,7 +129,7 @@ func loadArabicUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadArmenianUnigramModelFunc() func() *trainingDataLanguageModel {
+func armenianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -142,7 +140,7 @@ func loadArmenianUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadAzerbaijaniUnigramModelFunc() func() *trainingDataLanguageModel {
+func azerbaijaniUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -153,7 +151,7 @@ func loadAzerbaijaniUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBasqueUnigramModelFunc() func() *trainingDataLanguageModel {
+func basqueUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -164,7 +162,7 @@ func loadBasqueUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBelarusianUnigramModelFunc() func() *trainingDataLanguageModel {
+func belarusianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -175,7 +173,7 @@ func loadBelarusianUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBengaliUnigramModelFunc() func() *trainingDataLanguageModel {
+func bengaliUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -186,7 +184,7 @@ func loadBengaliUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBokmalUnigramModelFunc() func() *trainingDataLanguageModel {
+func bokmalUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -197,7 +195,7 @@ func loadBokmalUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBosnianUnigramModelFunc() func() *trainingDataLanguageModel {
+func bosnianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -208,7 +206,7 @@ func loadBosnianUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBulgarianUnigramModelFunc() func() *trainingDataLanguageModel {
+func bulgarianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -219,7 +217,7 @@ func loadBulgarianUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadCatalanUnigramModelFunc() func() *trainingDataLanguageModel {
+func catalanUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -230,7 +228,7 @@ func loadCatalanUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadChineseUnigramModelFunc() func() *trainingDataLanguageModel {
+func chineseUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -241,7 +239,7 @@ func loadChineseUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadCroatianUnigramModelFunc() func() *trainingDataLanguageModel {
+func croatianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -252,7 +250,7 @@ func loadCroatianUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadCzechUnigramModelFunc() func() *trainingDataLanguageModel {
+func czechUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -263,7 +261,7 @@ func loadCzechUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadDanishUnigramModelFunc() func() *trainingDataLanguageModel {
+func danishUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -274,7 +272,7 @@ func loadDanishUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadDutchUnigramModelFunc() func() *trainingDataLanguageModel {
+func dutchUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -285,7 +283,7 @@ func loadDutchUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadEnglishUnigramModelFunc() func() *trainingDataLanguageModel {
+func englishUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -296,7 +294,7 @@ func loadEnglishUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadEsperantoUnigramModelFunc() func() *trainingDataLanguageModel {
+func esperantoUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -307,7 +305,7 @@ func loadEsperantoUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadEstonianUnigramModelFunc() func() *trainingDataLanguageModel {
+func estonianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -318,7 +316,7 @@ func loadEstonianUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadFinnishUnigramModelFunc() func() *trainingDataLanguageModel {
+func finnishUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -329,7 +327,7 @@ func loadFinnishUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadFrenchUnigramModelFunc() func() *trainingDataLanguageModel {
+func frenchUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -340,7 +338,7 @@ func loadFrenchUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadGandaUnigramModelFunc() func() *trainingDataLanguageModel {
+func gandaUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -351,7 +349,7 @@ func loadGandaUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadGeorgianUnigramModelFunc() func() *trainingDataLanguageModel {
+func georgianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -362,7 +360,7 @@ func loadGeorgianUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadGermanUnigramModelFunc() func() *trainingDataLanguageModel {
+func germanUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -373,7 +371,7 @@ func loadGermanUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadGreekUnigramModelFunc() func() *trainingDataLanguageModel {
+func greekUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -384,7 +382,7 @@ func loadGreekUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadGujaratiUnigramModelFunc() func() *trainingDataLanguageModel {
+func gujaratiUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -395,7 +393,7 @@ func loadGujaratiUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadHebrewUnigramModelFunc() func() *trainingDataLanguageModel {
+func hebrewUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -406,7 +404,7 @@ func loadHebrewUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadHindiUnigramModelFunc() func() *trainingDataLanguageModel {
+func hindiUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -417,7 +415,7 @@ func loadHindiUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadHungarianUnigramModelFunc() func() *trainingDataLanguageModel {
+func hungarianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -428,7 +426,7 @@ func loadHungarianUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadIcelandicUnigramModelFunc() func() *trainingDataLanguageModel {
+func icelandicUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -439,7 +437,7 @@ func loadIcelandicUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadIndonesianUnigramModelFunc() func() *trainingDataLanguageModel {
+func indonesianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -450,7 +448,7 @@ func loadIndonesianUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadIrishUnigramModelFunc() func() *trainingDataLanguageModel {
+func irishUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -461,7 +459,7 @@ func loadIrishUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadItalianUnigramModelFunc() func() *trainingDataLanguageModel {
+func italianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -472,7 +470,7 @@ func loadItalianUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadJapaneseUnigramModelFunc() func() *trainingDataLanguageModel {
+func japaneseUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -483,7 +481,7 @@ func loadJapaneseUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadKazakhUnigramModelFunc() func() *trainingDataLanguageModel {
+func kazakhUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -494,7 +492,7 @@ func loadKazakhUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadKoreanUnigramModelFunc() func() *trainingDataLanguageModel {
+func koreanUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -505,7 +503,7 @@ func loadKoreanUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadLatinUnigramModelFunc() func() *trainingDataLanguageModel {
+func latinUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -516,7 +514,7 @@ func loadLatinUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadLatvianUnigramModelFunc() func() *trainingDataLanguageModel {
+func latvianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -527,7 +525,7 @@ func loadLatvianUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadLithuanianUnigramModelFunc() func() *trainingDataLanguageModel {
+func lithuanianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -538,7 +536,7 @@ func loadLithuanianUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadMacedonianUnigramModelFunc() func() *trainingDataLanguageModel {
+func macedonianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -549,7 +547,7 @@ func loadMacedonianUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadMalayUnigramModelFunc() func() *trainingDataLanguageModel {
+func malayUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -560,7 +558,7 @@ func loadMalayUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadMaoriUnigramModelFunc() func() *trainingDataLanguageModel {
+func maoriUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -571,7 +569,7 @@ func loadMaoriUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadMarathiUnigramModelFunc() func() *trainingDataLanguageModel {
+func marathiUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -582,7 +580,7 @@ func loadMarathiUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadMongolianUnigramModelFunc() func() *trainingDataLanguageModel {
+func mongolianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -593,7 +591,7 @@ func loadMongolianUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadNynorskUnigramModelFunc() func() *trainingDataLanguageModel {
+func nynorskUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -604,7 +602,7 @@ func loadNynorskUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadPersianUnigramModelFunc() func() *trainingDataLanguageModel {
+func persianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -615,7 +613,7 @@ func loadPersianUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadPolishUnigramModelFunc() func() *trainingDataLanguageModel {
+func polishUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -626,7 +624,7 @@ func loadPolishUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadPortugueseUnigramModelFunc() func() *trainingDataLanguageModel {
+func portugueseUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -637,7 +635,7 @@ func loadPortugueseUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadPunjabiUnigramModelFunc() func() *trainingDataLanguageModel {
+func punjabiUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -648,7 +646,7 @@ func loadPunjabiUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadRomanianUnigramModelFunc() func() *trainingDataLanguageModel {
+func romanianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -659,7 +657,7 @@ func loadRomanianUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadRussianUnigramModelFunc() func() *trainingDataLanguageModel {
+func russianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -670,7 +668,7 @@ func loadRussianUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSerbianUnigramModelFunc() func() *trainingDataLanguageModel {
+func serbianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -681,7 +679,7 @@ func loadSerbianUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadShonaUnigramModelFunc() func() *trainingDataLanguageModel {
+func shonaUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -692,7 +690,7 @@ func loadShonaUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSlovakUnigramModelFunc() func() *trainingDataLanguageModel {
+func slovakUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -703,7 +701,7 @@ func loadSlovakUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSloveneUnigramModelFunc() func() *trainingDataLanguageModel {
+func sloveneUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -714,7 +712,7 @@ func loadSloveneUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSomaliUnigramModelFunc() func() *trainingDataLanguageModel {
+func somaliUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -725,7 +723,7 @@ func loadSomaliUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSothoUnigramModelFunc() func() *trainingDataLanguageModel {
+func sothoUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -736,7 +734,7 @@ func loadSothoUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSpanishUnigramModelFunc() func() *trainingDataLanguageModel {
+func spanishUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -747,7 +745,7 @@ func loadSpanishUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSwahiliUnigramModelFunc() func() *trainingDataLanguageModel {
+func swahiliUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -758,7 +756,7 @@ func loadSwahiliUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSwedishUnigramModelFunc() func() *trainingDataLanguageModel {
+func swedishUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -769,7 +767,7 @@ func loadSwedishUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTagalogUnigramModelFunc() func() *trainingDataLanguageModel {
+func tagalogUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -780,7 +778,7 @@ func loadTagalogUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTamilUnigramModelFunc() func() *trainingDataLanguageModel {
+func tamilUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -791,7 +789,7 @@ func loadTamilUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTeluguUnigramModelFunc() func() *trainingDataLanguageModel {
+func teluguUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -802,7 +800,7 @@ func loadTeluguUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadThaiUnigramModelFunc() func() *trainingDataLanguageModel {
+func thaiUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -813,7 +811,7 @@ func loadThaiUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTsongaUnigramModelFunc() func() *trainingDataLanguageModel {
+func tsongaUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -824,7 +822,7 @@ func loadTsongaUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTswanaUnigramModelFunc() func() *trainingDataLanguageModel {
+func tswanaUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -835,7 +833,7 @@ func loadTswanaUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTurkishUnigramModelFunc() func() *trainingDataLanguageModel {
+func turkishUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -846,7 +844,7 @@ func loadTurkishUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadUkrainianUnigramModelFunc() func() *trainingDataLanguageModel {
+func ukrainianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -857,7 +855,7 @@ func loadUkrainianUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadUrduUnigramModelFunc() func() *trainingDataLanguageModel {
+func urduUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -868,7 +866,7 @@ func loadUrduUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadVietnameseUnigramModelFunc() func() *trainingDataLanguageModel {
+func vietnameseUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -879,7 +877,7 @@ func loadVietnameseUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadWelshUnigramModelFunc() func() *trainingDataLanguageModel {
+func welshUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -890,7 +888,7 @@ func loadWelshUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadXhosaUnigramModelFunc() func() *trainingDataLanguageModel {
+func xhosaUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -901,7 +899,7 @@ func loadXhosaUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadYorubaUnigramModelFunc() func() *trainingDataLanguageModel {
+func yorubaUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -912,7 +910,7 @@ func loadYorubaUnigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadZuluUnigramModelFunc() func() *trainingDataLanguageModel {
+func zuluUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {

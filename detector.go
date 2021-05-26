@@ -34,11 +34,11 @@ type languageDetector struct {
 	minimumRelativeDistance       float64
 	languagesWithUniqueCharacters []Language
 	oneLanguageAlphabets          map[alphabet]Language
-	unigramLanguageModels         lazyTrainingDataLanguageModelMap
-	bigramLanguageModels          lazyTrainingDataLanguageModelMap
-	trigramLanguageModels         lazyTrainingDataLanguageModelMap
-	quadrigramLanguageModels      lazyTrainingDataLanguageModelMap
-	fivegramLanguageModels        lazyTrainingDataLanguageModelMap
+	unigramLanguageModels         map[Language]lazyTrainingDataLanguageModel
+	bigramLanguageModels          map[Language]lazyTrainingDataLanguageModel
+	trigramLanguageModels         map[Language]lazyTrainingDataLanguageModel
+	quadrigramLanguageModels      map[Language]lazyTrainingDataLanguageModel
+	fivegramLanguageModels        map[Language]lazyTrainingDataLanguageModel
 }
 
 func newLanguageDetector(
@@ -63,7 +63,7 @@ func newLanguageDetector(
 }
 
 func preloadLanguageModels(languages []Language) {
-	languageModels := []lazyTrainingDataLanguageModelMap{
+	languageModels := []map[Language]lazyTrainingDataLanguageModel{
 		unigramModels,
 		bigramModels,
 		trigramModels,
@@ -71,7 +71,7 @@ func preloadLanguageModels(languages []Language) {
 		fivegramModels,
 	}
 	for _, models := range languageModels {
-		go func(models lazyTrainingDataLanguageModelMap) {
+		go func(models map[Language]lazyTrainingDataLanguageModel) {
 			for _, language := range languages {
 				models[language]()
 			}
@@ -150,7 +150,7 @@ func (detector languageDetector) ComputeLanguageConfidenceValues(text string) []
 		)
 	}
 
-	probabilities := detector.getProbabilitiesFromChannel(probabilitiesChannel, len(ngramLengthRange))
+	probabilities := detector.getProbabilitiesFromChannel(probabilitiesChannel, ngramLengthRangeSize)
 	unigramCounts := detector.getUnigramCountsFromChannel(unigramCountsChannel)
 	summedUpProbabilities := detector.sumUpProbabilities(probabilities, unigramCounts, filteredLanguages)
 

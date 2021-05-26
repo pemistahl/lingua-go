@@ -16,89 +16,87 @@
 
 package lingua
 
-import (
-	"sync"
-)
+import "sync"
 
-var fivegramModels = map[Language]func() *trainingDataLanguageModel{
-	Afrikaans:   loadAfrikaansFivegramModelFunc(),
-	Albanian:    loadAlbanianFivegramModelFunc(),
-	Arabic:      loadArabicFivegramModelFunc(),
-	Armenian:    loadArmenianFivegramModelFunc(),
-	Azerbaijani: loadAzerbaijaniFivegramModelFunc(),
-	Basque:      loadBasqueFivegramModelFunc(),
-	Belarusian:  loadBelarusianFivegramModelFunc(),
-	Bengali:     loadBengaliFivegramModelFunc(),
-	Bokmal:      loadBokmalFivegramModelFunc(),
-	Bosnian:     loadBosnianFivegramModelFunc(),
-	Bulgarian:   loadBulgarianFivegramModelFunc(),
-	Catalan:     loadCatalanFivegramModelFunc(),
-	Chinese:     loadChineseFivegramModelFunc(),
-	Croatian:    loadCroatianFivegramModelFunc(),
-	Czech:       loadCzechFivegramModelFunc(),
-	Danish:      loadDanishFivegramModelFunc(),
-	Dutch:       loadDutchFivegramModelFunc(),
-	English:     loadEnglishFivegramModelFunc(),
-	Esperanto:   loadEsperantoFivegramModelFunc(),
-	Estonian:    loadEstonianFivegramModelFunc(),
-	Finnish:     loadFinnishFivegramModelFunc(),
-	French:      loadFrenchFivegramModelFunc(),
-	Ganda:       loadGandaFivegramModelFunc(),
-	Georgian:    loadGeorgianFivegramModelFunc(),
-	German:      loadGermanFivegramModelFunc(),
-	Greek:       loadGreekFivegramModelFunc(),
-	Gujarati:    loadGujaratiFivegramModelFunc(),
-	Hebrew:      loadHebrewFivegramModelFunc(),
-	Hindi:       loadHindiFivegramModelFunc(),
-	Hungarian:   loadHungarianFivegramModelFunc(),
-	Icelandic:   loadIcelandicFivegramModelFunc(),
-	Indonesian:  loadIndonesianFivegramModelFunc(),
-	Irish:       loadIrishFivegramModelFunc(),
-	Italian:     loadItalianFivegramModelFunc(),
-	Japanese:    loadJapaneseFivegramModelFunc(),
-	Kazakh:      loadKazakhFivegramModelFunc(),
-	Korean:      loadKoreanFivegramModelFunc(),
-	Latin:       loadLatinFivegramModelFunc(),
-	Latvian:     loadLatvianFivegramModelFunc(),
-	Lithuanian:  loadLithuanianFivegramModelFunc(),
-	Macedonian:  loadMacedonianFivegramModelFunc(),
-	Malay:       loadMalayFivegramModelFunc(),
-	Maori:       loadMaoriFivegramModelFunc(),
-	Marathi:     loadMarathiFivegramModelFunc(),
-	Mongolian:   loadMongolianFivegramModelFunc(),
-	Nynorsk:     loadNynorskFivegramModelFunc(),
-	Persian:     loadPersianFivegramModelFunc(),
-	Polish:      loadPolishFivegramModelFunc(),
-	Portuguese:  loadPortugueseFivegramModelFunc(),
-	Punjabi:     loadPunjabiFivegramModelFunc(),
-	Romanian:    loadRomanianFivegramModelFunc(),
-	Russian:     loadRussianFivegramModelFunc(),
-	Serbian:     loadSerbianFivegramModelFunc(),
-	Shona:       loadShonaFivegramModelFunc(),
-	Slovak:      loadSlovakFivegramModelFunc(),
-	Slovene:     loadSloveneFivegramModelFunc(),
-	Somali:      loadSomaliFivegramModelFunc(),
-	Sotho:       loadSothoFivegramModelFunc(),
-	Spanish:     loadSpanishFivegramModelFunc(),
-	Swahili:     loadSwahiliFivegramModelFunc(),
-	Swedish:     loadSwedishFivegramModelFunc(),
-	Tagalog:     loadTagalogFivegramModelFunc(),
-	Tamil:       loadTamilFivegramModelFunc(),
-	Telugu:      loadTeluguFivegramModelFunc(),
-	Thai:        loadThaiFivegramModelFunc(),
-	Tsonga:      loadTsongaFivegramModelFunc(),
-	Tswana:      loadTswanaFivegramModelFunc(),
-	Turkish:     loadTurkishFivegramModelFunc(),
-	Ukrainian:   loadUkrainianFivegramModelFunc(),
-	Urdu:        loadUrduFivegramModelFunc(),
-	Vietnamese:  loadVietnameseFivegramModelFunc(),
-	Welsh:       loadWelshFivegramModelFunc(),
-	Xhosa:       loadXhosaFivegramModelFunc(),
-	Yoruba:      loadYorubaFivegramModelFunc(),
-	Zulu:        loadZuluFivegramModelFunc(),
+var fivegramModels = map[Language]lazyTrainingDataLanguageModel{
+	Afrikaans:   afrikaansFivegramModel(),
+	Albanian:    albanianFivegramModel(),
+	Arabic:      arabicFivegramModel(),
+	Armenian:    armenianFivegramModel(),
+	Azerbaijani: azerbaijaniFivegramModel(),
+	Basque:      basqueFivegramModel(),
+	Belarusian:  belarusianFivegramModel(),
+	Bengali:     bengaliFivegramModel(),
+	Bokmal:      bokmalFivegramModel(),
+	Bosnian:     bosnianFivegramModel(),
+	Bulgarian:   bulgarianFivegramModel(),
+	Catalan:     catalanFivegramModel(),
+	Chinese:     chineseFivegramModel(),
+	Croatian:    croatianFivegramModel(),
+	Czech:       czechFivegramModel(),
+	Danish:      danishFivegramModel(),
+	Dutch:       dutchFivegramModel(),
+	English:     englishFivegramModel(),
+	Esperanto:   esperantoFivegramModel(),
+	Estonian:    estonianFivegramModel(),
+	Finnish:     finnishFivegramModel(),
+	French:      frenchFivegramModel(),
+	Ganda:       gandaFivegramModel(),
+	Georgian:    georgianFivegramModel(),
+	German:      germanFivegramModel(),
+	Greek:       greekFivegramModel(),
+	Gujarati:    gujaratiFivegramModel(),
+	Hebrew:      hebrewFivegramModel(),
+	Hindi:       hindiFivegramModel(),
+	Hungarian:   hungarianFivegramModel(),
+	Icelandic:   icelandicFivegramModel(),
+	Indonesian:  indonesianFivegramModel(),
+	Irish:       irishFivegramModel(),
+	Italian:     italianFivegramModel(),
+	Japanese:    japaneseFivegramModel(),
+	Kazakh:      kazakhFivegramModel(),
+	Korean:      koreanFivegramModel(),
+	Latin:       latinFivegramModel(),
+	Latvian:     latvianFivegramModel(),
+	Lithuanian:  lithuanianFivegramModel(),
+	Macedonian:  macedonianFivegramModel(),
+	Malay:       malayFivegramModel(),
+	Maori:       maoriFivegramModel(),
+	Marathi:     marathiFivegramModel(),
+	Mongolian:   mongolianFivegramModel(),
+	Nynorsk:     nynorskFivegramModel(),
+	Persian:     persianFivegramModel(),
+	Polish:      polishFivegramModel(),
+	Portuguese:  portugueseFivegramModel(),
+	Punjabi:     punjabiFivegramModel(),
+	Romanian:    romanianFivegramModel(),
+	Russian:     russianFivegramModel(),
+	Serbian:     serbianFivegramModel(),
+	Shona:       shonaFivegramModel(),
+	Slovak:      slovakFivegramModel(),
+	Slovene:     sloveneFivegramModel(),
+	Somali:      somaliFivegramModel(),
+	Sotho:       sothoFivegramModel(),
+	Spanish:     spanishFivegramModel(),
+	Swahili:     swahiliFivegramModel(),
+	Swedish:     swedishFivegramModel(),
+	Tagalog:     tagalogFivegramModel(),
+	Tamil:       tamilFivegramModel(),
+	Telugu:      teluguFivegramModel(),
+	Thai:        thaiFivegramModel(),
+	Tsonga:      tsongaFivegramModel(),
+	Tswana:      tswanaFivegramModel(),
+	Turkish:     turkishFivegramModel(),
+	Ukrainian:   ukrainianFivegramModel(),
+	Urdu:        urduFivegramModel(),
+	Vietnamese:  vietnameseFivegramModel(),
+	Welsh:       welshFivegramModel(),
+	Xhosa:       xhosaFivegramModel(),
+	Yoruba:      yorubaFivegramModel(),
+	Zulu:        zuluFivegramModel(),
 }
 
-func loadAfrikaansFivegramModelFunc() func() *trainingDataLanguageModel {
+func afrikaansFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -109,7 +107,7 @@ func loadAfrikaansFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadAlbanianFivegramModelFunc() func() *trainingDataLanguageModel {
+func albanianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -120,7 +118,7 @@ func loadAlbanianFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadArabicFivegramModelFunc() func() *trainingDataLanguageModel {
+func arabicFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -131,7 +129,7 @@ func loadArabicFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadArmenianFivegramModelFunc() func() *trainingDataLanguageModel {
+func armenianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -142,7 +140,7 @@ func loadArmenianFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadAzerbaijaniFivegramModelFunc() func() *trainingDataLanguageModel {
+func azerbaijaniFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -153,7 +151,7 @@ func loadAzerbaijaniFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBasqueFivegramModelFunc() func() *trainingDataLanguageModel {
+func basqueFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -164,7 +162,7 @@ func loadBasqueFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBelarusianFivegramModelFunc() func() *trainingDataLanguageModel {
+func belarusianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -175,7 +173,7 @@ func loadBelarusianFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBengaliFivegramModelFunc() func() *trainingDataLanguageModel {
+func bengaliFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -186,7 +184,7 @@ func loadBengaliFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBokmalFivegramModelFunc() func() *trainingDataLanguageModel {
+func bokmalFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -197,7 +195,7 @@ func loadBokmalFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBosnianFivegramModelFunc() func() *trainingDataLanguageModel {
+func bosnianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -208,7 +206,7 @@ func loadBosnianFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBulgarianFivegramModelFunc() func() *trainingDataLanguageModel {
+func bulgarianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -219,7 +217,7 @@ func loadBulgarianFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadCatalanFivegramModelFunc() func() *trainingDataLanguageModel {
+func catalanFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -230,7 +228,7 @@ func loadCatalanFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadChineseFivegramModelFunc() func() *trainingDataLanguageModel {
+func chineseFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -241,7 +239,7 @@ func loadChineseFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadCroatianFivegramModelFunc() func() *trainingDataLanguageModel {
+func croatianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -252,7 +250,7 @@ func loadCroatianFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadCzechFivegramModelFunc() func() *trainingDataLanguageModel {
+func czechFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -263,7 +261,7 @@ func loadCzechFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadDanishFivegramModelFunc() func() *trainingDataLanguageModel {
+func danishFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -274,7 +272,7 @@ func loadDanishFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadDutchFivegramModelFunc() func() *trainingDataLanguageModel {
+func dutchFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -285,7 +283,7 @@ func loadDutchFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadEnglishFivegramModelFunc() func() *trainingDataLanguageModel {
+func englishFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -296,7 +294,7 @@ func loadEnglishFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadEsperantoFivegramModelFunc() func() *trainingDataLanguageModel {
+func esperantoFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -307,7 +305,7 @@ func loadEsperantoFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadEstonianFivegramModelFunc() func() *trainingDataLanguageModel {
+func estonianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -318,7 +316,7 @@ func loadEstonianFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadFinnishFivegramModelFunc() func() *trainingDataLanguageModel {
+func finnishFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -329,7 +327,7 @@ func loadFinnishFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadFrenchFivegramModelFunc() func() *trainingDataLanguageModel {
+func frenchFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -340,7 +338,7 @@ func loadFrenchFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadGandaFivegramModelFunc() func() *trainingDataLanguageModel {
+func gandaFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -351,7 +349,7 @@ func loadGandaFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadGeorgianFivegramModelFunc() func() *trainingDataLanguageModel {
+func georgianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -362,7 +360,7 @@ func loadGeorgianFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadGermanFivegramModelFunc() func() *trainingDataLanguageModel {
+func germanFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -373,7 +371,7 @@ func loadGermanFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadGreekFivegramModelFunc() func() *trainingDataLanguageModel {
+func greekFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -384,7 +382,7 @@ func loadGreekFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadGujaratiFivegramModelFunc() func() *trainingDataLanguageModel {
+func gujaratiFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -395,7 +393,7 @@ func loadGujaratiFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadHebrewFivegramModelFunc() func() *trainingDataLanguageModel {
+func hebrewFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -406,7 +404,7 @@ func loadHebrewFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadHindiFivegramModelFunc() func() *trainingDataLanguageModel {
+func hindiFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -417,7 +415,7 @@ func loadHindiFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadHungarianFivegramModelFunc() func() *trainingDataLanguageModel {
+func hungarianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -428,7 +426,7 @@ func loadHungarianFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadIcelandicFivegramModelFunc() func() *trainingDataLanguageModel {
+func icelandicFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -439,7 +437,7 @@ func loadIcelandicFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadIndonesianFivegramModelFunc() func() *trainingDataLanguageModel {
+func indonesianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -450,7 +448,7 @@ func loadIndonesianFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadIrishFivegramModelFunc() func() *trainingDataLanguageModel {
+func irishFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -461,7 +459,7 @@ func loadIrishFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadItalianFivegramModelFunc() func() *trainingDataLanguageModel {
+func italianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -472,7 +470,7 @@ func loadItalianFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadJapaneseFivegramModelFunc() func() *trainingDataLanguageModel {
+func japaneseFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -483,7 +481,7 @@ func loadJapaneseFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadKazakhFivegramModelFunc() func() *trainingDataLanguageModel {
+func kazakhFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -494,7 +492,7 @@ func loadKazakhFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadKoreanFivegramModelFunc() func() *trainingDataLanguageModel {
+func koreanFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -505,7 +503,7 @@ func loadKoreanFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadLatinFivegramModelFunc() func() *trainingDataLanguageModel {
+func latinFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -516,7 +514,7 @@ func loadLatinFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadLatvianFivegramModelFunc() func() *trainingDataLanguageModel {
+func latvianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -527,7 +525,7 @@ func loadLatvianFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadLithuanianFivegramModelFunc() func() *trainingDataLanguageModel {
+func lithuanianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -538,7 +536,7 @@ func loadLithuanianFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadMacedonianFivegramModelFunc() func() *trainingDataLanguageModel {
+func macedonianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -549,7 +547,7 @@ func loadMacedonianFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadMalayFivegramModelFunc() func() *trainingDataLanguageModel {
+func malayFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -560,7 +558,7 @@ func loadMalayFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadMaoriFivegramModelFunc() func() *trainingDataLanguageModel {
+func maoriFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -571,7 +569,7 @@ func loadMaoriFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadMarathiFivegramModelFunc() func() *trainingDataLanguageModel {
+func marathiFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -582,7 +580,7 @@ func loadMarathiFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadMongolianFivegramModelFunc() func() *trainingDataLanguageModel {
+func mongolianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -593,7 +591,7 @@ func loadMongolianFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadNynorskFivegramModelFunc() func() *trainingDataLanguageModel {
+func nynorskFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -604,7 +602,7 @@ func loadNynorskFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadPersianFivegramModelFunc() func() *trainingDataLanguageModel {
+func persianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -615,7 +613,7 @@ func loadPersianFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadPolishFivegramModelFunc() func() *trainingDataLanguageModel {
+func polishFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -626,7 +624,7 @@ func loadPolishFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadPortugueseFivegramModelFunc() func() *trainingDataLanguageModel {
+func portugueseFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -637,7 +635,7 @@ func loadPortugueseFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadPunjabiFivegramModelFunc() func() *trainingDataLanguageModel {
+func punjabiFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -648,7 +646,7 @@ func loadPunjabiFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadRomanianFivegramModelFunc() func() *trainingDataLanguageModel {
+func romanianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -659,7 +657,7 @@ func loadRomanianFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadRussianFivegramModelFunc() func() *trainingDataLanguageModel {
+func russianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -670,7 +668,7 @@ func loadRussianFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSerbianFivegramModelFunc() func() *trainingDataLanguageModel {
+func serbianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -681,7 +679,7 @@ func loadSerbianFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadShonaFivegramModelFunc() func() *trainingDataLanguageModel {
+func shonaFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -692,7 +690,7 @@ func loadShonaFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSlovakFivegramModelFunc() func() *trainingDataLanguageModel {
+func slovakFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -703,7 +701,7 @@ func loadSlovakFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSloveneFivegramModelFunc() func() *trainingDataLanguageModel {
+func sloveneFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -714,7 +712,7 @@ func loadSloveneFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSomaliFivegramModelFunc() func() *trainingDataLanguageModel {
+func somaliFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -725,7 +723,7 @@ func loadSomaliFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSothoFivegramModelFunc() func() *trainingDataLanguageModel {
+func sothoFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -736,7 +734,7 @@ func loadSothoFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSpanishFivegramModelFunc() func() *trainingDataLanguageModel {
+func spanishFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -747,7 +745,7 @@ func loadSpanishFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSwahiliFivegramModelFunc() func() *trainingDataLanguageModel {
+func swahiliFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -758,7 +756,7 @@ func loadSwahiliFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSwedishFivegramModelFunc() func() *trainingDataLanguageModel {
+func swedishFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -769,7 +767,7 @@ func loadSwedishFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTagalogFivegramModelFunc() func() *trainingDataLanguageModel {
+func tagalogFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -780,7 +778,7 @@ func loadTagalogFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTamilFivegramModelFunc() func() *trainingDataLanguageModel {
+func tamilFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -791,7 +789,7 @@ func loadTamilFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTeluguFivegramModelFunc() func() *trainingDataLanguageModel {
+func teluguFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -802,7 +800,7 @@ func loadTeluguFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadThaiFivegramModelFunc() func() *trainingDataLanguageModel {
+func thaiFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -813,7 +811,7 @@ func loadThaiFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTsongaFivegramModelFunc() func() *trainingDataLanguageModel {
+func tsongaFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -824,7 +822,7 @@ func loadTsongaFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTswanaFivegramModelFunc() func() *trainingDataLanguageModel {
+func tswanaFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -835,7 +833,7 @@ func loadTswanaFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTurkishFivegramModelFunc() func() *trainingDataLanguageModel {
+func turkishFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -846,7 +844,7 @@ func loadTurkishFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadUkrainianFivegramModelFunc() func() *trainingDataLanguageModel {
+func ukrainianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -857,7 +855,7 @@ func loadUkrainianFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadUrduFivegramModelFunc() func() *trainingDataLanguageModel {
+func urduFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -868,7 +866,7 @@ func loadUrduFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadVietnameseFivegramModelFunc() func() *trainingDataLanguageModel {
+func vietnameseFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -879,7 +877,7 @@ func loadVietnameseFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadWelshFivegramModelFunc() func() *trainingDataLanguageModel {
+func welshFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -890,7 +888,7 @@ func loadWelshFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadXhosaFivegramModelFunc() func() *trainingDataLanguageModel {
+func xhosaFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -901,7 +899,7 @@ func loadXhosaFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadYorubaFivegramModelFunc() func() *trainingDataLanguageModel {
+func yorubaFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -912,7 +910,7 @@ func loadYorubaFivegramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadZuluFivegramModelFunc() func() *trainingDataLanguageModel {
+func zuluFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {

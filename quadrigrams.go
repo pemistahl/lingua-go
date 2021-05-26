@@ -16,89 +16,87 @@
 
 package lingua
 
-import (
-	"sync"
-)
+import "sync"
 
-var quadrigramModels = map[Language]func() *trainingDataLanguageModel{
-	Afrikaans:   loadAfrikaansQuadrigramModelFunc(),
-	Albanian:    loadAlbanianQuadrigramModelFunc(),
-	Arabic:      loadArabicQuadrigramModelFunc(),
-	Armenian:    loadArmenianQuadrigramModelFunc(),
-	Azerbaijani: loadAzerbaijaniQuadrigramModelFunc(),
-	Basque:      loadBasqueQuadrigramModelFunc(),
-	Belarusian:  loadBelarusianQuadrigramModelFunc(),
-	Bengali:     loadBengaliQuadrigramModelFunc(),
-	Bokmal:      loadBokmalQuadrigramModelFunc(),
-	Bosnian:     loadBosnianQuadrigramModelFunc(),
-	Bulgarian:   loadBulgarianQuadrigramModelFunc(),
-	Catalan:     loadCatalanQuadrigramModelFunc(),
-	Chinese:     loadChineseQuadrigramModelFunc(),
-	Croatian:    loadCroatianQuadrigramModelFunc(),
-	Czech:       loadCzechQuadrigramModelFunc(),
-	Danish:      loadDanishQuadrigramModelFunc(),
-	Dutch:       loadDutchQuadrigramModelFunc(),
-	English:     loadEnglishQuadrigramModelFunc(),
-	Esperanto:   loadEsperantoQuadrigramModelFunc(),
-	Estonian:    loadEstonianQuadrigramModelFunc(),
-	Finnish:     loadFinnishQuadrigramModelFunc(),
-	French:      loadFrenchQuadrigramModelFunc(),
-	Ganda:       loadGandaQuadrigramModelFunc(),
-	Georgian:    loadGeorgianQuadrigramModelFunc(),
-	German:      loadGermanQuadrigramModelFunc(),
-	Greek:       loadGreekQuadrigramModelFunc(),
-	Gujarati:    loadGujaratiQuadrigramModelFunc(),
-	Hebrew:      loadHebrewQuadrigramModelFunc(),
-	Hindi:       loadHindiQuadrigramModelFunc(),
-	Hungarian:   loadHungarianQuadrigramModelFunc(),
-	Icelandic:   loadIcelandicQuadrigramModelFunc(),
-	Indonesian:  loadIndonesianQuadrigramModelFunc(),
-	Irish:       loadIrishQuadrigramModelFunc(),
-	Italian:     loadItalianQuadrigramModelFunc(),
-	Japanese:    loadJapaneseQuadrigramModelFunc(),
-	Kazakh:      loadKazakhQuadrigramModelFunc(),
-	Korean:      loadKoreanQuadrigramModelFunc(),
-	Latin:       loadLatinQuadrigramModelFunc(),
-	Latvian:     loadLatvianQuadrigramModelFunc(),
-	Lithuanian:  loadLithuanianQuadrigramModelFunc(),
-	Macedonian:  loadMacedonianQuadrigramModelFunc(),
-	Malay:       loadMalayQuadrigramModelFunc(),
-	Maori:       loadMaoriQuadrigramModelFunc(),
-	Marathi:     loadMarathiQuadrigramModelFunc(),
-	Mongolian:   loadMongolianQuadrigramModelFunc(),
-	Nynorsk:     loadNynorskQuadrigramModelFunc(),
-	Persian:     loadPersianQuadrigramModelFunc(),
-	Polish:      loadPolishQuadrigramModelFunc(),
-	Portuguese:  loadPortugueseQuadrigramModelFunc(),
-	Punjabi:     loadPunjabiQuadrigramModelFunc(),
-	Romanian:    loadRomanianQuadrigramModelFunc(),
-	Russian:     loadRussianQuadrigramModelFunc(),
-	Serbian:     loadSerbianQuadrigramModelFunc(),
-	Shona:       loadShonaQuadrigramModelFunc(),
-	Slovak:      loadSlovakQuadrigramModelFunc(),
-	Slovene:     loadSloveneQuadrigramModelFunc(),
-	Somali:      loadSomaliQuadrigramModelFunc(),
-	Sotho:       loadSothoQuadrigramModelFunc(),
-	Spanish:     loadSpanishQuadrigramModelFunc(),
-	Swahili:     loadSwahiliQuadrigramModelFunc(),
-	Swedish:     loadSwedishQuadrigramModelFunc(),
-	Tagalog:     loadTagalogQuadrigramModelFunc(),
-	Tamil:       loadTamilQuadrigramModelFunc(),
-	Telugu:      loadTeluguQuadrigramModelFunc(),
-	Thai:        loadThaiQuadrigramModelFunc(),
-	Tsonga:      loadTsongaQuadrigramModelFunc(),
-	Tswana:      loadTswanaQuadrigramModelFunc(),
-	Turkish:     loadTurkishQuadrigramModelFunc(),
-	Ukrainian:   loadUkrainianQuadrigramModelFunc(),
-	Urdu:        loadUrduQuadrigramModelFunc(),
-	Vietnamese:  loadVietnameseQuadrigramModelFunc(),
-	Welsh:       loadWelshQuadrigramModelFunc(),
-	Xhosa:       loadXhosaQuadrigramModelFunc(),
-	Yoruba:      loadYorubaQuadrigramModelFunc(),
-	Zulu:        loadZuluQuadrigramModelFunc(),
+var quadrigramModels = map[Language]lazyTrainingDataLanguageModel{
+	Afrikaans:   afrikaansQuadrigramModel(),
+	Albanian:    albanianQuadrigramModel(),
+	Arabic:      arabicQuadrigramModel(),
+	Armenian:    armenianQuadrigramModel(),
+	Azerbaijani: azerbaijaniQuadrigramModel(),
+	Basque:      basqueQuadrigramModel(),
+	Belarusian:  belarusianQuadrigramModel(),
+	Bengali:     bengaliQuadrigramModel(),
+	Bokmal:      bokmalQuadrigramModel(),
+	Bosnian:     bosnianQuadrigramModel(),
+	Bulgarian:   bulgarianQuadrigramModel(),
+	Catalan:     catalanQuadrigramModel(),
+	Chinese:     chineseQuadrigramModel(),
+	Croatian:    croatianQuadrigramModel(),
+	Czech:       czechQuadrigramModel(),
+	Danish:      danishQuadrigramModel(),
+	Dutch:       dutchQuadrigramModel(),
+	English:     englishQuadrigramModel(),
+	Esperanto:   esperantoQuadrigramModel(),
+	Estonian:    estonianQuadrigramModel(),
+	Finnish:     finnishQuadrigramModel(),
+	French:      frenchQuadrigramModel(),
+	Ganda:       gandaQuadrigramModel(),
+	Georgian:    georgianQuadrigramModel(),
+	German:      germanQuadrigramModel(),
+	Greek:       greekQuadrigramModel(),
+	Gujarati:    gujaratiQuadrigramModel(),
+	Hebrew:      hebrewQuadrigramModel(),
+	Hindi:       hindiQuadrigramModel(),
+	Hungarian:   hungarianQuadrigramModel(),
+	Icelandic:   icelandicQuadrigramModel(),
+	Indonesian:  indonesianQuadrigramModel(),
+	Irish:       irishQuadrigramModel(),
+	Italian:     italianQuadrigramModel(),
+	Japanese:    japaneseQuadrigramModel(),
+	Kazakh:      kazakhQuadrigramModel(),
+	Korean:      koreanQuadrigramModel(),
+	Latin:       latinQuadrigramModel(),
+	Latvian:     latvianQuadrigramModel(),
+	Lithuanian:  lithuanianQuadrigramModel(),
+	Macedonian:  macedonianQuadrigramModel(),
+	Malay:       malayQuadrigramModel(),
+	Maori:       maoriQuadrigramModel(),
+	Marathi:     marathiQuadrigramModel(),
+	Mongolian:   mongolianQuadrigramModel(),
+	Nynorsk:     nynorskQuadrigramModel(),
+	Persian:     persianQuadrigramModel(),
+	Polish:      polishQuadrigramModel(),
+	Portuguese:  portugueseQuadrigramModel(),
+	Punjabi:     punjabiQuadrigramModel(),
+	Romanian:    romanianQuadrigramModel(),
+	Russian:     russianQuadrigramModel(),
+	Serbian:     serbianQuadrigramModel(),
+	Shona:       shonaQuadrigramModel(),
+	Slovak:      slovakQuadrigramModel(),
+	Slovene:     sloveneQuadrigramModel(),
+	Somali:      somaliQuadrigramModel(),
+	Sotho:       sothoQuadrigramModel(),
+	Spanish:     spanishQuadrigramModel(),
+	Swahili:     swahiliQuadrigramModel(),
+	Swedish:     swedishQuadrigramModel(),
+	Tagalog:     tagalogQuadrigramModel(),
+	Tamil:       tamilQuadrigramModel(),
+	Telugu:      teluguQuadrigramModel(),
+	Thai:        thaiQuadrigramModel(),
+	Tsonga:      tsongaQuadrigramModel(),
+	Tswana:      tswanaQuadrigramModel(),
+	Turkish:     turkishQuadrigramModel(),
+	Ukrainian:   ukrainianQuadrigramModel(),
+	Urdu:        urduQuadrigramModel(),
+	Vietnamese:  vietnameseQuadrigramModel(),
+	Welsh:       welshQuadrigramModel(),
+	Xhosa:       xhosaQuadrigramModel(),
+	Yoruba:      yorubaQuadrigramModel(),
+	Zulu:        zuluQuadrigramModel(),
 }
 
-func loadAfrikaansQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func afrikaansQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -109,7 +107,7 @@ func loadAfrikaansQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadAlbanianQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func albanianQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -120,7 +118,7 @@ func loadAlbanianQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadArabicQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func arabicQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -131,7 +129,7 @@ func loadArabicQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadArmenianQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func armenianQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -142,7 +140,7 @@ func loadArmenianQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadAzerbaijaniQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func azerbaijaniQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -153,7 +151,7 @@ func loadAzerbaijaniQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBasqueQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func basqueQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -164,7 +162,7 @@ func loadBasqueQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBelarusianQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func belarusianQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -175,7 +173,7 @@ func loadBelarusianQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBengaliQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func bengaliQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -186,7 +184,7 @@ func loadBengaliQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBokmalQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func bokmalQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -197,7 +195,7 @@ func loadBokmalQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBosnianQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func bosnianQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -208,7 +206,7 @@ func loadBosnianQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadBulgarianQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func bulgarianQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -219,7 +217,7 @@ func loadBulgarianQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadCatalanQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func catalanQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -230,7 +228,7 @@ func loadCatalanQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadChineseQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func chineseQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -241,7 +239,7 @@ func loadChineseQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadCroatianQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func croatianQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -252,7 +250,7 @@ func loadCroatianQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadCzechQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func czechQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -263,7 +261,7 @@ func loadCzechQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadDanishQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func danishQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -274,7 +272,7 @@ func loadDanishQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadDutchQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func dutchQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -285,7 +283,7 @@ func loadDutchQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadEnglishQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func englishQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -296,7 +294,7 @@ func loadEnglishQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadEsperantoQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func esperantoQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -307,7 +305,7 @@ func loadEsperantoQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadEstonianQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func estonianQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -318,7 +316,7 @@ func loadEstonianQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadFinnishQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func finnishQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -329,7 +327,7 @@ func loadFinnishQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadFrenchQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func frenchQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -340,7 +338,7 @@ func loadFrenchQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadGandaQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func gandaQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -351,7 +349,7 @@ func loadGandaQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadGeorgianQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func georgianQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -362,7 +360,7 @@ func loadGeorgianQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadGermanQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func germanQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -373,7 +371,7 @@ func loadGermanQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadGreekQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func greekQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -384,7 +382,7 @@ func loadGreekQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadGujaratiQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func gujaratiQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -395,7 +393,7 @@ func loadGujaratiQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadHebrewQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func hebrewQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -406,7 +404,7 @@ func loadHebrewQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadHindiQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func hindiQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -417,7 +415,7 @@ func loadHindiQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadHungarianQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func hungarianQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -428,7 +426,7 @@ func loadHungarianQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadIcelandicQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func icelandicQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -439,7 +437,7 @@ func loadIcelandicQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadIndonesianQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func indonesianQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -450,7 +448,7 @@ func loadIndonesianQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadIrishQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func irishQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -461,7 +459,7 @@ func loadIrishQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadItalianQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func italianQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -472,7 +470,7 @@ func loadItalianQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadJapaneseQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func japaneseQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -483,7 +481,7 @@ func loadJapaneseQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadKazakhQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func kazakhQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -494,7 +492,7 @@ func loadKazakhQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadKoreanQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func koreanQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -505,7 +503,7 @@ func loadKoreanQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadLatinQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func latinQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -516,7 +514,7 @@ func loadLatinQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadLatvianQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func latvianQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -527,7 +525,7 @@ func loadLatvianQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadLithuanianQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func lithuanianQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -538,7 +536,7 @@ func loadLithuanianQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadMacedonianQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func macedonianQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -549,7 +547,7 @@ func loadMacedonianQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadMalayQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func malayQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -560,7 +558,7 @@ func loadMalayQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadMaoriQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func maoriQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -571,7 +569,7 @@ func loadMaoriQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadMarathiQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func marathiQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -582,7 +580,7 @@ func loadMarathiQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadMongolianQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func mongolianQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -593,7 +591,7 @@ func loadMongolianQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadNynorskQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func nynorskQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -604,7 +602,7 @@ func loadNynorskQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadPersianQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func persianQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -615,7 +613,7 @@ func loadPersianQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadPolishQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func polishQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -626,7 +624,7 @@ func loadPolishQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadPortugueseQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func portugueseQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -637,7 +635,7 @@ func loadPortugueseQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadPunjabiQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func punjabiQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -648,7 +646,7 @@ func loadPunjabiQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadRomanianQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func romanianQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -659,7 +657,7 @@ func loadRomanianQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadRussianQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func russianQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -670,7 +668,7 @@ func loadRussianQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSerbianQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func serbianQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -681,7 +679,7 @@ func loadSerbianQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadShonaQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func shonaQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -692,7 +690,7 @@ func loadShonaQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSlovakQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func slovakQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -703,7 +701,7 @@ func loadSlovakQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSloveneQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func sloveneQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -714,7 +712,7 @@ func loadSloveneQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSomaliQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func somaliQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -725,7 +723,7 @@ func loadSomaliQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSothoQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func sothoQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -736,7 +734,7 @@ func loadSothoQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSpanishQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func spanishQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -747,7 +745,7 @@ func loadSpanishQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSwahiliQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func swahiliQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -758,7 +756,7 @@ func loadSwahiliQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadSwedishQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func swedishQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -769,7 +767,7 @@ func loadSwedishQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTagalogQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func tagalogQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -780,7 +778,7 @@ func loadTagalogQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTamilQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func tamilQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -791,7 +789,7 @@ func loadTamilQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTeluguQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func teluguQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -802,7 +800,7 @@ func loadTeluguQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadThaiQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func thaiQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -813,7 +811,7 @@ func loadThaiQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTsongaQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func tsongaQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -824,7 +822,7 @@ func loadTsongaQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTswanaQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func tswanaQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -835,7 +833,7 @@ func loadTswanaQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadTurkishQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func turkishQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -846,7 +844,7 @@ func loadTurkishQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadUkrainianQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func ukrainianQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -857,7 +855,7 @@ func loadUkrainianQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadUrduQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func urduQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -868,7 +866,7 @@ func loadUrduQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadVietnameseQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func vietnameseQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -879,7 +877,7 @@ func loadVietnameseQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadWelshQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func welshQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -890,7 +888,7 @@ func loadWelshQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadXhosaQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func xhosaQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -901,7 +899,7 @@ func loadXhosaQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadYorubaQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func yorubaQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {
@@ -912,7 +910,7 @@ func loadYorubaQuadrigramModelFunc() func() *trainingDataLanguageModel {
 	}
 }
 
-func loadZuluQuadrigramModelFunc() func() *trainingDataLanguageModel {
+func zuluQuadrigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
 	return func() *trainingDataLanguageModel {

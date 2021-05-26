@@ -106,7 +106,7 @@ const (
 
 func AllLanguages() []Language {
 	languages := make([]Language, amountOfSupportedLanguages())
-	for i := 0; i <= amountOfSupportedLanguages()-1; i++ {
+	for i := 0; i < amountOfSupportedLanguages(); i++ {
 		languages[i] = Language(i)
 	}
 	return languages

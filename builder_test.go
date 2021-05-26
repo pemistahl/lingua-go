@@ -41,7 +41,7 @@ func TestLanguageDetectorBuilder_FromAllSpokenLanguages(t *testing.T) {
 
 func TestLanguageDetectorBuilder_FromAllLanguagesWithArabicScript(t *testing.T) {
 	builder := NewLanguageDetectorBuilder().FromAllLanguagesWithArabicScript()
-	assert.Equal(t, AllLanguagesWithArabicScript(), builder.getLanguages())
+	assert.ElementsMatch(t, AllLanguagesWithArabicScript(), builder.getLanguages())
 }
 
 func TestLanguageDetectorBuilder_FromAllLanguagesWithCyrillicScript(t *testing.T) {
@@ -51,7 +51,7 @@ func TestLanguageDetectorBuilder_FromAllLanguagesWithCyrillicScript(t *testing.T
 
 func TestLanguageDetectorBuilder_FromAllLanguagesWithDevanagariScript(t *testing.T) {
 	builder := NewLanguageDetectorBuilder().FromAllLanguagesWithDevanagariScript()
-	assert.Equal(t, AllLanguagesWithDevanagariScript(), builder.getLanguages())
+	assert.ElementsMatch(t, AllLanguagesWithDevanagariScript(), builder.getLanguages())
 }
 
 func TestLanguageDetectorBuilder_FromAllLanguagesWithLatinScript(t *testing.T) {
