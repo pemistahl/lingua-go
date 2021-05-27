@@ -99,825 +99,825 @@ var fivegramModels = map[Language]lazyTrainingDataLanguageModel{
 func afrikaansFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Afrikaans))
 		})
-		return &model
+		return model
 	}
 }
 
 func albanianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Albanian))
 		})
-		return &model
+		return model
 	}
 }
 
 func arabicFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Arabic))
 		})
-		return &model
+		return model
 	}
 }
 
 func armenianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Armenian))
 		})
-		return &model
+		return model
 	}
 }
 
 func azerbaijaniFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Azerbaijani))
 		})
-		return &model
+		return model
 	}
 }
 
 func basqueFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Basque))
 		})
-		return &model
+		return model
 	}
 }
 
 func belarusianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Belarusian))
 		})
-		return &model
+		return model
 	}
 }
 
 func bengaliFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Bengali))
 		})
-		return &model
+		return model
 	}
 }
 
 func bokmalFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Bokmal))
 		})
-		return &model
+		return model
 	}
 }
 
 func bosnianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Bosnian))
 		})
-		return &model
+		return model
 	}
 }
 
 func bulgarianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Bulgarian))
 		})
-		return &model
+		return model
 	}
 }
 
 func catalanFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Catalan))
 		})
-		return &model
+		return model
 	}
 }
 
 func chineseFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Chinese))
 		})
-		return &model
+		return model
 	}
 }
 
 func croatianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Croatian))
 		})
-		return &model
+		return model
 	}
 }
 
 func czechFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Czech))
 		})
-		return &model
+		return model
 	}
 }
 
 func danishFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Danish))
 		})
-		return &model
+		return model
 	}
 }
 
 func dutchFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Dutch))
 		})
-		return &model
+		return model
 	}
 }
 
 func englishFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(English))
 		})
-		return &model
+		return model
 	}
 }
 
 func esperantoFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Esperanto))
 		})
-		return &model
+		return model
 	}
 }
 
 func estonianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Estonian))
 		})
-		return &model
+		return model
 	}
 }
 
 func finnishFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Finnish))
 		})
-		return &model
+		return model
 	}
 }
 
 func frenchFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(French))
 		})
-		return &model
+		return model
 	}
 }
 
 func gandaFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Ganda))
 		})
-		return &model
+		return model
 	}
 }
 
 func georgianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Georgian))
 		})
-		return &model
+		return model
 	}
 }
 
 func germanFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(German))
 		})
-		return &model
+		return model
 	}
 }
 
 func greekFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Greek))
 		})
-		return &model
+		return model
 	}
 }
 
 func gujaratiFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Gujarati))
 		})
-		return &model
+		return model
 	}
 }
 
 func hebrewFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Hebrew))
 		})
-		return &model
+		return model
 	}
 }
 
 func hindiFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Hindi))
 		})
-		return &model
+		return model
 	}
 }
 
 func hungarianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Hungarian))
 		})
-		return &model
+		return model
 	}
 }
 
 func icelandicFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Icelandic))
 		})
-		return &model
+		return model
 	}
 }
 
 func indonesianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Indonesian))
 		})
-		return &model
+		return model
 	}
 }
 
 func irishFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Irish))
 		})
-		return &model
+		return model
 	}
 }
 
 func italianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Italian))
 		})
-		return &model
+		return model
 	}
 }
 
 func japaneseFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Japanese))
 		})
-		return &model
+		return model
 	}
 }
 
 func kazakhFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Kazakh))
 		})
-		return &model
+		return model
 	}
 }
 
 func koreanFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Korean))
 		})
-		return &model
+		return model
 	}
 }
 
 func latinFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Latin))
 		})
-		return &model
+		return model
 	}
 }
 
 func latvianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Latvian))
 		})
-		return &model
+		return model
 	}
 }
 
 func lithuanianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Lithuanian))
 		})
-		return &model
+		return model
 	}
 }
 
 func macedonianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Macedonian))
 		})
-		return &model
+		return model
 	}
 }
 
 func malayFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Malay))
 		})
-		return &model
+		return model
 	}
 }
 
 func maoriFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Maori))
 		})
-		return &model
+		return model
 	}
 }
 
 func marathiFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Marathi))
 		})
-		return &model
+		return model
 	}
 }
 
 func mongolianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Mongolian))
 		})
-		return &model
+		return model
 	}
 }
 
 func nynorskFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Nynorsk))
 		})
-		return &model
+		return model
 	}
 }
 
 func persianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Persian))
 		})
-		return &model
+		return model
 	}
 }
 
 func polishFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Polish))
 		})
-		return &model
+		return model
 	}
 }
 
 func portugueseFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Portuguese))
 		})
-		return &model
+		return model
 	}
 }
 
 func punjabiFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Punjabi))
 		})
-		return &model
+		return model
 	}
 }
 
 func romanianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Romanian))
 		})
-		return &model
+		return model
 	}
 }
 
 func russianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Russian))
 		})
-		return &model
+		return model
 	}
 }
 
 func serbianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Serbian))
 		})
-		return &model
+		return model
 	}
 }
 
 func shonaFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Shona))
 		})
-		return &model
+		return model
 	}
 }
 
 func slovakFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Slovak))
 		})
-		return &model
+		return model
 	}
 }
 
 func sloveneFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Slovene))
 		})
-		return &model
+		return model
 	}
 }
 
 func somaliFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Somali))
 		})
-		return &model
+		return model
 	}
 }
 
 func sothoFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Sotho))
 		})
-		return &model
+		return model
 	}
 }
 
 func spanishFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Spanish))
 		})
-		return &model
+		return model
 	}
 }
 
 func swahiliFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Swahili))
 		})
-		return &model
+		return model
 	}
 }
 
 func swedishFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Swedish))
 		})
-		return &model
+		return model
 	}
 }
 
 func tagalogFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Tagalog))
 		})
-		return &model
+		return model
 	}
 }
 
 func tamilFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Tamil))
 		})
-		return &model
+		return model
 	}
 }
 
 func teluguFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Telugu))
 		})
-		return &model
+		return model
 	}
 }
 
 func thaiFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Thai))
 		})
-		return &model
+		return model
 	}
 }
 
 func tsongaFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Tsonga))
 		})
-		return &model
+		return model
 	}
 }
 
 func tswanaFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Tswana))
 		})
-		return &model
+		return model
 	}
 }
 
 func turkishFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Turkish))
 		})
-		return &model
+		return model
 	}
 }
 
 func ukrainianFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Ukrainian))
 		})
-		return &model
+		return model
 	}
 }
 
 func urduFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Urdu))
 		})
-		return &model
+		return model
 	}
 }
 
 func vietnameseFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Vietnamese))
 		})
-		return &model
+		return model
 	}
 }
 
 func welshFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Welsh))
 		})
-		return &model
+		return model
 	}
 }
 
 func xhosaFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Xhosa))
 		})
-		return &model
+		return model
 	}
 }
 
 func yorubaFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Yoruba))
 		})
-		return &model
+		return model
 	}
 }
 
 func zuluFivegramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Zulu))
 		})
-		return &model
+		return model
 	}
 }
 

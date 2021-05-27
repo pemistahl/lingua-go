@@ -21,6 +21,7 @@ import (
 	"math"
 	"sort"
 	"strings"
+	"sync"
 	"unicode/utf8"
 )
 
@@ -46,10 +47,7 @@ func newLanguageDetector(
 	minimumRelativeDistance float64,
 	isEveryLanguageModelPreloaded bool,
 ) LanguageDetector {
-	if isEveryLanguageModelPreloaded {
-		preloadLanguageModels(languages)
-	}
-	return languageDetector{
+	detector := languageDetector{
 		languages,
 		minimumRelativeDistance,
 		collectLanguagesWithUniqueCharacters(languages),
@@ -60,23 +58,26 @@ func newLanguageDetector(
 		quadrigramModels,
 		fivegramModels,
 	}
+	if isEveryLanguageModelPreloaded {
+		detector.preloadLanguageModels(languages)
+	}
+	return detector
 }
 
-func preloadLanguageModels(languages []Language) {
-	languageModels := []map[Language]lazyTrainingDataLanguageModel{
-		unigramModels,
-		bigramModels,
-		trigramModels,
-		quadrigramModels,
-		fivegramModels,
+func (detector languageDetector) preloadLanguageModels(languages []Language) {
+	var wg sync.WaitGroup
+	for _, language := range languages {
+		wg.Add(1)
+		go func(language Language, wg *sync.WaitGroup) {
+			defer wg.Done()
+			detector.unigramLanguageModels[language]()
+			detector.bigramLanguageModels[language]()
+			detector.trigramLanguageModels[language]()
+			detector.quadrigramLanguageModels[language]()
+			detector.fivegramLanguageModels[language]()
+		}(language, &wg)
 	}
-	for _, models := range languageModels {
-		go func(models map[Language]lazyTrainingDataLanguageModel) {
-			for _, language := range languages {
-				models[language]()
-			}
-		}(models)
-	}
+	wg.Wait()
 }
 
 func (detector languageDetector) DetectLanguageOf(text string) (Language, bool) {
@@ -137,22 +138,22 @@ func (detector languageDetector) ComputeLanguageConfidenceValues(text string) []
 	}
 
 	ngramLengthRangeSize := len(ngramLengthRange)
-	probabilitiesChannel := make(chan map[Language]float64, ngramLengthRangeSize)
-	unigramCountsChannel := make(chan map[Language]uint32, ngramLengthRangeSize)
+	probabilityChannel := make(chan map[Language]float64, ngramLengthRangeSize)
+	unigramCountChannel := make(chan map[Language]uint32, ngramLengthRangeSize)
 
 	for _, ngramLength := range ngramLengthRange {
 		go detector.lookUpLanguageModels(
 			cleanedUpText,
 			ngramLength,
 			filteredLanguages,
-			probabilitiesChannel,
-			unigramCountsChannel,
+			probabilityChannel,
+			unigramCountChannel,
 		)
 	}
 
-	probabilities := detector.getProbabilitiesFromChannel(probabilitiesChannel, ngramLengthRangeSize)
-	unigramCounts := detector.getUnigramCountsFromChannel(unigramCountsChannel)
-	summedUpProbabilities := detector.sumUpProbabilities(probabilities, unigramCounts, filteredLanguages)
+	probabilityMaps := detector.getProbabilityMaps(probabilityChannel, ngramLengthRange)
+	unigramCounts := <-unigramCountChannel
+	summedUpProbabilities := detector.sumUpProbabilities(probabilityMaps, unigramCounts, filteredLanguages)
 
 	if len(summedUpProbabilities) == 0 {
 		return values
@@ -160,6 +161,17 @@ func (detector languageDetector) ComputeLanguageConfidenceValues(text string) []
 
 	highestProbability := detector.getHighestProbability(summedUpProbabilities)
 	return detector.computeConfidenceValues(summedUpProbabilities, highestProbability)
+}
+
+func (detector languageDetector) getProbabilityMaps(
+	probabilityChannel <-chan map[Language]float64,
+	ngramLengthRange []int,
+) []map[Language]float64 {
+	var probabilityMaps []map[Language]float64
+	for _, _ = range ngramLengthRange {
+		probabilityMaps = append(probabilityMaps, <-probabilityChannel)
+	}
+	return probabilityMaps
 }
 
 func (detector languageDetector) cleanUpInputText(text string) string {
@@ -221,6 +233,7 @@ func (detector languageDetector) detectLanguageWithRules(words []string) Languag
 				if alphabet.matches(char) {
 					wordLanguageCounts[language]++
 					isMatch = true
+					break
 				}
 			}
 
@@ -396,57 +409,34 @@ func (detector languageDetector) lookUpLanguageModels(
 	text string,
 	ngramLength int,
 	filteredLanguages []Language,
-	probabilitiesChannel chan<- map[Language]float64,
-	unigramCountsChannel chan<- map[Language]uint32,
+	probabilityChannel chan<- map[Language]float64,
+	unigramCountChannel chan<- map[Language]uint32,
 ) {
 	testDataModel := newTestDataLanguageModel(text, ngramLength)
 	probabilities := detector.computeLanguageProbabilities(testDataModel, filteredLanguages)
-
-	var languages []Language
-	for language := range probabilities {
-		languages = append(languages, language)
-	}
-
-	var intersectedLanguages []Language
-	if len(languages) > 0 {
-		for _, language := range filteredLanguages {
-			if containsLanguage(languages, language) {
-				intersectedLanguages = append(intersectedLanguages, language)
-			}
-		}
-	} else {
-		intersectedLanguages = filteredLanguages
-	}
+	probabilityChannel <- probabilities
 
 	if ngramLength == 1 {
-		unigramCounts := detector.countUnigrams(testDataModel, intersectedLanguages)
-		unigramCountsChannel <- unigramCounts
+		var languages []Language
+		for language := range probabilities {
+			languages = append(languages, language)
+		}
+
+		var intersectedLanguages []Language
+		if len(languages) > 0 {
+			for _, language := range filteredLanguages {
+				if containsLanguage(languages, language) {
+					intersectedLanguages = append(intersectedLanguages, language)
+				}
+			}
+		} else {
+			intersectedLanguages = filteredLanguages
+		}
+
+		detector.countUnigrams(unigramCountChannel, testDataModel, intersectedLanguages)
 	} else {
-		unigramCountsChannel <- nil
+		unigramCountChannel <- nil
 	}
-
-	probabilitiesChannel <- probabilities
-}
-
-func (detector languageDetector) getProbabilitiesFromChannel(
-	channel <-chan map[Language]float64,
-	ngramLengthCount int,
-) []map[Language]float64 {
-	var probabilities []map[Language]float64
-	for i := 0; i < ngramLengthCount; i++ {
-		probabilities = append(probabilities, <-channel)
-	}
-	return probabilities
-}
-
-func (detector languageDetector) getUnigramCountsFromChannel(
-	channel <-chan map[Language]uint32,
-) map[Language]uint32 {
-	unigramCounts := <-channel
-	if unigramCounts == nil {
-		return make(map[Language]uint32)
-	}
-	return unigramCounts
 }
 
 func (detector languageDetector) computeLanguageProbabilities(
@@ -494,19 +484,15 @@ func (detector languageDetector) computeConfidenceValues(
 }
 
 func (detector languageDetector) computeSumOfNgramProbabilities(language Language, ngrams map[ngram]bool) float64 {
-	var probabilities []float64
+	sum := 0.0
 	for ngram := range ngrams {
 		for _, elem := range ngram.rangeOfLowerOrderNgrams() {
 			probability := detector.lookUpNgramProbability(language, elem)
 			if probability > 0 {
-				probabilities = append(probabilities, probability)
+				sum += math.Log(probability)
 				break
 			}
 		}
-	}
-	sum := 0.0
-	for _, probability := range probabilities {
-		sum += math.Log(probability)
 	}
 	return sum
 }
@@ -532,9 +518,10 @@ func (detector languageDetector) lookUpNgramProbability(language Language, ngram
 }
 
 func (detector languageDetector) countUnigrams(
+	unigramCountChannel chan<- map[Language]uint32,
 	unigramModel testDataLanguageModel,
 	filteredLanguages []Language,
-) map[Language]uint32 {
+) {
 	unigramCounts := make(map[Language]uint32)
 	for _, language := range filteredLanguages {
 		for unigram := range unigramModel.ngrams {
@@ -543,7 +530,7 @@ func (detector languageDetector) countUnigrams(
 			}
 		}
 	}
-	return unigramCounts
+	unigramCountChannel <- unigramCounts
 }
 
 func (detector languageDetector) sumUpProbabilities(
@@ -552,6 +539,7 @@ func (detector languageDetector) sumUpProbabilities(
 	filteredLanguages []Language,
 ) map[Language]float64 {
 	summedUpProbabilities := make(map[Language]float64)
+	hasUnigramCounts := unigramCounts != nil
 	for _, language := range filteredLanguages {
 		sum := 0.0
 		for _, probabilities := range probabilityMaps {
@@ -559,8 +547,10 @@ func (detector languageDetector) sumUpProbabilities(
 				sum += probability
 			}
 		}
-		if unigramCount, exists := unigramCounts[language]; exists {
-			sum /= float64(unigramCount)
+		if hasUnigramCounts {
+			if unigramCount, exists := unigramCounts[language]; exists {
+				sum /= float64(unigramCount)
+			}
 		}
 		if sum != 0 {
 			summedUpProbabilities[language] = sum

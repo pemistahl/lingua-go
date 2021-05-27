@@ -101,825 +101,825 @@ var bigramModels = map[Language]lazyTrainingDataLanguageModel{
 func afrikaansBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Afrikaans))
 		})
-		return &model
+		return model
 	}
 }
 
 func albanianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Albanian))
 		})
-		return &model
+		return model
 	}
 }
 
 func arabicBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Arabic))
 		})
-		return &model
+		return model
 	}
 }
 
 func armenianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Armenian))
 		})
-		return &model
+		return model
 	}
 }
 
 func azerbaijaniBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Azerbaijani))
 		})
-		return &model
+		return model
 	}
 }
 
 func basqueBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Basque))
 		})
-		return &model
+		return model
 	}
 }
 
 func belarusianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Belarusian))
 		})
-		return &model
+		return model
 	}
 }
 
 func bengaliBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Bengali))
 		})
-		return &model
+		return model
 	}
 }
 
 func bokmalBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Bokmal))
 		})
-		return &model
+		return model
 	}
 }
 
 func bosnianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Bosnian))
 		})
-		return &model
+		return model
 	}
 }
 
 func bulgarianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Bulgarian))
 		})
-		return &model
+		return model
 	}
 }
 
 func catalanBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Catalan))
 		})
-		return &model
+		return model
 	}
 }
 
 func chineseBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Chinese))
 		})
-		return &model
+		return model
 	}
 }
 
 func croatianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Croatian))
 		})
-		return &model
+		return model
 	}
 }
 
 func czechBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Czech))
 		})
-		return &model
+		return model
 	}
 }
 
 func danishBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Danish))
 		})
-		return &model
+		return model
 	}
 }
 
 func dutchBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Dutch))
 		})
-		return &model
+		return model
 	}
 }
 
 func englishBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(English))
 		})
-		return &model
+		return model
 	}
 }
 
 func esperantoBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Esperanto))
 		})
-		return &model
+		return model
 	}
 }
 
 func estonianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Estonian))
 		})
-		return &model
+		return model
 	}
 }
 
 func finnishBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Finnish))
 		})
-		return &model
+		return model
 	}
 }
 
 func frenchBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(French))
 		})
-		return &model
+		return model
 	}
 }
 
 func gandaBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Ganda))
 		})
-		return &model
+		return model
 	}
 }
 
 func georgianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Georgian))
 		})
-		return &model
+		return model
 	}
 }
 
 func germanBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(German))
 		})
-		return &model
+		return model
 	}
 }
 
 func greekBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Greek))
 		})
-		return &model
+		return model
 	}
 }
 
 func gujaratiBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Gujarati))
 		})
-		return &model
+		return model
 	}
 }
 
 func hebrewBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Hebrew))
 		})
-		return &model
+		return model
 	}
 }
 
 func hindiBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Hindi))
 		})
-		return &model
+		return model
 	}
 }
 
 func hungarianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Hungarian))
 		})
-		return &model
+		return model
 	}
 }
 
 func icelandicBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Icelandic))
 		})
-		return &model
+		return model
 	}
 }
 
 func indonesianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Indonesian))
 		})
-		return &model
+		return model
 	}
 }
 
 func irishBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Irish))
 		})
-		return &model
+		return model
 	}
 }
 
 func italianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Italian))
 		})
-		return &model
+		return model
 	}
 }
 
 func japaneseBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Japanese))
 		})
-		return &model
+		return model
 	}
 }
 
 func kazakhBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Kazakh))
 		})
-		return &model
+		return model
 	}
 }
 
 func koreanBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Korean))
 		})
-		return &model
+		return model
 	}
 }
 
 func latinBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Latin))
 		})
-		return &model
+		return model
 	}
 }
 
 func latvianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Latvian))
 		})
-		return &model
+		return model
 	}
 }
 
 func lithuanianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Lithuanian))
 		})
-		return &model
+		return model
 	}
 }
 
 func macedonianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Macedonian))
 		})
-		return &model
+		return model
 	}
 }
 
 func malayBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Malay))
 		})
-		return &model
+		return model
 	}
 }
 
 func maoriBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Maori))
 		})
-		return &model
+		return model
 	}
 }
 
 func marathiBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Marathi))
 		})
-		return &model
+		return model
 	}
 }
 
 func mongolianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Mongolian))
 		})
-		return &model
+		return model
 	}
 }
 
 func nynorskBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Nynorsk))
 		})
-		return &model
+		return model
 	}
 }
 
 func persianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Persian))
 		})
-		return &model
+		return model
 	}
 }
 
 func polishBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Polish))
 		})
-		return &model
+		return model
 	}
 }
 
 func portugueseBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Portuguese))
 		})
-		return &model
+		return model
 	}
 }
 
 func punjabiBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Punjabi))
 		})
-		return &model
+		return model
 	}
 }
 
 func romanianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Romanian))
 		})
-		return &model
+		return model
 	}
 }
 
 func russianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Russian))
 		})
-		return &model
+		return model
 	}
 }
 
 func serbianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Serbian))
 		})
-		return &model
+		return model
 	}
 }
 
 func shonaBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Shona))
 		})
-		return &model
+		return model
 	}
 }
 
 func slovakBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Slovak))
 		})
-		return &model
+		return model
 	}
 }
 
 func sloveneBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Slovene))
 		})
-		return &model
+		return model
 	}
 }
 
 func somaliBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Somali))
 		})
-		return &model
+		return model
 	}
 }
 
 func sothoBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Sotho))
 		})
-		return &model
+		return model
 	}
 }
 
 func spanishBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Spanish))
 		})
-		return &model
+		return model
 	}
 }
 
 func swahiliBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Swahili))
 		})
-		return &model
+		return model
 	}
 }
 
 func swedishBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Swedish))
 		})
-		return &model
+		return model
 	}
 }
 
 func tagalogBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Tagalog))
 		})
-		return &model
+		return model
 	}
 }
 
 func tamilBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Tamil))
 		})
-		return &model
+		return model
 	}
 }
 
 func teluguBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Telugu))
 		})
-		return &model
+		return model
 	}
 }
 
 func thaiBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Thai))
 		})
-		return &model
+		return model
 	}
 }
 
 func tsongaBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Tsonga))
 		})
-		return &model
+		return model
 	}
 }
 
 func tswanaBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Tswana))
 		})
-		return &model
+		return model
 	}
 }
 
 func turkishBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Turkish))
 		})
-		return &model
+		return model
 	}
 }
 
 func ukrainianBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Ukrainian))
 		})
-		return &model
+		return model
 	}
 }
 
 func urduBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Urdu))
 		})
-		return &model
+		return model
 	}
 }
 
 func vietnameseBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Vietnamese))
 		})
-		return &model
+		return model
 	}
 }
 
 func welshBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Welsh))
 		})
-		return &model
+		return model
 	}
 }
 
 func xhosaBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Xhosa))
 		})
-		return &model
+		return model
 	}
 }
 
 func yorubaBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Yoruba))
 		})
-		return &model
+		return model
 	}
 }
 
 func zuluBigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() *trainingDataLanguageModel {
+	return func() trainingDataLanguageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Zulu))
 		})
-		return &model
+		return model
 	}
 }
 
