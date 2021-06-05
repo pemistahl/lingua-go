@@ -99,7 +99,7 @@ var unigramModels = map[Language]lazyTrainingDataLanguageModel{
 func afrikaansUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Afrikaans))
 		})
@@ -110,7 +110,7 @@ func afrikaansUnigramModel() lazyTrainingDataLanguageModel {
 func albanianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Albanian))
 		})
@@ -121,7 +121,7 @@ func albanianUnigramModel() lazyTrainingDataLanguageModel {
 func arabicUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Arabic))
 		})
@@ -132,7 +132,7 @@ func arabicUnigramModel() lazyTrainingDataLanguageModel {
 func armenianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Armenian))
 		})
@@ -143,7 +143,7 @@ func armenianUnigramModel() lazyTrainingDataLanguageModel {
 func azerbaijaniUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Azerbaijani))
 		})
@@ -154,7 +154,7 @@ func azerbaijaniUnigramModel() lazyTrainingDataLanguageModel {
 func basqueUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Basque))
 		})
@@ -165,7 +165,7 @@ func basqueUnigramModel() lazyTrainingDataLanguageModel {
 func belarusianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Belarusian))
 		})
@@ -176,7 +176,7 @@ func belarusianUnigramModel() lazyTrainingDataLanguageModel {
 func bengaliUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Bengali))
 		})
@@ -187,7 +187,7 @@ func bengaliUnigramModel() lazyTrainingDataLanguageModel {
 func bokmalUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Bokmal))
 		})
@@ -198,7 +198,7 @@ func bokmalUnigramModel() lazyTrainingDataLanguageModel {
 func bosnianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Bosnian))
 		})
@@ -209,7 +209,7 @@ func bosnianUnigramModel() lazyTrainingDataLanguageModel {
 func bulgarianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Bulgarian))
 		})
@@ -220,7 +220,7 @@ func bulgarianUnigramModel() lazyTrainingDataLanguageModel {
 func catalanUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Catalan))
 		})
@@ -231,7 +231,7 @@ func catalanUnigramModel() lazyTrainingDataLanguageModel {
 func chineseUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Chinese))
 		})
@@ -242,7 +242,7 @@ func chineseUnigramModel() lazyTrainingDataLanguageModel {
 func croatianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Croatian))
 		})
@@ -253,7 +253,7 @@ func croatianUnigramModel() lazyTrainingDataLanguageModel {
 func czechUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Czech))
 		})
@@ -264,7 +264,7 @@ func czechUnigramModel() lazyTrainingDataLanguageModel {
 func danishUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Danish))
 		})
@@ -275,7 +275,7 @@ func danishUnigramModel() lazyTrainingDataLanguageModel {
 func dutchUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Dutch))
 		})
@@ -286,7 +286,7 @@ func dutchUnigramModel() lazyTrainingDataLanguageModel {
 func englishUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(English))
 		})
@@ -297,7 +297,7 @@ func englishUnigramModel() lazyTrainingDataLanguageModel {
 func esperantoUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Esperanto))
 		})
@@ -308,7 +308,7 @@ func esperantoUnigramModel() lazyTrainingDataLanguageModel {
 func estonianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Estonian))
 		})
@@ -319,7 +319,7 @@ func estonianUnigramModel() lazyTrainingDataLanguageModel {
 func finnishUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Finnish))
 		})
@@ -330,7 +330,7 @@ func finnishUnigramModel() lazyTrainingDataLanguageModel {
 func frenchUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(French))
 		})
@@ -341,7 +341,7 @@ func frenchUnigramModel() lazyTrainingDataLanguageModel {
 func gandaUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Ganda))
 		})
@@ -352,7 +352,7 @@ func gandaUnigramModel() lazyTrainingDataLanguageModel {
 func georgianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Georgian))
 		})
@@ -363,7 +363,7 @@ func georgianUnigramModel() lazyTrainingDataLanguageModel {
 func germanUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(German))
 		})
@@ -374,7 +374,7 @@ func germanUnigramModel() lazyTrainingDataLanguageModel {
 func greekUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Greek))
 		})
@@ -385,7 +385,7 @@ func greekUnigramModel() lazyTrainingDataLanguageModel {
 func gujaratiUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Gujarati))
 		})
@@ -396,7 +396,7 @@ func gujaratiUnigramModel() lazyTrainingDataLanguageModel {
 func hebrewUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Hebrew))
 		})
@@ -407,7 +407,7 @@ func hebrewUnigramModel() lazyTrainingDataLanguageModel {
 func hindiUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Hindi))
 		})
@@ -418,7 +418,7 @@ func hindiUnigramModel() lazyTrainingDataLanguageModel {
 func hungarianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Hungarian))
 		})
@@ -429,7 +429,7 @@ func hungarianUnigramModel() lazyTrainingDataLanguageModel {
 func icelandicUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Icelandic))
 		})
@@ -440,7 +440,7 @@ func icelandicUnigramModel() lazyTrainingDataLanguageModel {
 func indonesianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Indonesian))
 		})
@@ -451,7 +451,7 @@ func indonesianUnigramModel() lazyTrainingDataLanguageModel {
 func irishUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Irish))
 		})
@@ -462,7 +462,7 @@ func irishUnigramModel() lazyTrainingDataLanguageModel {
 func italianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Italian))
 		})
@@ -473,7 +473,7 @@ func italianUnigramModel() lazyTrainingDataLanguageModel {
 func japaneseUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Japanese))
 		})
@@ -484,7 +484,7 @@ func japaneseUnigramModel() lazyTrainingDataLanguageModel {
 func kazakhUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Kazakh))
 		})
@@ -495,7 +495,7 @@ func kazakhUnigramModel() lazyTrainingDataLanguageModel {
 func koreanUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Korean))
 		})
@@ -506,7 +506,7 @@ func koreanUnigramModel() lazyTrainingDataLanguageModel {
 func latinUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Latin))
 		})
@@ -517,7 +517,7 @@ func latinUnigramModel() lazyTrainingDataLanguageModel {
 func latvianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Latvian))
 		})
@@ -528,7 +528,7 @@ func latvianUnigramModel() lazyTrainingDataLanguageModel {
 func lithuanianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Lithuanian))
 		})
@@ -539,7 +539,7 @@ func lithuanianUnigramModel() lazyTrainingDataLanguageModel {
 func macedonianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Macedonian))
 		})
@@ -550,7 +550,7 @@ func macedonianUnigramModel() lazyTrainingDataLanguageModel {
 func malayUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Malay))
 		})
@@ -561,7 +561,7 @@ func malayUnigramModel() lazyTrainingDataLanguageModel {
 func maoriUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Maori))
 		})
@@ -572,7 +572,7 @@ func maoriUnigramModel() lazyTrainingDataLanguageModel {
 func marathiUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Marathi))
 		})
@@ -583,7 +583,7 @@ func marathiUnigramModel() lazyTrainingDataLanguageModel {
 func mongolianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Mongolian))
 		})
@@ -594,7 +594,7 @@ func mongolianUnigramModel() lazyTrainingDataLanguageModel {
 func nynorskUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Nynorsk))
 		})
@@ -605,7 +605,7 @@ func nynorskUnigramModel() lazyTrainingDataLanguageModel {
 func persianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Persian))
 		})
@@ -616,7 +616,7 @@ func persianUnigramModel() lazyTrainingDataLanguageModel {
 func polishUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Polish))
 		})
@@ -627,7 +627,7 @@ func polishUnigramModel() lazyTrainingDataLanguageModel {
 func portugueseUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Portuguese))
 		})
@@ -638,7 +638,7 @@ func portugueseUnigramModel() lazyTrainingDataLanguageModel {
 func punjabiUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Punjabi))
 		})
@@ -649,7 +649,7 @@ func punjabiUnigramModel() lazyTrainingDataLanguageModel {
 func romanianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Romanian))
 		})
@@ -660,7 +660,7 @@ func romanianUnigramModel() lazyTrainingDataLanguageModel {
 func russianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Russian))
 		})
@@ -671,7 +671,7 @@ func russianUnigramModel() lazyTrainingDataLanguageModel {
 func serbianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Serbian))
 		})
@@ -682,7 +682,7 @@ func serbianUnigramModel() lazyTrainingDataLanguageModel {
 func shonaUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Shona))
 		})
@@ -693,7 +693,7 @@ func shonaUnigramModel() lazyTrainingDataLanguageModel {
 func slovakUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Slovak))
 		})
@@ -704,7 +704,7 @@ func slovakUnigramModel() lazyTrainingDataLanguageModel {
 func sloveneUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Slovene))
 		})
@@ -715,7 +715,7 @@ func sloveneUnigramModel() lazyTrainingDataLanguageModel {
 func somaliUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Somali))
 		})
@@ -726,7 +726,7 @@ func somaliUnigramModel() lazyTrainingDataLanguageModel {
 func sothoUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Sotho))
 		})
@@ -737,7 +737,7 @@ func sothoUnigramModel() lazyTrainingDataLanguageModel {
 func spanishUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Spanish))
 		})
@@ -748,7 +748,7 @@ func spanishUnigramModel() lazyTrainingDataLanguageModel {
 func swahiliUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Swahili))
 		})
@@ -759,7 +759,7 @@ func swahiliUnigramModel() lazyTrainingDataLanguageModel {
 func swedishUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Swedish))
 		})
@@ -770,7 +770,7 @@ func swedishUnigramModel() lazyTrainingDataLanguageModel {
 func tagalogUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Tagalog))
 		})
@@ -781,7 +781,7 @@ func tagalogUnigramModel() lazyTrainingDataLanguageModel {
 func tamilUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Tamil))
 		})
@@ -792,7 +792,7 @@ func tamilUnigramModel() lazyTrainingDataLanguageModel {
 func teluguUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Telugu))
 		})
@@ -803,7 +803,7 @@ func teluguUnigramModel() lazyTrainingDataLanguageModel {
 func thaiUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Thai))
 		})
@@ -814,7 +814,7 @@ func thaiUnigramModel() lazyTrainingDataLanguageModel {
 func tsongaUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Tsonga))
 		})
@@ -825,7 +825,7 @@ func tsongaUnigramModel() lazyTrainingDataLanguageModel {
 func tswanaUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Tswana))
 		})
@@ -836,7 +836,7 @@ func tswanaUnigramModel() lazyTrainingDataLanguageModel {
 func turkishUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Turkish))
 		})
@@ -847,7 +847,7 @@ func turkishUnigramModel() lazyTrainingDataLanguageModel {
 func ukrainianUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Ukrainian))
 		})
@@ -858,7 +858,7 @@ func ukrainianUnigramModel() lazyTrainingDataLanguageModel {
 func urduUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Urdu))
 		})
@@ -869,7 +869,7 @@ func urduUnigramModel() lazyTrainingDataLanguageModel {
 func vietnameseUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Vietnamese))
 		})
@@ -880,7 +880,7 @@ func vietnameseUnigramModel() lazyTrainingDataLanguageModel {
 func welshUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Welsh))
 		})
@@ -891,7 +891,7 @@ func welshUnigramModel() lazyTrainingDataLanguageModel {
 func xhosaUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Xhosa))
 		})
@@ -902,7 +902,7 @@ func xhosaUnigramModel() lazyTrainingDataLanguageModel {
 func yorubaUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Yoruba))
 		})
@@ -913,7 +913,7 @@ func yorubaUnigramModel() lazyTrainingDataLanguageModel {
 func zuluUnigramModel() lazyTrainingDataLanguageModel {
 	var once sync.Once
 	var model trainingDataLanguageModel
-	return func() trainingDataLanguageModel {
+	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Zulu))
 		})

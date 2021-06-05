@@ -168,7 +168,7 @@ func (detector languageDetector) getProbabilityMaps(
 	ngramLengthRange []int,
 ) []map[Language]float64 {
 	var probabilityMaps []map[Language]float64
-	for _, _ = range ngramLengthRange {
+	for range ngramLengthRange {
 		probabilityMaps = append(probabilityMaps, <-probabilityChannel)
 	}
 	return probabilityMaps
@@ -369,8 +369,8 @@ func (detector languageDetector) filterLanguagesByRules(words []string) []Langua
 	for _, word := range words {
 		for characters, languages := range charsToLanguagesMapping {
 			wordContainsChar := false
-			for character := range []rune(characters) {
-				if strings.ContainsRune(word, rune(character)) {
+			for _, character := range []rune(characters) {
+				if strings.ContainsRune(word, character) {
 					for _, language := range languages {
 						languageCounts[language]++
 					}
@@ -501,15 +501,15 @@ func (detector languageDetector) lookUpNgramProbability(language Language, ngram
 	ngramLength := utf8.RuneCountInString(ngram.value)
 	switch ngramLength {
 	case 5:
-		return fivegramModels[language]().getRelativeFrequency(ngram)
+		return detector.fivegramLanguageModels[language]().getRelativeFrequency(ngram)
 	case 4:
-		return quadrigramModels[language]().getRelativeFrequency(ngram)
+		return detector.quadrigramLanguageModels[language]().getRelativeFrequency(ngram)
 	case 3:
-		return trigramModels[language]().getRelativeFrequency(ngram)
+		return detector.trigramLanguageModels[language]().getRelativeFrequency(ngram)
 	case 2:
-		return bigramModels[language]().getRelativeFrequency(ngram)
+		return detector.bigramLanguageModels[language]().getRelativeFrequency(ngram)
 	case 1:
-		return unigramModels[language]().getRelativeFrequency(ngram)
+		return detector.unigramLanguageModels[language]().getRelativeFrequency(ngram)
 	case 0:
 		panic("zerogram detected")
 	default:

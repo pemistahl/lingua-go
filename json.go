@@ -19,7 +19,7 @@ package lingua
 import (
 	"archive/zip"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"strings"
 )
 
@@ -31,6 +31,6 @@ func loadJson(language Language, ngramLength int) []byte {
 	defer zipFile.Close()
 	jsonFile, _ := zipFile.File[0].Open()
 	defer jsonFile.Close()
-	jsonFileContent, _ := ioutil.ReadAll(jsonFile)
+	jsonFileContent, _ := io.ReadAll(jsonFile)
 	return jsonFileContent
 }

@@ -25,6 +25,10 @@ import (
 	"strings"
 )
 
+type languageModel interface {
+	getRelativeFrequency(ngram ngram) float64
+}
+
 type jsonLanguageModel struct {
 	Language Language          `json:"language"`
 	Ngrams   map[string]string `json:"ngrams"`
@@ -37,7 +41,7 @@ type trainingDataLanguageModel struct {
 	jsonRelativeFrequencies map[ngram]float64
 }
 
-type lazyTrainingDataLanguageModel = func() trainingDataLanguageModel
+type lazyTrainingDataLanguageModel = func() languageModel
 
 type testDataLanguageModel struct {
 	ngrams map[ngram]bool
