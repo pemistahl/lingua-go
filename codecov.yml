@@ -14,7 +14,14 @@
 # limitations under the License.
 
 ignore:
+  - "bigrams.go"
+  - "confidence.go"
+  - "constant.go"
+  - "fivegrams.go"
   - "isocode.go"
   - "isocode639_1_string.go"
   - "isocode639_3_string.go"
   - "language_string.go"
+  - "quadrigrams.go"
+  - "trigrams.go"
+  - "unigrams.go"
