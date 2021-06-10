@@ -194,12 +194,13 @@ func (detector languageDetector) splitTextIntoWords(text string) []string {
 	normalizedText := strings.Join(normalizedTextBuilder, "")
 	if strings.Contains(normalizedText, " ") {
 		substrings := strings.Split(normalizedText, " ")
-		for idx, substring := range substrings {
-			if len(substring) == 0 {
-				substrings = append(substrings[:idx], substrings[idx+1:]...)
+		var filteredSubstrings []string
+		for _, substring := range substrings {
+			if len(substring) > 0 {
+				filteredSubstrings = append(filteredSubstrings, substring)
 			}
 		}
-		return substrings
+		return filteredSubstrings
 	}
 	return []string{normalizedText}
 }
