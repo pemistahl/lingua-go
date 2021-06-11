@@ -1,0 +1,16 @@
+##### Vietnamese #####
+
+>>> Accuracy on average: 72.87%
+
+>> Detection of 879 single words (average length: 4 chars)
+Accuracy: 36.75%
+Erroneously classified as Unknown: 43.46%, Zulu: 2.05%, Yoruba: 1.93%, English: 1.82%, Tagalog: 1.71%, Lithuanian: 1.37%, Indonesian: 1.25%, Romanian: 0.91%, French: 0.80%, Shona: 0.80%, Spanish: 0.80%, Afrikaans: 0.68%, Latvian: 0.68%, Swedish: 0.57%, Turkish: 0.57%, Croatian: 0.46%, German: 0.46%, Hungarian: 0.46%, Portuguese: 0.46%, Czech: 0.34%, Polish: 0.34%, Estonian: 0.23%, Italian: 0.23%, Nynorsk: 0.23%, Somali: 0.23%, Bokmal: 0.11%, Dutch: 0.11%, Esperanto: 0.11%, Slovene: 0.11%
+
+>> Detection of 957 word pairs (average length: 12 chars)
+Accuracy: 85.16%
+Erroneously classified as Unknown: 5.85%, English: 1.99%, Tagalog: 0.94%, Afrikaans: 0.73%, German: 0.73%, Italian: 0.52%, Bokmal: 0.42%, Indonesian: 0.42%, Nynorsk: 0.42%, Shona: 0.42%, French: 0.31%, Swedish: 0.31%, Danish: 0.21%, Romanian: 0.21%, Spanish: 0.21%, Yoruba: 0.21%, Zulu: 0.21%, Czech: 0.10%, Dutch: 0.10%, Esperanto: 0.10%, Finnish: 0.10%, Latvian: 0.10%, Lithuanian: 0.10%, Somali: 0.10%
+
+>> Detection of 1000 sentences (average length: 120 chars)
+Accuracy: 96.70%
+Erroneously classified as Unknown: 2.10%, English: 0.50%, Afrikaans: 0.10%, Danish: 0.10%, Indonesian: 0.10%, Portuguese: 0.10%, Romanian: 0.10%, Swedish: 0.10%, Tagalog: 0.10%
+

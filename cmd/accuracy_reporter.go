@@ -1,4 +1,4 @@
-// ### +build ignore
+// +build ignore
 
 /*
  * Copyright © 2021 Peter M. Stahl pemistahl@gmail.com
@@ -20,6 +20,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/abadojack/whatlanggo"
 	"github.com/pemistahl/lingua-go"
 	"math"
 	"os"
@@ -229,10 +230,16 @@ func main() {
 	testDataDirectory := filepath.Join(workingDirectory, "language-testdata")
 	accuracyReportsDirectory := filepath.Join(workingDirectory, "accuracy-reports")
 	linguaReportsDirectory := filepath.Join(accuracyReportsDirectory, "lingua")
+	whatlangReportsDirectory := filepath.Join(accuracyReportsDirectory, "whatlang")
 
 	err := os.MkdirAll(linguaReportsDirectory, os.ModePerm)
 	if err != nil {
 		panic("Lingua reports directory could not be created")
+	}
+
+	err = os.MkdirAll(whatlangReportsDirectory, os.ModePerm)
+	if err != nil {
+		panic("Whatlang reports directory could not be created")
 	}
 
 	aggregatedReportFilePath := filepath.Join(accuracyReportsDirectory, "aggregated-accuracy-values.csv")
@@ -244,6 +251,10 @@ func main() {
 
 	aggregatedReportColumns := []string{
 		"language",
+		"average-whatlang",
+		"single-words-whatlang",
+		"word-pairs-whatlang",
+		"sentences-whatlang",
 		"average-lingua",
 		"single-words-lingua",
 		"word-pairs-lingua",
@@ -266,28 +277,46 @@ func main() {
 		sentences := getFileContent(testDataDirectory, "sentences", language)
 
 		linguaStatistics := newDetectorStatistics()
+		whatlangStatistics := newDetectorStatistics()
 
 		for _, singleWord := range singleWords {
 			linguaLanguage, _ := linguaDetector.DetectLanguageOf(singleWord)
 			linguaStatistics.addSingleWordCounts(linguaLanguage, singleWord)
+
+			whatlangLanguage := mapWhatlangToLingua(whatlanggo.DetectLang(singleWord))
+			whatlangStatistics.addSingleWordCounts(whatlangLanguage, singleWord)
 		}
 
 		for _, wordPair := range wordPairs {
 			linguaLanguage, _ := linguaDetector.DetectLanguageOf(wordPair)
 			linguaStatistics.addWordPairCounts(linguaLanguage, wordPair)
+
+			whatlangLanguage := mapWhatlangToLingua(whatlanggo.DetectLang(wordPair))
+			whatlangStatistics.addWordPairCounts(whatlangLanguage, wordPair)
 		}
 
 		for _, sentence := range sentences {
 			linguaLanguage, _ := linguaDetector.DetectLanguageOf(sentence)
 			linguaStatistics.addSentenceCounts(linguaLanguage, sentence)
+
+			whatlangLanguage := mapWhatlangToLingua(whatlanggo.DetectLang(sentence))
+			whatlangStatistics.addSentenceCounts(whatlangLanguage, sentence)
 		}
 
 		linguaStatistics.computeAccuracyValues()
+		whatlangStatistics.computeAccuracyValues()
 
 		linguaReport := linguaStatistics.createReportData(language)
+		whatlangReport := whatlangStatistics.createReportData(language)
 
 		linguaAggregatedReportRow := linguaStatistics.createAggregatedReportRow(language)
-		totalAggregatedReportRow := fmt.Sprintf("%s,%s\n", language, linguaAggregatedReportRow)
+		whatlangAggregatedReportRow := whatlangStatistics.createAggregatedReportRow(language)
+		totalAggregatedReportRow := fmt.Sprintf(
+			"%s,%s,%s\n",
+			language,
+			whatlangAggregatedReportRow,
+			linguaAggregatedReportRow,
+		)
 
 		_, err = aggregatedReportFile.WriteString(totalAggregatedReportRow)
 		if err != nil {
@@ -296,6 +325,7 @@ func main() {
 
 		reportFileName := fmt.Sprintf("%s.txt", language)
 		linguaReportsFilePath := filepath.Join(linguaReportsDirectory, reportFileName)
+		whatlangReportsFilePath := filepath.Join(whatlangReportsDirectory, reportFileName)
 
 		if len(linguaReport) > 0 {
 			linguaReportsFile, err := os.Create(linguaReportsFilePath)
@@ -307,6 +337,19 @@ func main() {
 			_, err = linguaReportsFile.WriteString(linguaReport)
 			if err != nil {
 				panic("Lingua reports file could not be written")
+			}
+		}
+
+		if len(whatlangReport) > 0 {
+			whatlangReportsFile, err := os.Create(whatlangReportsFilePath)
+			if err != nil {
+				panic("Whatlang reports file could not be created")
+			}
+			defer whatlangReportsFile.Close()
+
+			_, err = whatlangReportsFile.WriteString(whatlangReport)
+			if err != nil {
+				panic("Whatlang reports file could not be written")
 			}
 		}
 
@@ -333,4 +376,121 @@ func getFileContent(testDataDirectory, subdirectory string, language lingua.Lang
 		}
 	}
 	return filteredLines
+}
+
+func mapWhatlangToLingua(language whatlanggo.Lang) lingua.Language {
+	switch language {
+	case whatlanggo.Afr:
+		return lingua.Afrikaans
+	case whatlanggo.Arb:
+		return lingua.Arabic
+	case whatlanggo.Azj:
+		return lingua.Azerbaijani
+	case whatlanggo.Bel:
+		return lingua.Belarusian
+	case whatlanggo.Ben:
+		return lingua.Bengali
+	case whatlanggo.Bul:
+		return lingua.Bulgarian
+	case whatlanggo.Ces:
+		return lingua.Czech
+	case whatlanggo.Cmn:
+		return lingua.Chinese
+	case whatlanggo.Dan:
+		return lingua.Danish
+	case whatlanggo.Deu:
+		return lingua.German
+	case whatlanggo.Ell:
+		return lingua.Greek
+	case whatlanggo.Eng:
+		return lingua.English
+	case whatlanggo.Epo:
+		return lingua.Esperanto
+	case whatlanggo.Est:
+		return lingua.Estonian
+	case whatlanggo.Fin:
+		return lingua.Finnish
+	case whatlanggo.Fra:
+		return lingua.French
+	case whatlanggo.Guj:
+		return lingua.Gujarati
+	case whatlanggo.Heb:
+		return lingua.Hebrew
+	case whatlanggo.Hin:
+		return lingua.Hindi
+	case whatlanggo.Hrv:
+		return lingua.Croatian
+	case whatlanggo.Hun:
+		return lingua.Hungarian
+	case whatlanggo.Ind:
+		return lingua.Indonesian
+	case whatlanggo.Ita:
+		return lingua.Italian
+	case whatlanggo.Jpn:
+		return lingua.Japanese
+	case whatlanggo.Kat:
+		return lingua.Georgian
+	case whatlanggo.Kor:
+		return lingua.Korean
+	case whatlanggo.Lav:
+		return lingua.Latvian
+	case whatlanggo.Lit:
+		return lingua.Lithuanian
+	case whatlanggo.Mar:
+		return lingua.Marathi
+	case whatlanggo.Mkd:
+		return lingua.Macedonian
+	case whatlanggo.Nld:
+		return lingua.Dutch
+	case whatlanggo.Nno:
+		return lingua.Nynorsk
+	case whatlanggo.Nob:
+		return lingua.Bokmal
+	case whatlanggo.Pan:
+		return lingua.Punjabi
+	case whatlanggo.Pes:
+		return lingua.Persian
+	case whatlanggo.Pol:
+		return lingua.Polish
+	case whatlanggo.Por:
+		return lingua.Portuguese
+	case whatlanggo.Ron:
+		return lingua.Romanian
+	case whatlanggo.Rus:
+		return lingua.Russian
+	case whatlanggo.Slv:
+		return lingua.Slovene
+	case whatlanggo.Sna:
+		return lingua.Shona
+	case whatlanggo.Som:
+		return lingua.Somali
+	case whatlanggo.Spa:
+		return lingua.Spanish
+	case whatlanggo.Srp:
+		return lingua.Serbian
+	case whatlanggo.Swe:
+		return lingua.Swedish
+	case whatlanggo.Tam:
+		return lingua.Tamil
+	case whatlanggo.Tel:
+		return lingua.Telugu
+	case whatlanggo.Tgl:
+		return lingua.Tagalog
+	case whatlanggo.Tha:
+		return lingua.Thai
+	case whatlanggo.Tur:
+		return lingua.Turkish
+	case whatlanggo.Ukr:
+		return lingua.Ukrainian
+	case whatlanggo.Urd:
+		return lingua.Urdu
+	case whatlanggo.Vie:
+		return lingua.Vietnamese
+	case whatlanggo.Yor:
+		return lingua.Yoruba
+	case whatlanggo.Zul:
+		return lingua.Zulu
+	default:
+		return lingua.Unknown
+	}
 }

@@ -12,5 +12,5 @@ Erroneously classified as Croatian: 5.00%, Bosnian: 4.10%, Esperanto: 0.40%, Slo
 
 >> Detection of 1000 sentences (average length: 114 chars)
 Accuracy: 98.40%
-Erroneously classified as Croatian: 0.80%, Bosnian: 0.40%, Latin: 0.10%, Swahili: 0.10%, Tagalog: 0.10%, Zulu: 0.10%
+Erroneously classified as Croatian: 0.80%, Bosnian: 0.40%, Swahili: 0.20%, Latin: 0.10%, Zulu: 0.10%
 
