@@ -332,12 +332,12 @@ func main() {
 			if err != nil {
 				panic("Lingua reports file could not be created")
 			}
-			defer linguaReportsFile.Close()
 
 			_, err = linguaReportsFile.WriteString(linguaReport)
 			if err != nil {
 				panic("Lingua reports file could not be written")
 			}
+			linguaReportsFile.Close()
 		}
 
 		if len(whatlangReport) > 0 {
@@ -345,12 +345,12 @@ func main() {
 			if err != nil {
 				panic("Whatlang reports file could not be created")
 			}
-			defer whatlangReportsFile.Close()
 
 			_, err = whatlangReportsFile.WriteString(whatlangReport)
 			if err != nil {
 				panic("Whatlang reports file could not be written")
 			}
+			whatlangReportsFile.Close()
 		}
 
 		fmt.Println("Done\n")
