@@ -27,6 +27,29 @@ import (
 	"strings"
 )
 
+// CreateAndWriteLanguageModelFiles creates language model files for
+// accuracy report generation and writes them to a directory.
+//
+// `inputFilePath` is the path to a txt file used for language model creation.
+// The assumed enconding of the txt file is UTF-8.
+//
+// `outputDirectoryPath` is the path to an existing directory where the language
+// model files are to be written.
+//
+// `language` is the language for which to create the language models.
+//
+// `charClass` is a regex character class such as `\\p{L}` to restrict the
+// set of characters that the language models are built from.
+//
+// An error is returned if:
+//
+// - the input file path is not absolute or does not point to an existing txt file
+//
+// - the input file's encoding is not UTF-8
+//
+// - the output directory path is not absolute or does not point to an existing directory
+//
+// Panics if the character class cannot be compiled to a valid regular expression.
 func CreateAndWriteLanguageModelFiles(
 	inputFilePath string,
 	outputDirectoryPath string,
@@ -145,6 +168,29 @@ func CreateAndWriteLanguageModelFiles(
 	return nil
 }
 
+// CreateAndWriteTestDataFiles creates test data files for accuracy report
+// generation and writes them to a directory.
+//
+// `inputFilePath` is the path to a txt file used for test data creation.
+// The assumed enconding of the txt file is UTF-8.
+//
+// `outputDirectoryPath` is the path to an existing directory where the test
+// data files are to be written.
+//
+// `charClass` is a regex character class such as `\\p{L}` to restrict the
+// set of characters that the language models are built from.
+//
+// `maximumLines` is the maximum number of lines each test data file should have.
+//
+// An error is returned if:
+//
+// - the input file path is not absolute or does not point to an existing txt file
+//
+// - the input file's encoding is not UTF-8
+//
+// - the output directory path is not absolute or does not point to an existing directory
+//
+// Panics if the character class cannot be compiled to a valid regular expression.
 func CreateAndWriteTestDataFiles(
 	inputFilePath string,
 	outputDirectoryPath string,

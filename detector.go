@@ -25,8 +25,33 @@ import (
 	"unicode/utf8"
 )
 
+// LanguageDetector is the interface describing the available methods
+// for detecting the language of some textual input.
 type LanguageDetector interface {
+	// DetectLanguageOf detects the language of the given text.
+	// The boolean return value indicates whether a language can be reliably
+	// detected. If this is not possible, (Unknown, false) is returned.
 	DetectLanguageOf(text string) (Language, bool)
+
+	// ComputeLanguageConfidenceValues computes confidence values for each
+	// language considered possible for the given input text.
+	//
+	// A slice of ConfidenceValue is returned containing all possible languages
+	// sorted by their confidence value in descending order. The values that
+	// this method computes are part of a relative confidence metric, not of an
+	// absolute one. Each value is a number between 0.0 and 1.0. The most likely
+	// language is always returned with value 1.0. All other languages get values
+	// assigned which are lower than 1.0, denoting how less likely those languages
+	// are in comparison to the most likely language.
+	//
+	// The slice returned by this method does not necessarily contain all
+	// languages which the calling instance of LanguageDetector was built from.
+	// If the rule-based engine decides that a specific language is truly
+	// impossible, then it will not be part of the returned slice. Likewise,
+	// if no ngram probabilities can be found within the detector's languages
+	// for the given input text, the returned slice will be empty.
+	// The confidence value for each language not being part of the returned
+	// slice is assumed to be 0.0.
 	ComputeLanguageConfidenceValues(text string) []ConfidenceValue
 }
 

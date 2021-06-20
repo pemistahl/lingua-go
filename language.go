@@ -23,6 +23,8 @@ import (
 )
 
 //go:generate stringer -type=Language
+// Language is the type used for enumerating the so far 75 languages which can
+// be detected by Lingua.
 type Language int
 
 const (
@@ -104,6 +106,7 @@ const (
 	Unknown
 )
 
+// AllLanguages returns a sorted slice of all currently supported languages.
 func AllLanguages() []Language {
 	languages := make([]Language, amountOfSupportedLanguages())
 	for i := 0; i < amountOfSupportedLanguages(); i++ {
@@ -112,6 +115,8 @@ func AllLanguages() []Language {
 	return languages
 }
 
+// AllSpokenLanguages returns a sorted slice of all supported languages
+// that are not extinct but still spoken.
 func AllSpokenLanguages() (languages []Language) {
 	for _, language := range AllLanguages() {
 		if language != Latin {
@@ -121,22 +126,33 @@ func AllSpokenLanguages() (languages []Language) {
 	return
 }
 
+// AllLanguagesWithArabicScript returns a sorted slice of all built-in
+// languages supporting the Arabic script.
 func AllLanguagesWithArabicScript() []Language {
 	return allLanguagesWithScript(arabic)
 }
 
+// AllLanguagesWithCyrillicScript returns a sorted slice of all built-in
+// languages supporting the Cyrillic script.
 func AllLanguagesWithCyrillicScript() []Language {
 	return allLanguagesWithScript(cyrillic)
 }
 
+// AllLanguagesWithDevanagariScript returns a sorted slice of all built-in
+// languages supporting the Devanagari script.
 func AllLanguagesWithDevanagariScript() []Language {
 	return allLanguagesWithScript(devanagari)
 }
 
+// AllLanguagesWithLatinScript returns a sorted slice of all built-in
+// languages supporting the Latin script.
 func AllLanguagesWithLatinScript() []Language {
 	return allLanguagesWithScript(latin)
 }
 
+// GetLanguageFromIsoCode639_1 returns a sorted slice of all built-in
+// languages whose ISO 639-1 codes are specified as arguments passed to
+// this method.
 func GetLanguageFromIsoCode639_1(isoCode IsoCode639_1) Language {
 	for _, language := range AllLanguages() {
 		if language.IsoCode639_1() == isoCode {
@@ -146,6 +162,9 @@ func GetLanguageFromIsoCode639_1(isoCode IsoCode639_1) Language {
 	return -1
 }
 
+// GetLanguageFromIsoCode639_3 returns a sorted slice of all built-in
+// languages whose ISO 639-3 codes are specified as arguments passed to
+// this method.
 func GetLanguageFromIsoCode639_3(isoCode IsoCode639_3) Language {
 	for _, language := range AllLanguages() {
 		if language.IsoCode639_3() == isoCode {
@@ -168,6 +187,7 @@ func amountOfSupportedLanguages() int {
 	return int(Zulu + 1)
 }
 
+// IsoCode639_1 returns a language's ISO 639-1 code.
 func (language Language) IsoCode639_1() IsoCode639_1 {
 	switch language {
 	case Afrikaans:
@@ -327,6 +347,7 @@ func (language Language) IsoCode639_1() IsoCode639_1 {
 	}
 }
 
+// IsoCode639_3 returns a language's ISO 639-3 code.
 func (language Language) IsoCode639_3() IsoCode639_3 {
 	switch language {
 	case Afrikaans:
@@ -631,10 +652,14 @@ func (language Language) uniqueCharacters() string {
 	}
 }
 
+// MarshalJSON returns a language's JSON representation
+// which is its full name written in uppercase.
 func (language Language) MarshalJSON() ([]byte, error) {
 	return json.Marshal(strings.ToUpper(language.String()))
 }
 
+// UnmarshalJSON converts a language's JSON representation
+// back to its instance of type Language.
 func (language *Language) UnmarshalJSON(bytes []byte) error {
 	var s string
 	if err := json.Unmarshal(bytes, &s); err != nil {

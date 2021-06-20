@@ -18,25 +18,99 @@ package lingua
 
 const missingLanguageMessage = "LanguageDetector needs at least 2 languages to choose from"
 
+// UnconfiguredLanguageDetectorBuilder is the interface describing the methods
+// for specifying which languages will be used to build an instance of
+// LanguageDetector. All methods return an implementation of the interface
+// LanguageDetectorBuilder.
 type UnconfiguredLanguageDetectorBuilder interface {
+	// FromAllLanguages configures the LanguageDetectorBuilder
+	// to use all built-in languages.
 	FromAllLanguages() LanguageDetectorBuilder
+
+	// FromAllSpokenLanguages configures the LanguageDetectorBuilder
+	// to use all built-in spoken languages.
 	FromAllSpokenLanguages() LanguageDetectorBuilder
+
+	// FromAllLanguagesWithArabicScript configures the LanguageDetectorBuilder
+	// to use all built-in languages supporting the Arabic script.
 	FromAllLanguagesWithArabicScript() LanguageDetectorBuilder
+
+	// FromAllLanguagesWithCyrillicScript configures the LanguageDetectorBuilder
+	// to use all built-in languages supporting the Cyrillic script.
 	FromAllLanguagesWithCyrillicScript() LanguageDetectorBuilder
+
+	// FromAllLanguagesWithDevanagariScript configures the LanguageDetectorBuilder
+	// to use all built-in languages supporting the Devanagari script.
 	FromAllLanguagesWithDevanagariScript() LanguageDetectorBuilder
+
+	// FromAllLanguagesWithLatinScript configures the LanguageDetectorBuilder
+	// to use all built-in languages supporting the Latin script.
 	FromAllLanguagesWithLatinScript() LanguageDetectorBuilder
+
+	// FromAllLanguagesWithout configures the LanguageDetectorBuilder
+	// to use all built-in languages except for those specified as arguments
+	// passed to this method. Panics if less than two languages are used to
+	// build the LanguageDetector.
 	FromAllLanguagesWithout(languages ...Language) LanguageDetectorBuilder
+
+	// FromLanguages configures the LanguageDetectorBuilder to use the languages
+	// specified as arguments passed to this method. Panics if less than two
+	// languages are specified.
 	FromLanguages(languages ...Language) LanguageDetectorBuilder
+
+	// FromIsoCodes639_1 configures the LanguageDetectorBuilder to use those
+	// languages whose ISO 639-1 codes are specified as arguments passed to
+	// this method. Panics if less than two iso codes are specified.
 	FromIsoCodes639_1(isoCodes ...IsoCode639_1) LanguageDetectorBuilder
+
+	// FromIsoCodes639_3 configures the LanguageDetectorBuilder to use those
+	// languages whose ISO 639-3 codes are specified as arguments passed to
+	// this method. Panics if less than two iso codes are specified.
 	FromIsoCodes639_3(isoCodes ...IsoCode639_3) LanguageDetectorBuilder
 }
 
+// LanguageDetectorBuilder is the interface that defines any other settings
+// to use for building an instance of LanguageDetector, except for the languages
+// to use.
 type LanguageDetectorBuilder interface {
+	// WithMinimumRelativeDistance sets the desired value for the minimum
+	// relative distance measure.
+	//
+	// By default, Lingua returns the most likely language for a given
+	// input text. However, there are certain words that are spelled the
+	// same in more than one language. The word `prologue`, for instance,
+	// is both a valid English and French word. Lingua would output either
+	// English or French which might be wrong in the given context.
+	// For cases like that, it is possible to specify a minimum relative
+	// distance that the logarithmized and summed up probabilities for
+	// each possible language have to satisfy.
+	//
+	// Be aware that the distance between the language probabilities is
+	// dependent on the length of the input text. The longer the input
+	// text, the larger the distance between the languages. So if you
+	// want to classify very short text phrases, do not set the minimum
+	// relative distance too high. Otherwise you will get most results
+	// returned as Unknown which is the return value for cases
+	// where language detection is not reliably possible.
+	//
+	// Panics if distance is smaller than 0.0 or greater than 0.99.
+	WithMinimumRelativeDistance(distance float64) LanguageDetectorBuilder
+
+	// WithPreloadedLanguageModels configures LanguageDetectorBuilder to
+	// preload all language models when creating the instance of LanguageDetector.
+	//
+	// By default, Lingua uses lazy-loading to load only those language
+	// models on demand which are considered relevant by the rule-based
+	// filter engine. For web services, for instance, it is rather
+	// beneficial to preload all language models into memory to avoid
+	// unexpected latency while waiting for the service response. This
+	// method allows to switch between these two loading modes.
+	WithPreloadedLanguageModels() LanguageDetectorBuilder
+
+	// Build creates and returns the configured instance of LanguageDetector.
+	Build() LanguageDetector
 	getLanguages() []Language
 	getMinimumRelativeDistance() float64
-	WithMinimumRelativeDistance(distance float64) LanguageDetectorBuilder
-	WithPreloadedLanguageModels() LanguageDetectorBuilder
-	Build() LanguageDetector
 }
 
 type languageDetectorBuilder struct {
@@ -45,6 +119,8 @@ type languageDetectorBuilder struct {
 	isEveryLanguageModelPreloaded bool
 }
 
+// NewLanguageDetectorBuilder returns a new instance that implements the
+// interface UnconfiguredLanguageDetectorBuilder.
 func NewLanguageDetectorBuilder() UnconfiguredLanguageDetectorBuilder {
 	return &languageDetectorBuilder{}
 }

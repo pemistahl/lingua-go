@@ -16,8 +16,13 @@
 
 package lingua
 
+// ConfidenceValue is the interface describing a language's confidence value
+// that is computed by LanguageDetector.ComputeLanguageConfidenceValues.
 type ConfidenceValue interface {
+	// Language returns the language being part of this ConfidenceValue.
 	Language() Language
+
+	// Value returns a language's confidence value which lies between 0.0 and 1.0.
 	Value() float64
 }
 
