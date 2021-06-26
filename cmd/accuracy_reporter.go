@@ -21,6 +21,7 @@ package main
 import (
 	"fmt"
 	"github.com/abadojack/whatlanggo"
+	"github.com/jmhodges/gocld3/cld3"
 	"github.com/pemistahl/lingua-go"
 	"math"
 	"os"
@@ -226,15 +227,24 @@ func main() {
 		WithPreloadedLanguageModels().
 		Build()
 
+	cld3Detector, _ := cld3.NewLanguageIdentifier(0, 512)
+	defer cld3.FreeLanguageIdentifier(cld3Detector)
+
 	workingDirectory, _ := os.Getwd()
 	testDataDirectory := filepath.Join(workingDirectory, "language-testdata")
 	accuracyReportsDirectory := filepath.Join(workingDirectory, "accuracy-reports")
 	linguaReportsDirectory := filepath.Join(accuracyReportsDirectory, "lingua")
+	cld3ReportsDirectory := filepath.Join(accuracyReportsDirectory, "cld3")
 	whatlangReportsDirectory := filepath.Join(accuracyReportsDirectory, "whatlang")
 
 	err := os.MkdirAll(linguaReportsDirectory, os.ModePerm)
 	if err != nil {
 		panic("Lingua reports directory could not be created")
+	}
+
+	err = os.MkdirAll(cld3ReportsDirectory, os.ModePerm)
+	if err != nil {
+		panic("CLD3 reports directory could not be created")
 	}
 
 	err = os.MkdirAll(whatlangReportsDirectory, os.ModePerm)
@@ -255,6 +265,10 @@ func main() {
 		"single-words-whatlang",
 		"word-pairs-whatlang",
 		"sentences-whatlang",
+		"average-cld3",
+		"single-words-cld3",
+		"word-pairs-cld3",
+		"sentences-cld3",
 		"average-lingua",
 		"single-words-lingua",
 		"word-pairs-lingua",
@@ -277,11 +291,15 @@ func main() {
 		sentences := getFileContent(testDataDirectory, "sentences", language)
 
 		linguaStatistics := newDetectorStatistics()
+		cld3Statistics := newDetectorStatistics()
 		whatlangStatistics := newDetectorStatistics()
 
 		for _, singleWord := range singleWords {
 			linguaLanguage, _ := linguaDetector.DetectLanguageOf(singleWord)
 			linguaStatistics.addSingleWordCounts(linguaLanguage, singleWord)
+
+			cld3Language := mapCld3ToLingua(cld3Detector.FindLanguage(singleWord).Language)
+			cld3Statistics.addSingleWordCounts(cld3Language, singleWord)
 
 			whatlangLanguage := mapWhatlangToLingua(whatlanggo.DetectLang(singleWord))
 			whatlangStatistics.addSingleWordCounts(whatlangLanguage, singleWord)
@@ -291,6 +309,9 @@ func main() {
 			linguaLanguage, _ := linguaDetector.DetectLanguageOf(wordPair)
 			linguaStatistics.addWordPairCounts(linguaLanguage, wordPair)
 
+			cld3Language := mapCld3ToLingua(cld3Detector.FindLanguage(wordPair).Language)
+			cld3Statistics.addWordPairCounts(cld3Language, wordPair)
+
 			whatlangLanguage := mapWhatlangToLingua(whatlanggo.DetectLang(wordPair))
 			whatlangStatistics.addWordPairCounts(whatlangLanguage, wordPair)
 		}
@@ -299,22 +320,29 @@ func main() {
 			linguaLanguage, _ := linguaDetector.DetectLanguageOf(sentence)
 			linguaStatistics.addSentenceCounts(linguaLanguage, sentence)
 
+			cld3Language := mapCld3ToLingua(cld3Detector.FindLanguage(sentence).Language)
+			cld3Statistics.addSentenceCounts(cld3Language, sentence)
+
 			whatlangLanguage := mapWhatlangToLingua(whatlanggo.DetectLang(sentence))
 			whatlangStatistics.addSentenceCounts(whatlangLanguage, sentence)
 		}
 
 		linguaStatistics.computeAccuracyValues()
+		cld3Statistics.computeAccuracyValues()
 		whatlangStatistics.computeAccuracyValues()
 
 		linguaReport := linguaStatistics.createReportData(language)
+		cld3Report := cld3Statistics.createReportData(language)
 		whatlangReport := whatlangStatistics.createReportData(language)
 
 		linguaAggregatedReportRow := linguaStatistics.createAggregatedReportRow(language)
+		cld3AggregatedReportRow := cld3Statistics.createAggregatedReportRow(language)
 		whatlangAggregatedReportRow := whatlangStatistics.createAggregatedReportRow(language)
 		totalAggregatedReportRow := fmt.Sprintf(
-			"%s,%s,%s\n",
+			"%s,%s,%s,%s\n",
 			language,
 			whatlangAggregatedReportRow,
+			cld3AggregatedReportRow,
 			linguaAggregatedReportRow,
 		)
 
@@ -325,6 +353,7 @@ func main() {
 
 		reportFileName := fmt.Sprintf("%s.txt", language)
 		linguaReportsFilePath := filepath.Join(linguaReportsDirectory, reportFileName)
+		cld3ReportsFilePath := filepath.Join(cld3ReportsDirectory, reportFileName)
 		whatlangReportsFilePath := filepath.Join(whatlangReportsDirectory, reportFileName)
 
 		if len(linguaReport) > 0 {
@@ -338,6 +367,19 @@ func main() {
 				panic("Lingua reports file could not be written")
 			}
 			linguaReportsFile.Close()
+		}
+
+		if len(cld3Report) > 0 {
+			cld3ReportsFile, err := os.Create(cld3ReportsFilePath)
+			if err != nil {
+				panic("CLD3 reports file could not be created")
+			}
+
+			_, err = cld3ReportsFile.WriteString(cld3Report)
+			if err != nil {
+				panic("CLD3 reports file could not be written")
+			}
+			cld3ReportsFile.Close()
 		}
 
 		if len(whatlangReport) > 0 {
@@ -376,6 +418,16 @@ func getFileContent(testDataDirectory, subdirectory string, language lingua.Lang
 		}
 	}
 	return filteredLines
+}
+
+func mapCld3ToLingua(isoCode string) lingua.Language {
+	for _, language := range lingua.AllLanguages() {
+		linguaIsoCode := strings.ToLower(language.IsoCode639_1().String())
+		if linguaIsoCode == isoCode {
+			return language
+		}
+	}
+	return lingua.Unknown
 }
 
 func mapWhatlangToLingua(language whatlanggo.Lang) lingua.Language {

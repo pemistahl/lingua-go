@@ -73,12 +73,14 @@ each comprising ten thousand sentences. From each test corpus, a random unsorted
 1000 single words, 1000 word pairs and 1000 sentences has been extracted, respectively.
 
 Given the generated test data, I have compared the detection results of Lingua, and
-Whatlanggo running over the data of Lingua's supported 75 languages. Languages that are not
-supported by Whatlanggo are simply ignored for this library during the detection process.
+Whatlanggo running over the data of Lingua's supported 75 languages.
+Additionally, I have added Google's CLD3 (https://github.com/google/cld3/) to the comparison
+with the help of the gocld3 bindings (https://github.com/jmhodges/gocld3). Languages that are not
+supported by CLD3 or Whatlanggo are simply ignored during the detection process.
 
 The bar and box plots (https://github.com/pemistahl/lingua-go/blob/main/ACCURACY_PLOTS.md)
 show the measured accuracy values for all three performed tasks: Single word detection,
-word pair detection and sentence detection. Lingua clearly outperforms its contender.
+word pair detection and sentence detection. Lingua clearly outperforms its contenders.
 Detailed statistics including mean, median and standard deviation values for each language
 and classifier are available in
 tabular form (https://github.com/pemistahl/lingua-go/blob/main/ACCURACY_TABLE.md) as well.

@@ -8,7 +8,7 @@ Erroneously classified as Unknown: 27.20%, Tagalog: 4.10%, Esperanto: 2.40%, Est
 
 >> Detection of 1000 word pairs (average length: 15 chars)
 Accuracy: 65.70%
-Erroneously classified as Unknown: 17.90%, Tagalog: 4.00%, Esperanto: 1.10%, English: 0.90%, Estonian: 0.80%, Hungarian: 0.80%, Lithuanian: 0.80%, Finnish: 0.70%, Italian: 0.70%, Spanish: 0.70%, French: 0.60%, German: 0.50%, Portuguese: 0.50%, Slovene: 0.50%, Somali: 0.50%, Afrikaans: 0.40%, Nynorsk: 0.40%, Swedish: 0.40%, Bokmal: 0.30%, Danish: 0.30%, Romanian: 0.30%, Turkish: 0.30%, Croatian: 0.20%, Dutch: 0.20%, Latvian: 0.20%, Shona: 0.20%, Czech: 0.10%
+Erroneously classified as Unknown: 17.90%, Tagalog: 4.00%, Esperanto: 1.10%, English: 0.80%, Estonian: 0.80%, Hungarian: 0.80%, Lithuanian: 0.80%, Finnish: 0.70%, Italian: 0.70%, Spanish: 0.70%, French: 0.60%, German: 0.50%, Portuguese: 0.50%, Slovene: 0.50%, Somali: 0.50%, Afrikaans: 0.40%, Nynorsk: 0.40%, Swedish: 0.40%, Bokmal: 0.30%, Danish: 0.30%, Romanian: 0.30%, Turkish: 0.30%, Croatian: 0.20%, Czech: 0.20%, Dutch: 0.20%, Latvian: 0.20%, Shona: 0.20%
 
 >> Detection of 1000 sentences (average length: 105 chars)
 Accuracy: 94.90%
