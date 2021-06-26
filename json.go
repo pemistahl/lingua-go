@@ -18,17 +18,22 @@ package lingua
 
 import (
 	"archive/zip"
+	"bytes"
+	"embed"
 	"fmt"
 	"io"
 	"strings"
 )
 
+//go:embed language-models
+var languageModels embed.FS
+
 func loadJson(language Language, ngramLength int) []byte {
 	ngramName := getNgramNameByLength(ngramLength)
 	isoCode := strings.ToLower(language.IsoCode639_1().String())
 	zipFilePath := fmt.Sprintf("language-models/%s/%ss.json.zip", isoCode, ngramName)
-	zipFile, _ := zip.OpenReader(zipFilePath)
-	defer zipFile.Close()
+	zipFileBytes, _ := languageModels.ReadFile(zipFilePath)
+	zipFile, _ := zip.NewReader(bytes.NewReader(zipFileBytes), int64(len(zipFileBytes)))
 	jsonFile, _ := zipFile.File[0].Open()
 	defer jsonFile.Close()
 	jsonFileContent, _ := io.ReadAll(jsonFile)
