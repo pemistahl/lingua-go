@@ -1,5 +1,3 @@
-// +build ignore
-
 /*
  * Copyright © 2021 Peter M. Stahl pemistahl@gmail.com
  *
