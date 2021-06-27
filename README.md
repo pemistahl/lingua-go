@@ -57,7 +57,7 @@ Once the library has been downloaded, it can be used completely offline.
 
 Compared to other language detection libraries, *Lingua's* focus is on *quality over quantity*, that is,
 getting detection right for a small set of languages first before adding new ones.
-Currently, the following 75 languages are supported:
+Currently, the following 76 languages are supported:
 
 - A
     - Afrikaans
@@ -130,6 +130,7 @@ Currently, the following 75 languages are supported:
 - S
     - Serbian
     - Shona
+    - Sinhala
     - Slovak
     - Slovene
     - Somali
@@ -176,7 +177,7 @@ each comprising ten thousand sentences. From each test corpus, a random unsorted
 1000 single words, 1000 word pairs and 1000 sentences has been extracted, respectively.
 
 Given the generated test data, I have compared the detection results of *Lingua* and *Whatlanggo*
-running over the data of *Lingua's* supported 75 languages. Languages that are not supported
+running over the data of *Lingua's* supported 76 languages. Languages that are not supported
 by *Whatlanggo* are simply ignored during the detection process.
 
 The box plot below shows the distribution of the averaged accuracy values for all three performed tasks:

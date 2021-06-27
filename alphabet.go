@@ -145,7 +145,7 @@ var (
 	hiraganaChars   = createRegexp("Hiragana")
 	katakanaChars   = createRegexp("Katakana")
 	latinChars      = createRegexp("Latin")
-	sinhalaChars      = createRegexp("Sinhala")
+	sinhalaChars    = createRegexp("Sinhala")
 	tamilChars      = createRegexp("Tamil")
 	teluguChars     = createRegexp("Telugu")
 	thaiChars       = createRegexp("Thai")
