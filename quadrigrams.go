@@ -73,6 +73,7 @@ var quadrigramModels = map[Language]lazyTrainingDataLanguageModel{
 	Russian:     russianQuadrigramModel(),
 	Serbian:     serbianQuadrigramModel(),
 	Shona:       shonaQuadrigramModel(),
+	Sinhala:     sinhalaQuadrigramModel(),
 	Slovak:      slovakQuadrigramModel(),
 	Slovene:     sloveneQuadrigramModel(),
 	Somali:      somaliQuadrigramModel(),
@@ -685,6 +686,17 @@ func shonaQuadrigramModel() lazyTrainingDataLanguageModel {
 	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadQuadrigrams(Shona))
+		})
+		return model
+	}
+}
+
+func sinhalaQuadrigramModel() lazyTrainingDataLanguageModel {
+	var once sync.Once
+	var model trainingDataLanguageModel
+	return func() languageModel {
+		once.Do(func() {
+			model = newTrainingDataLanguageModelFromJson(loadQuadrigrams(Sinhala))
 		})
 		return model
 	}

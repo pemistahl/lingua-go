@@ -20,8 +20,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/abadojack/whatlanggo"
-	"github.com/pemistahl/lingua-go"
 	"math"
 	"os"
 	"path/filepath"
@@ -29,6 +27,9 @@ import (
 	"strings"
 	"time"
 	"unicode/utf8"
+
+	"github.com/abadojack/whatlanggo"
+	"github.com/pemistahl/lingua-go"
 )
 
 type detectorStatistics struct {
@@ -462,6 +463,8 @@ func mapWhatlangToLingua(language whatlanggo.Lang) lingua.Language {
 		return lingua.Slovene
 	case whatlanggo.Sna:
 		return lingua.Shona
+	case whatlanggo.Sin:
+		return lingua.Sinhala
 	case whatlanggo.Som:
 		return lingua.Somali
 	case whatlanggo.Spa:

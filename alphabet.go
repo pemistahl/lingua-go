@@ -39,6 +39,7 @@ const (
 	hiragana
 	katakana
 	latin
+	sinhala
 	tamil
 	telugu
 	thai
@@ -76,6 +77,8 @@ func (alphabet alphabet) matches(text string) bool {
 		return katakanaChars.MatchString(text)
 	case latin:
 		return latinChars.MatchString(text)
+	case sinhala:
+		return sinhalaChars.MatchString(text)
 	case tamil:
 		return tamilChars.MatchString(text)
 	case telugu:
@@ -142,6 +145,7 @@ var (
 	hiraganaChars   = createRegexp("Hiragana")
 	katakanaChars   = createRegexp("Katakana")
 	latinChars      = createRegexp("Latin")
+	sinhalaChars      = createRegexp("Sinhala")
 	tamilChars      = createRegexp("Tamil")
 	teluguChars     = createRegexp("Telugu")
 	thaiChars       = createRegexp("Thai")

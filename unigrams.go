@@ -74,6 +74,7 @@ var unigramModels = map[Language]lazyTrainingDataLanguageModel{
 	Serbian:     serbianUnigramModel(),
 	Shona:       shonaUnigramModel(),
 	Slovak:      slovakUnigramModel(),
+	Sinhala:     sinhalaUnigramModel(),
 	Slovene:     sloveneUnigramModel(),
 	Somali:      somaliUnigramModel(),
 	Sotho:       sothoUnigramModel(),
@@ -685,6 +686,17 @@ func shonaUnigramModel() lazyTrainingDataLanguageModel {
 	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Shona))
+		})
+		return model
+	}
+}
+
+func sinhalaUnigramModel() lazyTrainingDataLanguageModel {
+	var once sync.Once
+	var model trainingDataLanguageModel
+	return func() languageModel {
+		once.Do(func() {
+			model = newTrainingDataLanguageModelFromJson(loadUnigrams(Sinhala))
 		})
 		return model
 	}

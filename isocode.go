@@ -183,6 +183,11 @@ const (
 	// RU is the ISO 639-1 code for Russian.
 	RU
 
+
+	// SI is the ISO 639-1 code for Sinhala.
+	SI
+
+
 	// SK is the ISO 639-1 code for Slovak.
 	SK
 
@@ -409,6 +414,9 @@ const (
 
 	// RUS is the ISO 639-3 code for Russian.
 	RUS
+
+	// SIN is the ISO 639-3 code for Sinhala.
+	SIN
 
 	// SLK is the ISO 639-3 code for Slovak.
 	SLK

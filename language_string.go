@@ -62,37 +62,38 @@ func _() {
 	_ = x[Russian-51]
 	_ = x[Serbian-52]
 	_ = x[Shona-53]
-	_ = x[Slovak-54]
-	_ = x[Slovene-55]
-	_ = x[Somali-56]
-	_ = x[Sotho-57]
-	_ = x[Spanish-58]
-	_ = x[Swahili-59]
-	_ = x[Swedish-60]
-	_ = x[Tagalog-61]
-	_ = x[Tamil-62]
-	_ = x[Telugu-63]
-	_ = x[Thai-64]
-	_ = x[Tsonga-65]
-	_ = x[Tswana-66]
-	_ = x[Turkish-67]
-	_ = x[Ukrainian-68]
-	_ = x[Urdu-69]
-	_ = x[Vietnamese-70]
-	_ = x[Welsh-71]
-	_ = x[Xhosa-72]
-	_ = x[Yoruba-73]
-	_ = x[Zulu-74]
-	_ = x[Unknown-75]
+	_ = x[Sinhala-54]
+	_ = x[Slovak-55]
+	_ = x[Slovene-56]
+	_ = x[Somali-57]
+	_ = x[Sotho-58]
+	_ = x[Spanish-59]
+	_ = x[Swahili-60]
+	_ = x[Swedish-61]
+	_ = x[Tagalog-62]
+	_ = x[Tamil-63]
+	_ = x[Telugu-64]
+	_ = x[Thai-65]
+	_ = x[Tsonga-66]
+	_ = x[Tswana-67]
+	_ = x[Turkish-68]
+	_ = x[Ukrainian-69]
+	_ = x[Urdu-70]
+	_ = x[Vietnamese-71]
+	_ = x[Welsh-72]
+	_ = x[Xhosa-73]
+	_ = x[Yoruba-74]
+	_ = x[Zulu-75]
+	_ = x[Unknown-76]
 }
 
-const _Language_name = "AfrikaansAlbanianArabicArmenianAzerbaijaniBasqueBelarusianBengaliBokmalBosnianBulgarianCatalanChineseCroatianCzechDanishDutchEnglishEsperantoEstonianFinnishFrenchGandaGeorgianGermanGreekGujaratiHebrewHindiHungarianIcelandicIndonesianIrishItalianJapaneseKazakhKoreanLatinLatvianLithuanianMacedonianMalayMaoriMarathiMongolianNynorskPersianPolishPortuguesePunjabiRomanianRussianSerbianShonaSlovakSloveneSomaliSothoSpanishSwahiliSwedishTagalogTamilTeluguThaiTsongaTswanaTurkishUkrainianUrduVietnameseWelshXhosaYorubaZuluUnknown"
+const _Language_name = "AfrikaansAlbanianArabicArmenianAzerbaijaniBasqueBelarusianBengaliBokmalBosnianBulgarianCatalanChineseCroatianCzechDanishDutchEnglishEsperantoEstonianFinnishFrenchGandaGeorgianGermanGreekGujaratiHebrewHindiHungarianIcelandicIndonesianIrishItalianJapaneseKazakhKoreanLatinLatvianLithuanianMacedonianMalayMaoriMarathiMongolianNynorskPersianPolishPortuguesePunjabiRomanianRussianSerbianShonaSinhalaSlovakSloveneSomaliSothoSpanishSwahiliSwedishTagalogTamilTeluguThaiTsongaTswanaTurkishUkrainianUrduVietnameseWelshXhosaYorubaZuluUnknown"
 
-var _Language_index = [...]uint16{0, 9, 17, 23, 31, 42, 48, 58, 65, 71, 78, 87, 94, 101, 109, 114, 120, 125, 132, 141, 149, 156, 162, 167, 175, 181, 186, 194, 200, 205, 214, 223, 233, 238, 245, 253, 259, 265, 270, 277, 287, 297, 302, 307, 314, 323, 330, 337, 343, 353, 360, 368, 375, 382, 387, 393, 400, 406, 411, 418, 425, 432, 439, 444, 450, 454, 460, 466, 473, 482, 486, 496, 501, 506, 512, 516, 523}
+var _Language_index = [...]uint16{0, 9, 17, 23, 31, 42, 48, 58, 65, 71, 78, 87, 94, 101, 109, 114, 120, 125, 132, 141, 149, 156, 162, 167, 175, 181, 186, 194, 200, 205, 214, 223, 233, 238, 245, 253, 259, 265, 270, 277, 287, 297, 302, 307, 314, 323, 330, 337, 343, 353, 360, 368, 375, 382, 387, 394, 400, 407, 413, 418, 425, 432, 439, 446, 451, 457, 461, 467, 473, 480, 489, 493, 503, 508, 513, 519, 523, 530}
 
-func (language Language) String() string {
-	if language < 0 || language >= Language(len(_Language_index)-1) {
-		return "Language(" + strconv.FormatInt(int64(language), 10) + ")"
+func (i Language) String() string {
+	if i < 0 || i >= Language(len(_Language_index)-1) {
+		return "Language(" + strconv.FormatInt(int64(i), 10) + ")"
 	}
-	return _Language_name[_Language_index[language]:_Language_index[language+1]]
+	return _Language_name[_Language_index[i]:_Language_index[i+1]]
 }

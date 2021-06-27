@@ -75,6 +75,7 @@ var bigramModels = map[Language]lazyTrainingDataLanguageModel{
 	Russian:     russianBigramModel(),
 	Serbian:     serbianBigramModel(),
 	Shona:       shonaBigramModel(),
+	Sinhala:     sinhalaBigramModel(),
 	Slovak:      slovakBigramModel(),
 	Slovene:     sloveneBigramModel(),
 	Somali:      somaliBigramModel(),
@@ -687,6 +688,17 @@ func shonaBigramModel() lazyTrainingDataLanguageModel {
 	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadBigrams(Shona))
+		})
+		return model
+	}
+}
+
+func sinhalaBigramModel() lazyTrainingDataLanguageModel {
+	var once sync.Once
+	var model trainingDataLanguageModel
+	return func() languageModel {
+		once.Do(func() {
+			model = newTrainingDataLanguageModelFromJson(loadBigrams(Sinhala))
 		})
 		return model
 	}

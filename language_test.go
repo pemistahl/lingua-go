@@ -19,8 +19,9 @@ package lingua
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestAllLanguages(t *testing.T) {
@@ -81,6 +82,7 @@ func TestAllLanguages(t *testing.T) {
 			Russian,
 			Serbian,
 			Shona,
+			Sinhala,
 			Slovak,
 			Slovene,
 			Somali,
@@ -163,6 +165,7 @@ func TestAllSpokenLanguages(t *testing.T) {
 			Russian,
 			Serbian,
 			Shona,
+			Sinhala,
 			Slovak,
 			Slovene,
 			Somali,

@@ -17,8 +17,9 @@
 package lingua
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestLanguageDetectorBuilder_FromAllLanguages(t *testing.T) {
@@ -118,6 +119,7 @@ func TestLanguageDetectorBuilder_FromAllLanguagesWithout(t *testing.T) {
 			Serbian,
 			Shona,
 			Slovak,
+			Sinhala,
 			Slovene,
 			Somali,
 			Sotho,

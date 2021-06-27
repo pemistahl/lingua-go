@@ -82,6 +82,7 @@ const (
 	Russian
 	Serbian
 	Shona
+	Sinhala
 	Slovak
 	Slovene
 	Somali
@@ -298,6 +299,8 @@ func (language Language) IsoCode639_1() IsoCode639_1 {
 		return SR
 	case Shona:
 		return SN
+	case Sinhala:
+		return SI
 	case Slovak:
 		return SK
 	case Slovene:
@@ -458,6 +461,8 @@ func (language Language) IsoCode639_3() IsoCode639_3 {
 		return SRP
 	case Shona:
 		return SNA
+	case Sinhala:
+		return SIN
 	case Slovak:
 		return SLK
 	case Slovene:
@@ -594,6 +599,8 @@ func (language Language) alphabets() []alphabet {
 		return []alphabet{hangul}
 	case Punjabi:
 		return []alphabet{gurmukhi}
+	case Sinhala:
+		return []alphabet{sinhala}
 	case Tamil:
 		return []alphabet{tamil}
 	case Telugu:
@@ -637,6 +644,13 @@ func (language Language) uniqueCharacters() string {
 		return "Țţ"
 	case Serbian:
 		return "ЂђЋћ"
+	case Sinhala:
+		// https://en.wikipedia.org/wiki/Sinhala_script
+		vowels := "අඉඊඋඑඔ"
+		consonants := "කගටඩතදපබසහචජමනලරවයණළ"
+		prenasalizedConsonants := "ඟඬඳඹ"
+		extraMisraPlosives := "ඛඨථඵඝඪධභශෂඡඣඤඥඞෆඦ"
+		return vowels + consonants + prenasalizedConsonants + extraMisraPlosives
 	case Slovak:
 		return "ĹĺĽľŔŕ"
 	case Spanish:

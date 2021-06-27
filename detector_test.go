@@ -18,10 +18,11 @@ package lingua
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/mock"
 	"math"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/mock"
 )
 
 // ##############################
@@ -508,6 +509,9 @@ func TestDetectLanguageWithRules(t *testing.T) {
 		{"ialomiţa", Romanian},
 		{"наслеђивања", Serbian},
 		{"неисквареношћу", Serbian},
+		{"අඳින්න", Sinhala},
+		{"සිංහල", Sinhala},
+		{"මිනිසා", Sinhala},
 		{"podĺa", Slovak},
 		{"pohľade", Slovak},
 		{"mŕtvych", Slovak},
