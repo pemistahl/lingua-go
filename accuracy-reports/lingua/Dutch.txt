@@ -12,5 +12,5 @@ Erroneously classified as Afrikaans: 5.80%, Latin: 2.00%, German: 1.90%, English
 
 >> Detection of 1000 sentences (average length: 108 chars)
 Accuracy: 96.20%
-Erroneously classified as Afrikaans: 1.60%, Latin: 1.10%, Welsh: 0.40%, German: 0.20%, Italian: 0.20%, Bokmal: 0.10%, English: 0.10%, French: 0.10%
+Erroneously classified as Afrikaans: 1.50%, Latin: 1.10%, Welsh: 0.40%, German: 0.20%, Italian: 0.20%, Bokmal: 0.10%, English: 0.10%, French: 0.10%, Tsonga: 0.10%
 

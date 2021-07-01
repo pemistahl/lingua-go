@@ -1,10 +1,10 @@
 ##### Tagalog #####
 
->>> Accuracy on average: 51.93%
+>>> Accuracy on average: 51.97%
 
 >> Detection of 1000 single words (average length: 9 chars)
-Accuracy: 23.20%
-Erroneously classified as Unknown: 42.90%, Indonesian: 3.90%, English: 2.90%, Estonian: 2.40%, French: 2.20%, Esperanto: 2.00%, Spanish: 1.70%, Portuguese: 1.60%, German: 1.40%, Lithuanian: 1.40%, Afrikaans: 1.30%, Italian: 1.20%, Somali: 1.20%, Dutch: 1.10%, Nynorsk: 1.10%, Zulu: 1.10%, Shona: 0.90%, Romanian: 0.80%, Turkish: 0.70%, Bokmal: 0.60%, Croatian: 0.60%, Slovene: 0.60%, Latvian: 0.50%, Swedish: 0.50%, Danish: 0.40%, Finnish: 0.40%, Hungarian: 0.40%, Polish: 0.40%, Czech: 0.30%, Azerbaijani: 0.20%, Vietnamese: 0.10%
+Accuracy: 23.30%
+Erroneously classified as Unknown: 42.80%, Indonesian: 3.90%, English: 2.90%, Estonian: 2.40%, French: 2.20%, Esperanto: 2.00%, Spanish: 1.70%, Portuguese: 1.60%, German: 1.40%, Lithuanian: 1.40%, Afrikaans: 1.30%, Italian: 1.20%, Somali: 1.20%, Dutch: 1.10%, Nynorsk: 1.10%, Zulu: 1.10%, Shona: 0.90%, Romanian: 0.80%, Croatian: 0.70%, Turkish: 0.70%, Bokmal: 0.60%, Latvian: 0.50%, Slovene: 0.50%, Swedish: 0.50%, Danish: 0.40%, Finnish: 0.40%, Hungarian: 0.40%, Polish: 0.40%, Czech: 0.30%, Azerbaijani: 0.20%, Vietnamese: 0.10%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
 Accuracy: 42.90%

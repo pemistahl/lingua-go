@@ -12,5 +12,5 @@ Erroneously classified as Marathi: 35.70%
 
 >> Detection of 1000 sentences (average length: 82 chars)
 Accuracy: 92.80%
-Erroneously classified as Marathi: 6.40%, Unknown: 0.50%, English: 0.30%
+Erroneously classified as Marathi: 6.30%, Unknown: 0.50%, English: 0.30%, Estonian: 0.10%
 

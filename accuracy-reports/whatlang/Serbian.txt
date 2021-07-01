@@ -4,7 +4,7 @@
 
 >> Detection of 1000 single words (average length: 9 chars)
 Accuracy: 33.80%
-Erroneously classified as Macedonian: 14.50%, Ukrainian: 12.70%, Bulgarian: 12.50%, Unknown: 7.90%, Russian: 7.00%, Belarusian: 6.80%, Azerbaijani: 4.80%
+Erroneously classified as Macedonian: 14.50%, Ukrainian: 12.80%, Bulgarian: 12.50%, Unknown: 7.90%, Belarusian: 6.90%, Russian: 6.80%, Azerbaijani: 4.80%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
 Accuracy: 50.80%
