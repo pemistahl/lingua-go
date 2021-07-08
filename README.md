@@ -4,7 +4,7 @@
 
 [![Build Status](https://github.com/pemistahl/lingua-go/workflows/build/badge.svg?branch=main)](https://github.com/pemistahl/lingua-go/actions?query=workflow%3A%22build%22+branch%3Amain)
 [![codecov](https://codecov.io/gh/pemistahl/lingua-go/branch/main/graph/badge.svg)](https://codecov.io/gh/pemistahl/lingua-go)
-[![supported languages](https://img.shields.io/badge/supported%20languages-75-green.svg)](#supported-languages)
+[![supported languages](https://img.shields.io/badge/supported%20languages-76-green.svg)](#supported-languages)
 [![Go Reference](https://pkg.go.dev/badge/github.com/pemistahl/lingua-go.svg)](https://pkg.go.dev/github.com/pemistahl/lingua-go)
 [![Go Report Card](https://goreportcard.com/badge/github.com/pemistahl/lingua-go)](https://goreportcard.com/report/github.com/pemistahl/lingua-go)
 [![license](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
@@ -57,7 +57,7 @@ Once the library has been downloaded, it can be used completely offline.
 
 Compared to other language detection libraries, *Lingua's* focus is on *quality over quantity*, that is,
 getting detection right for a small set of languages first before adding new ones.
-Currently, the following 75 languages are supported:
+Currently, the following 76 languages are supported:
 
 - A
     - Afrikaans
@@ -130,6 +130,7 @@ Currently, the following 75 languages are supported:
 - S
     - Serbian
     - Shona
+    - Sinhala
     - Slovak
     - Slovene
     - Somali
@@ -176,7 +177,7 @@ each comprising ten thousand sentences. From each test corpus, a random unsorted
 1000 single words, 1000 word pairs and 1000 sentences has been extracted, respectively.
 
 Given the generated test data, I have compared the detection results of *Lingua* and *Whatlanggo*
-running over the data of *Lingua's* supported 75 languages. Additionally, I have added Google's 
+running over the data of *Lingua's* supported 76 languages. Additionally, I have added Google's 
 [CLD3](https://github.com/google/cld3/) to the comparison with the help of the 
 [gocld3](https://github.com/jmhodges/gocld3) bindings. Languages that are not supported
 by *CLD3* or *Whatlanggo* are simply ignored during the detection process.

@@ -117,6 +117,7 @@ func TestLanguageDetectorBuilder_FromAllLanguagesWithout(t *testing.T) {
 			Russian,
 			Serbian,
 			Shona,
+			Sinhala,
 			Slovak,
 			Slovene,
 			Somali,

@@ -73,6 +73,7 @@ var trigramModels = map[Language]lazyTrainingDataLanguageModel{
 	Russian:     russianTrigramModel(),
 	Serbian:     serbianTrigramModel(),
 	Shona:       shonaTrigramModel(),
+	Sinhala:     sinhalaTrigramModel(),
 	Slovak:      slovakTrigramModel(),
 	Slovene:     sloveneTrigramModel(),
 	Somali:      somaliTrigramModel(),
@@ -685,6 +686,17 @@ func shonaTrigramModel() lazyTrainingDataLanguageModel {
 	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadTrigrams(Shona))
+		})
+		return model
+	}
+}
+
+func sinhalaTrigramModel() lazyTrainingDataLanguageModel {
+	var once sync.Once
+	var model trainingDataLanguageModel
+	return func() languageModel {
+		once.Do(func() {
+			model = newTrainingDataLanguageModelFromJson(loadTrigrams(Sinhala))
 		})
 		return model
 	}

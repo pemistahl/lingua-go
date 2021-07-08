@@ -73,6 +73,7 @@ var fivegramModels = map[Language]lazyTrainingDataLanguageModel{
 	Russian:     russianFivegramModel(),
 	Serbian:     serbianFivegramModel(),
 	Shona:       shonaFivegramModel(),
+	Sinhala:     sinhalaFivegramModel(),
 	Slovak:      slovakFivegramModel(),
 	Slovene:     sloveneFivegramModel(),
 	Somali:      somaliFivegramModel(),
@@ -685,6 +686,17 @@ func shonaFivegramModel() lazyTrainingDataLanguageModel {
 	return func() languageModel {
 		once.Do(func() {
 			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Shona))
+		})
+		return model
+	}
+}
+
+func sinhalaFivegramModel() lazyTrainingDataLanguageModel {
+	var once sync.Once
+	var model trainingDataLanguageModel
+	return func() languageModel {
+		once.Do(func() {
+			model = newTrainingDataLanguageModelFromJson(loadFivegrams(Sinhala))
 		})
 		return model
 	}
