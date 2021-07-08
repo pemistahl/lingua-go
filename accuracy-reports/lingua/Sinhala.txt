@@ -1,0 +1,16 @@
+##### Sinhala #####
+
+>>> Accuracy on average: 99.90%
+
+>> Detection of 1071 single words (average length: 5 chars)
+Accuracy: 99.91%
+Erroneously classified as Maori: 0.09%
+
+>> Detection of 485 word pairs (average length: 10 chars)
+Accuracy: 99.79%
+Erroneously classified as Maori: 0.21%
+
+>> Detection of 7 sentences (average length: 128 chars)
+Accuracy: 100.00%
+Erroneously classified as 
+

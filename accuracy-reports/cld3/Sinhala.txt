@@ -1,0 +1,16 @@
+##### Sinhala #####
+
+>>> Accuracy on average: 97.09%
+
+>> Detection of 1071 single words (average length: 5 chars)
+Accuracy: 91.69%
+Erroneously classified as Chinese: 2.61%, Unknown: 1.77%, Arabic: 1.03%, Persian: 0.65%, Hindi: 0.37%, Japanese: 0.28%, Latin: 0.28%, Russian: 0.19%, Urdu: 0.19%, Croatian: 0.09%, German: 0.09%, Hungarian: 0.09%, Malay: 0.09%, Marathi: 0.09%, Portuguese: 0.09%, Shona: 0.09%, Ukrainian: 0.09%, Welsh: 0.09%, Yoruba: 0.09%
+
+>> Detection of 485 word pairs (average length: 10 chars)
+Accuracy: 99.59%
+Erroneously classified as Marathi: 0.21%, Portuguese: 0.21%
+
+>> Detection of 7 sentences (average length: 128 chars)
+Accuracy: 100.00%
+Erroneously classified as 
+

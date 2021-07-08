@@ -1,10 +1,10 @@
 ##### Persian #####
 
->>> Accuracy on average: 90.20%
+>>> Accuracy on average: 90.23%
 
 >> Detection of 1000 single words (average length: 6 chars)
-Accuracy: 77.50%
-Erroneously classified as Urdu: 14.60%, Arabic: 7.90%
+Accuracy: 77.60%
+Erroneously classified as Urdu: 14.60%, Arabic: 7.80%
 
 >> Detection of 1000 word pairs (average length: 13 chars)
 Accuracy: 93.70%
