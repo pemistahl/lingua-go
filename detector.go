@@ -373,6 +373,16 @@ func (detector languageDetector) filterLanguagesByRules(words []string) []Langua
 		return detector.languages
 	}
 
+	if len(detectedAlphabets) > 1 {
+		distinctAlphabetCounts := make(map[uint32]bool)
+		for _, count := range detectedAlphabets {
+			distinctAlphabetCounts[count] = true
+		}
+		if len(distinctAlphabetCounts) == 1 {
+			return detector.languages
+		}
+	}
+
 	sortedAlphabets := make([]alphabet, 0, len(detectedAlphabets))
 	for alphabet := range detectedAlphabets {
 		sortedAlphabets = append(sortedAlphabets, alphabet)
@@ -394,18 +404,12 @@ func (detector languageDetector) filterLanguagesByRules(words []string) []Langua
 
 	for _, word := range words {
 		for characters, languages := range charsToLanguagesMapping {
-			wordContainsChar := false
 			for _, character := range []rune(characters) {
 				if strings.ContainsRune(word, character) {
 					for _, language := range languages {
 						languageCounts[language]++
 					}
-					wordContainsChar = true
-					break
 				}
-			}
-			if wordContainsChar {
-				break
 			}
 		}
 	}

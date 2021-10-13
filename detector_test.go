@@ -698,3 +698,36 @@ func TestDetectionOfInvalidStrings(t *testing.T) {
 		assert.False(t, exists)
 	}
 }
+
+func TestLanguageDetectionIsDeterministic(t *testing.T) {
+	testCases := []struct {
+		text      string
+		languages []Language
+	}{
+		{
+			"ام وی با نیکی میناج تیزر داشت؟؟؟؟؟؟ i vote for bts ( _ ) as the _ via ( _ )",
+			[]Language{English, Urdu},
+		},
+		{
+			"Az elmúlt hétvégén 12-re emelkedett az elhunyt koronavírus-fertőzöttek száma Szlovákiában. Mindegyik szociális otthon dolgozóját letesztelik, Matovič szerint az ingázóknak még várniuk kellene a teszteléssel",
+			[]Language{Hungarian, Slovak},
+		},
+	}
+	for _, testCase := range testCases {
+		detector := NewLanguageDetectorBuilder().
+			FromLanguages(testCase.languages...).
+			WithPreloadedLanguageModels().
+			Build()
+		detectedLanguages := make(map[Language]bool)
+		for i := 0; i < 100; i++ {
+			language, _ := detector.DetectLanguageOf(testCase.text)
+			detectedLanguages[language] = true
+		}
+		assert.Len(
+			t,
+			detectedLanguages,
+			1,
+			fmt.Sprintf("language detector is non-deterministic for languages %v", testCase.languages),
+		)
+	}
+}
