@@ -12,5 +12,5 @@ Erroneously classified as Latin: 1.40%, Danish: 0.30%, English: 0.30%, Portugues
 
 >> Detection of 1000 sentences (average length: 97 chars)
 Accuracy: 99.20%
-Erroneously classified as Latin: 0.20%, Nynorsk: 0.10%, Romanian: 0.10%, Sotho: 0.10%, Tsonga: 0.10%, Tswana: 0.10%, Yoruba: 0.10%
+Erroneously classified as Latin: 0.20%, Sotho: 0.20%, Nynorsk: 0.10%, Romanian: 0.10%, Tsonga: 0.10%, Yoruba: 0.10%
 

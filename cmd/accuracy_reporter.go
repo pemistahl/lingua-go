@@ -24,6 +24,7 @@ import (
 	"github.com/jmhodges/gocld3/cld3"
 	"github.com/pemistahl/lingua-go"
 	"math"
+	"math/big"
 	"os"
 	"path/filepath"
 	"sort"
@@ -32,16 +33,18 @@ import (
 	"unicode/utf8"
 )
 
+var zero = big.NewRat(0, 1)
+
 type detectorStatistics struct {
 	singleWordStatistic statistic
 	wordPairStatistic   statistic
 	sentenceStatistic   statistic
-	averageAccuracies   map[lingua.Language]float64
+	averageAccuracies   map[lingua.Language]*big.Rat
 }
 
 type statistic struct {
 	languageCounts     map[lingua.Language]int
-	languageAccuracies map[lingua.Language]float64
+	languageAccuracies map[lingua.Language]*big.Rat
 	entityCount        int
 	entityLengthCount  int
 }
@@ -51,14 +54,14 @@ func newDetectorStatistics() detectorStatistics {
 		singleWordStatistic: newStatistic(),
 		wordPairStatistic:   newStatistic(),
 		sentenceStatistic:   newStatistic(),
-		averageAccuracies:   make(map[lingua.Language]float64),
+		averageAccuracies:   make(map[lingua.Language]*big.Rat),
 	}
 }
 
 func newStatistic() statistic {
 	return statistic{
 		languageCounts:     make(map[lingua.Language]int),
-		languageAccuracies: make(map[lingua.Language]float64),
+		languageAccuracies: make(map[lingua.Language]*big.Rat),
 		entityCount:        0,
 		entityLengthCount:  0,
 	}
@@ -92,17 +95,23 @@ func (ds *detectorStatistics) createReportData(language lingua.Language) string 
 	singleWordAccuracy, singleWordReport := ds.singleWordStatistic.createReportData(language, "single words")
 	wordPairAccuracy, wordPairReport := ds.wordPairStatistic.createReportData(language, "word pairs")
 	sentenceAccuracy, sentenceReport := ds.sentenceStatistic.createReportData(language, "sentences")
-	averageAccuracy := (singleWordAccuracy + wordPairAccuracy + sentenceAccuracy) / 3
+	sum := big.NewRat(0, 1)
+	sum = sum.Add(sum, singleWordAccuracy)
+	sum = sum.Add(sum, wordPairAccuracy)
+	sum = sum.Add(sum, sentenceAccuracy)
+	averageAccuracy := sum.Quo(sum, big.NewRat(3, 1))
 	ds.averageAccuracies[language] = averageAccuracy
 
-	if averageAccuracy == 0 {
+	if averageAccuracy.Cmp(zero) == 0 {
 		return ""
 	}
+
+	averageFloatAccuracy, _ := averageAccuracy.Float64()
 
 	return fmt.Sprintf(
 		"##### %s #####\n\n>>> Accuracy on average: %.2f%%\n\n%s\n%s\n%s\n",
 		language,
-		averageAccuracy*100,
+		averageFloatAccuracy*100,
 		singleWordReport,
 		wordPairReport,
 		sentenceReport,
@@ -112,32 +121,36 @@ func (ds *detectorStatistics) createReportData(language lingua.Language) string 
 func (ds *detectorStatistics) createAggregatedReportRow(language lingua.Language) string {
 	var averageAccuracyColumn string
 	accuracy, exists := ds.averageAccuracies[language]
-	if exists && accuracy > 0 {
-		averageAccuracyColumn = fmt.Sprintf("%.0f", accuracy*100)
+	if exists && accuracy.Cmp(zero) == 1 {
+		floatAccuracy, _ := accuracy.Float64()
+		averageAccuracyColumn = fmt.Sprintf("%.0f", floatAccuracy*100)
 	} else {
 		averageAccuracyColumn = "NaN"
 	}
 
 	var singleWordsAccuracyColumn string
 	accuracy, exists = ds.singleWordStatistic.languageAccuracies[language]
-	if exists && accuracy > 0 {
-		singleWordsAccuracyColumn = fmt.Sprintf("%.0f", accuracy*100)
+	if exists && accuracy.Cmp(zero) == 1 {
+		floatAccuracy, _ := accuracy.Float64()
+		singleWordsAccuracyColumn = fmt.Sprintf("%.0f", floatAccuracy*100)
 	} else {
 		singleWordsAccuracyColumn = "NaN"
 	}
 
 	var wordPairsAccuracyColumn string
 	accuracy, exists = ds.wordPairStatistic.languageAccuracies[language]
-	if exists && accuracy > 0 {
-		wordPairsAccuracyColumn = fmt.Sprintf("%.0f", accuracy*100)
+	if exists && accuracy.Cmp(zero) == 1 {
+		floatAccuracy, _ := accuracy.Float64()
+		wordPairsAccuracyColumn = fmt.Sprintf("%.0f", floatAccuracy*100)
 	} else {
 		wordPairsAccuracyColumn = "NaN"
 	}
 
 	var sentencesAccuracyColumn string
 	accuracy, exists = ds.sentenceStatistic.languageAccuracies[language]
-	if exists && accuracy > 0 {
-		sentencesAccuracyColumn = fmt.Sprintf("%.0f", accuracy*100)
+	if exists && accuracy.Cmp(zero) == 1 {
+		floatAccuracy, _ := accuracy.Float64()
+		sentencesAccuracyColumn = fmt.Sprintf("%.0f", floatAccuracy*100)
 	} else {
 		sentencesAccuracyColumn = "NaN"
 	}
@@ -172,25 +185,26 @@ func (s *statistic) mapCountsToAccuracyValues() {
 		sumOfCounts += count
 	}
 	for language, count := range s.languageCounts {
-		s.languageAccuracies[language] = float64(count) / float64(sumOfCounts)
+		s.languageAccuracies[language] = big.NewRat(int64(count), int64(sumOfCounts))
 	}
 }
 
 func (s *statistic) createReportData(
 	language lingua.Language,
 	description string,
-) (float64, string) {
+) (*big.Rat, string) {
 	accuracy, exists := s.languageAccuracies[language]
 	if !exists {
-		accuracy = 0.0
+		accuracy = zero
 	}
 	averageLength := int(math.Round(float64(s.entityLengthCount) / float64(s.entityCount)))
+	floatAccuracy, _ := accuracy.Float64()
 	report := fmt.Sprintf(
 		">> Detection of %d %s (average length: %d chars)\nAccuracy: %.2f%%\nErroneously classified as %s\n",
 		s.entityCount,
 		description,
 		averageLength,
-		accuracy*100,
+		floatAccuracy*100,
 		s.formatLanguageAccuracies(language),
 	)
 	return accuracy, report
@@ -206,14 +220,15 @@ func (s *statistic) formatLanguageAccuracies(language lingua.Language) string {
 	sort.Slice(languages, func(i, j int) bool {
 		firstLanguage, secondLanguage := languages[i], languages[j]
 		firstAccuracy, secondAccuracy := s.languageAccuracies[firstLanguage], s.languageAccuracies[secondLanguage]
-		if firstAccuracy == secondAccuracy {
+		if firstAccuracy.Cmp(secondAccuracy) == 0 {
 			return firstLanguage < secondLanguage
 		}
-		return firstAccuracy > secondAccuracy
+		return firstAccuracy.Cmp(secondAccuracy) == 1
 	})
 	var reports []string
 	for _, currentLanguage := range languages {
-		report := fmt.Sprintf("%s: %.2f%%", currentLanguage, s.languageAccuracies[currentLanguage]*100)
+		accuracy, _ := s.languageAccuracies[currentLanguage].Float64()
+		report := fmt.Sprintf("%s: %.2f%%", currentLanguage, accuracy*100)
 		reports = append(reports, report)
 	}
 	return strings.Join(reports, ", ")

@@ -4,7 +4,7 @@
 
 >> Detection of 1000 single words (average length: 6 chars)
 Accuracy: 30.90%
-Erroneously classified as Unknown: 33.60%, Persian: 23.80%, Arabic: 11.70%
+Erroneously classified as Unknown: 33.50%, Persian: 23.90%, Arabic: 11.70%
 
 >> Detection of 1000 word pairs (average length: 13 chars)
 Accuracy: 45.50%

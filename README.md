@@ -243,7 +243,7 @@ Erroneously classified as Dutch: 0.20%, Latin: 0.10%
 
 ## 7. <a name="library-dependency"></a> How to add it to your project? <sup>[Top ▲](#table-of-contents)</sup>
 
-    go get github.com/pemistahl/lingua-go@v1.0.1
+    go get github.com/pemistahl/lingua-go@v1.0.2
 
 ## 8. <a name="library-build"></a> How to build? <sup>[Top ▲](#table-of-contents)</sup>
 

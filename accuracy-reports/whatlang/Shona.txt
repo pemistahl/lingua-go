@@ -1,10 +1,10 @@
 ##### Shona #####
 
->>> Accuracy on average: 68.20%
+>>> Accuracy on average: 68.17%
 
 >> Detection of 1000 single words (average length: 9 chars)
-Accuracy: 44.40%
-Erroneously classified as Unknown: 31.80%, Tagalog: 2.40%, Zulu: 2.30%, Indonesian: 2.00%, Italian: 1.40%, Croatian: 1.20%, English: 1.20%, Finnish: 1.10%, French: 1.00%, Somali: 1.00%, Dutch: 0.90%, Danish: 0.80%, Estonian: 0.80%, Lithuanian: 0.80%, Bokmal: 0.70%, Portuguese: 0.70%, Romanian: 0.70%, Spanish: 0.60%, Turkish: 0.60%, Czech: 0.50%, German: 0.50%, Latvian: 0.50%, Slovene: 0.50%, Swedish: 0.50%, Hungarian: 0.40%, Polish: 0.30%, Afrikaans: 0.20%, Esperanto: 0.10%, Nynorsk: 0.10%
+Accuracy: 44.30%
+Erroneously classified as Unknown: 31.90%, Tagalog: 2.40%, Zulu: 2.30%, Indonesian: 2.00%, Italian: 1.40%, Croatian: 1.20%, English: 1.20%, Finnish: 1.10%, French: 1.00%, Somali: 1.00%, Dutch: 0.90%, Danish: 0.80%, Estonian: 0.80%, Lithuanian: 0.80%, Bokmal: 0.70%, Portuguese: 0.70%, Romanian: 0.70%, Spanish: 0.60%, Turkish: 0.60%, Czech: 0.50%, German: 0.50%, Latvian: 0.50%, Slovene: 0.50%, Swedish: 0.50%, Hungarian: 0.40%, Polish: 0.30%, Afrikaans: 0.20%, Esperanto: 0.10%, Nynorsk: 0.10%
 
 >> Detection of 1000 word pairs (average length: 17 chars)
 Accuracy: 65.20%
