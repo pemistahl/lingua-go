@@ -35,9 +35,7 @@ sentence on a separate line. Do **not** rename the test data files.
 language's ISO 639-1 code and put the language model files into it.
 Look at the other languages' directories to see how it looks like. It should be pretty self-explanatory.
 8. Put the test data files in [`/language-testdata`][testdata directory url].
-9. Add the new language to the functions in [`unigrams.go`][unigrams url], [`bigrams.go`][bigrams url],
-[`trigrams.go`][trigrams url], [`quadrigrams.go`][quadrigrams url] and [`fivegrams.go`][fivegrams url].
-Add it to [`/cmd/accuracy_reporter.go`][accuracy reporter url] as well.
+9. Add the new language to [`/cmd/accuracy_reporter.go`][accuracy reporter url] as well.
 10. Fix the existing unit tests by adding your new language.
 11. For accuracy report generation, run `go run cmd/accuracy_reporter.go`.
 12. Be happy! :-) You have successfully contributed a new language and have thereby significantly widened
@@ -55,9 +53,4 @@ this library's fields of application.
 [test data files writer url]: https://github.com/pemistahl/lingua-go/blob/main/writer.go#L194
 [language models directory url]: https://github.com/pemistahl/lingua-go/tree/main/language-models
 [testdata directory url]: https://github.com/pemistahl/lingua-go/tree/main/language-testdata
-[unigrams url]: https://github.com/pemistahl/lingua-go/blob/main/unigrams.go
-[bigrams url]: https://github.com/pemistahl/lingua-go/blob/main/bigrams.go
-[trigrams url]: https://github.com/pemistahl/lingua-go/blob/main/trigrams.go
-[quadrigrams url]: https://github.com/pemistahl/lingua-go/blob/main/quadrigrams.go
-[fivegrams url]: https://github.com/pemistahl/lingua-go/blob/main/fivegrams.go
 [accuracy reporter url]: https://github.com/pemistahl/lingua-go/blob/main/cmd/accuracy_reporter.go

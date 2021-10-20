@@ -1,3 +1,12 @@
+## Lingua 1.0.3 (released on 20 Oct 2021)
+
+### Improvements
+
+- By replacing [sync.Once](https://pkg.go.dev/sync#Once) with 
+  [sync.Map](https://pkg.go.dev/sync#Map) for storing the language models
+  at runtime, a large amount of code could be removed while preserving 
+  the same functionality. This improves code maintenance significantly.
+
 ## Lingua 1.0.2 (released on 13 Oct 2021)
 
 ### Bug Fixes
