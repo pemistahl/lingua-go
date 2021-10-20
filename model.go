@@ -41,8 +41,6 @@ type trainingDataLanguageModel struct {
 	jsonRelativeFrequencies map[ngram]float64
 }
 
-type lazyTrainingDataLanguageModel = func() languageModel
-
 type testDataLanguageModel struct {
 	ngrams map[ngram]bool
 }

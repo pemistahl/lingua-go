@@ -21,6 +21,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"math"
+	"sync"
 	"testing"
 )
 
@@ -48,130 +49,111 @@ func createTrainingModelMock(data map[string]float64) *mockedTrainingDataLanguag
 // LANGUAGE MODELS FOR ENGLISH
 // ##############################
 
-func unigramModelForEnglish() lazyTrainingDataLanguageModel {
-	return func() languageModel {
-		return createTrainingModelMock(map[string]float64{
-			"a": 0.01,
-			"l": 0.02,
-			"t": 0.03,
-			"e": 0.04,
-			"r": 0.05,
-			// unknown unigrams
-			"w": 0.0,
-		})
-	}
+func unigramModelForEnglish() languageModel {
+	return createTrainingModelMock(map[string]float64{
+		"a": 0.01,
+		"l": 0.02,
+		"t": 0.03,
+		"e": 0.04,
+		"r": 0.05,
+		// unknown unigrams
+		"w": 0.0,
+	})
+
 }
 
-func bigramModelForEnglish() lazyTrainingDataLanguageModel {
-	return func() languageModel {
-		return createTrainingModelMock(map[string]float64{
-			"al": 0.11,
-			"lt": 0.12,
-			"te": 0.13,
-			"er": 0.14,
-			// unknown bigrams
-			"aq": 0.0,
-			"wx": 0.0,
-		})
-	}
+func bigramModelForEnglish() languageModel {
+	return createTrainingModelMock(map[string]float64{
+		"al": 0.11,
+		"lt": 0.12,
+		"te": 0.13,
+		"er": 0.14,
+		// unknown bigrams
+		"aq": 0.0,
+		"wx": 0.0,
+	})
 }
 
-func trigramModelForEnglish() lazyTrainingDataLanguageModel {
-	return func() languageModel {
-		return createTrainingModelMock(map[string]float64{
-			"alt": 0.19,
-			"lte": 0.2,
-			"ter": 0.21,
-			// unknown trigrams
-			"aqu": 0.0,
-			"tez": 0.0,
-			"wxy": 0.0,
-		})
-	}
+func trigramModelForEnglish() languageModel {
+	return createTrainingModelMock(map[string]float64{
+		"alt": 0.19,
+		"lte": 0.2,
+		"ter": 0.21,
+		// unknown trigrams
+		"aqu": 0.0,
+		"tez": 0.0,
+		"wxy": 0.0,
+	})
 }
 
-func quadrigramModelForEnglish() lazyTrainingDataLanguageModel {
-	return func() languageModel {
-		return createTrainingModelMock(map[string]float64{
-			"alte": 0.25,
-			"lter": 0.26,
-			// unknown quadrigrams
-			"aqua": 0.0,
-			"wxyz": 0.0,
-		})
-	}
+func quadrigramModelForEnglish() languageModel {
+	return createTrainingModelMock(map[string]float64{
+		"alte": 0.25,
+		"lter": 0.26,
+		// unknown quadrigrams
+		"aqua": 0.0,
+		"wxyz": 0.0,
+	})
 }
 
-func fivegramModelForEnglish() lazyTrainingDataLanguageModel {
-	return func() languageModel {
-		return createTrainingModelMock(map[string]float64{
-			"alter": 0.29,
-			// unknown fivegrams
-			"aquas": 0.0,
-		})
-	}
+func fivegramModelForEnglish() languageModel {
+	return createTrainingModelMock(map[string]float64{
+		"alter": 0.29,
+		// unknown fivegrams
+		"aquas": 0.0,
+	})
 }
 
 // ##############################
 // LANGUAGE MODELS FOR GERMAN
 // ##############################
 
-func unigramModelForGerman() lazyTrainingDataLanguageModel {
-	return func() languageModel {
-		return createTrainingModelMock(map[string]float64{
-			"a": 0.06,
-			"l": 0.07,
-			"t": 0.08,
-			"e": 0.09,
-			"r": 0.1,
-			// unknown unigrams
-			"w": 0.0,
-		})
-	}
+func unigramModelForGerman() languageModel {
+	return createTrainingModelMock(map[string]float64{
+		"a": 0.06,
+		"l": 0.07,
+		"t": 0.08,
+		"e": 0.09,
+		"r": 0.1,
+		// unknown unigrams
+		"w": 0.0,
+	})
 }
 
-func bigramModelForGerman() lazyTrainingDataLanguageModel {
-	return func() languageModel {
-		return createTrainingModelMock(map[string]float64{
-			"al": 0.15,
-			"lt": 0.16,
-			"te": 0.17,
-			"er": 0.18,
-			// unknown bigrams
-			"wx": 0.0,
-		})
-	}
+func bigramModelForGerman() languageModel {
+	return createTrainingModelMock(map[string]float64{
+		"al": 0.15,
+		"lt": 0.16,
+		"te": 0.17,
+		"er": 0.18,
+		// unknown bigrams
+		"wx": 0.0,
+	})
 }
 
-func trigramModelForGerman() lazyTrainingDataLanguageModel {
-	return func() languageModel {
-		return createTrainingModelMock(map[string]float64{
-			"alt": 0.22,
-			"lte": 0.23,
-			"ter": 0.24,
-			// unknown trigrams
-			"wxy": 0.0,
-		})
-	}
+func trigramModelForGerman() languageModel {
+	return createTrainingModelMock(map[string]float64{
+		"alt": 0.22,
+		"lte": 0.23,
+		"ter": 0.24,
+		// unknown trigrams
+		"wxy": 0.0,
+	})
 }
 
-func quadrigramModelForGerman() lazyTrainingDataLanguageModel {
-	return func() languageModel {
-		return createTrainingModelMock(map[string]float64{
-			"alte": 0.27,
-			"lter": 0.28,
-			// unknown quadrigrams
-			"wxyz": 0.0,
-		})
-	}
+func quadrigramModelForGerman() languageModel {
+	return createTrainingModelMock(map[string]float64{
+		"alte": 0.27,
+		"lter": 0.28,
+		// unknown quadrigrams
+		"wxyz": 0.0,
+	})
 }
 
-func fivegramModelForGerman() lazyTrainingDataLanguageModel {
-	return func() languageModel {
-		return createTrainingModelMock(map[string]float64{
-			"alter": 0.3,
-		})
-	}
+func fivegramModelForGerman() languageModel {
+	return createTrainingModelMock(map[string]float64{
+		"alter": 0.3,
+	})
 }
 
 // ##############################
@@ -191,52 +173,52 @@ func testDataModel(strs []string) testDataLanguageModel {
 // ##############################
 
 func newDetectorForEnglishAndGerman() languageDetector {
-	unigramLanguageModels := map[Language]lazyTrainingDataLanguageModel{
-		English: unigramModelForEnglish(),
-		German:  unigramModelForGerman(),
-	}
-	bigramLanguageModels := map[Language]lazyTrainingDataLanguageModel{
-		English: bigramModelForEnglish(),
-		German:  bigramModelForGerman(),
-	}
-	trigramLanguageModels := map[Language]lazyTrainingDataLanguageModel{
-		English: trigramModelForEnglish(),
-		German:  trigramModelForGerman(),
-	}
-	quadrigramLanguageModels := map[Language]lazyTrainingDataLanguageModel{
-		English: quadrigramModelForEnglish(),
-		German:  quadrigramModelForGerman(),
-	}
-	fivegramLanguageModels := map[Language]lazyTrainingDataLanguageModel{
-		English: fivegramModelForEnglish(),
-		German:  fivegramModelForGerman(),
-	}
+	var unigramLanguageModels sync.Map
+	unigramLanguageModels.Store(English, unigramModelForEnglish())
+	unigramLanguageModels.Store(German, unigramModelForGerman())
+
+	var bigramLanguageModels sync.Map
+	bigramLanguageModels.Store(English, bigramModelForEnglish())
+	bigramLanguageModels.Store(German, bigramModelForGerman())
+
+	var trigramLanguageModels sync.Map
+	trigramLanguageModels.Store(English, trigramModelForEnglish())
+	trigramLanguageModels.Store(German, trigramModelForGerman())
+
+	var quadrigramLanguageModels sync.Map
+	quadrigramLanguageModels.Store(English, quadrigramModelForEnglish())
+	quadrigramLanguageModels.Store(German, quadrigramModelForGerman())
+
+	var fivegramLanguageModels sync.Map
+	fivegramLanguageModels.Store(English, fivegramModelForEnglish())
+	fivegramLanguageModels.Store(German, fivegramModelForGerman())
+
 	return languageDetector{
 		languages:                     []Language{English, German},
 		minimumRelativeDistance:       0.0,
 		languagesWithUniqueCharacters: []Language{},
 		oneLanguageAlphabets:          map[alphabet]Language{},
-		unigramLanguageModels:         unigramLanguageModels,
-		bigramLanguageModels:          bigramLanguageModels,
-		trigramLanguageModels:         trigramLanguageModels,
-		quadrigramLanguageModels:      quadrigramLanguageModels,
-		fivegramLanguageModels:        fivegramLanguageModels,
+		unigramLanguageModels:         &unigramLanguageModels,
+		bigramLanguageModels:          &bigramLanguageModels,
+		trigramLanguageModels:         &trigramLanguageModels,
+		quadrigramLanguageModels:      &quadrigramLanguageModels,
+		fivegramLanguageModels:        &fivegramLanguageModels,
 	}
 }
 
 func newDetectorForAllLanguages() languageDetector {
 	languages := AllLanguages()
-	emptyLanguageModels := make(map[Language]lazyTrainingDataLanguageModel)
+	var emptyLanguageModels sync.Map
 	return languageDetector{
 		languages:                     languages,
 		minimumRelativeDistance:       0.0,
 		languagesWithUniqueCharacters: collectLanguagesWithUniqueCharacters(languages),
 		oneLanguageAlphabets:          collectOneLanguageAlphabets(languages),
-		unigramLanguageModels:         emptyLanguageModels,
-		bigramLanguageModels:          emptyLanguageModels,
-		trigramLanguageModels:         emptyLanguageModels,
-		quadrigramLanguageModels:      emptyLanguageModels,
-		fivegramLanguageModels:        emptyLanguageModels,
+		unigramLanguageModels:         &emptyLanguageModels,
+		bigramLanguageModels:          &emptyLanguageModels,
+		trigramLanguageModels:         &emptyLanguageModels,
+		quadrigramLanguageModels:      &emptyLanguageModels,
+		fivegramLanguageModels:        &emptyLanguageModels,
 	}
 }
 

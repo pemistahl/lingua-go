@@ -25,6 +25,12 @@ import (
 	"unicode/utf8"
 )
 
+var unigramModels sync.Map
+var bigramModels sync.Map
+var trigramModels sync.Map
+var quadrigramModels sync.Map
+var fivegramModels sync.Map
+
 // LanguageDetector is the interface describing the available methods
 // for detecting the language of some textual input.
 type LanguageDetector interface {
@@ -60,11 +66,11 @@ type languageDetector struct {
 	minimumRelativeDistance       float64
 	languagesWithUniqueCharacters []Language
 	oneLanguageAlphabets          map[alphabet]Language
-	unigramLanguageModels         map[Language]lazyTrainingDataLanguageModel
-	bigramLanguageModels          map[Language]lazyTrainingDataLanguageModel
-	trigramLanguageModels         map[Language]lazyTrainingDataLanguageModel
-	quadrigramLanguageModels      map[Language]lazyTrainingDataLanguageModel
-	fivegramLanguageModels        map[Language]lazyTrainingDataLanguageModel
+	unigramLanguageModels         *sync.Map
+	bigramLanguageModels          *sync.Map
+	trigramLanguageModels         *sync.Map
+	quadrigramLanguageModels      *sync.Map
+	fivegramLanguageModels        *sync.Map
 }
 
 func newLanguageDetector(
@@ -77,11 +83,11 @@ func newLanguageDetector(
 		minimumRelativeDistance,
 		collectLanguagesWithUniqueCharacters(languages),
 		collectOneLanguageAlphabets(languages),
-		unigramModels,
-		bigramModels,
-		trigramModels,
-		quadrigramModels,
-		fivegramModels,
+		&unigramModels,
+		&bigramModels,
+		&trigramModels,
+		&quadrigramModels,
+		&fivegramModels,
 	}
 	if isEveryLanguageModelPreloaded {
 		detector.preloadLanguageModels(languages)
@@ -95,11 +101,11 @@ func (detector languageDetector) preloadLanguageModels(languages []Language) {
 		wg.Add(1)
 		go func(language Language, wg *sync.WaitGroup) {
 			defer wg.Done()
-			detector.unigramLanguageModels[language]()
-			detector.bigramLanguageModels[language]()
-			detector.trigramLanguageModels[language]()
-			detector.quadrigramLanguageModels[language]()
-			detector.fivegramLanguageModels[language]()
+			detector.loadLanguageModels(detector.unigramLanguageModels, language, 1)
+			detector.loadLanguageModels(detector.bigramLanguageModels, language, 2)
+			detector.loadLanguageModels(detector.trigramLanguageModels, language, 3)
+			detector.loadLanguageModels(detector.quadrigramLanguageModels, language, 4)
+			detector.loadLanguageModels(detector.fivegramLanguageModels, language, 5)
 		}(language, &wg)
 	}
 	wg.Wait()
@@ -531,15 +537,20 @@ func (detector languageDetector) lookUpNgramProbability(language Language, ngram
 	ngramLength := utf8.RuneCountInString(ngram.value)
 	switch ngramLength {
 	case 5:
-		return detector.fivegramLanguageModels[language]().getRelativeFrequency(ngram)
+		models := detector.loadLanguageModels(detector.fivegramLanguageModels, language, ngramLength)
+		return models.getRelativeFrequency(ngram)
 	case 4:
-		return detector.quadrigramLanguageModels[language]().getRelativeFrequency(ngram)
+		models := detector.loadLanguageModels(detector.quadrigramLanguageModels, language, ngramLength)
+		return models.getRelativeFrequency(ngram)
 	case 3:
-		return detector.trigramLanguageModels[language]().getRelativeFrequency(ngram)
+		models := detector.loadLanguageModels(detector.trigramLanguageModels, language, ngramLength)
+		return models.getRelativeFrequency(ngram)
 	case 2:
-		return detector.bigramLanguageModels[language]().getRelativeFrequency(ngram)
+		models := detector.loadLanguageModels(detector.bigramLanguageModels, language, ngramLength)
+		return models.getRelativeFrequency(ngram)
 	case 1:
-		return detector.unigramLanguageModels[language]().getRelativeFrequency(ngram)
+		models := detector.loadLanguageModels(detector.unigramLanguageModels, language, ngramLength)
+		return models.getRelativeFrequency(ngram)
 	case 0:
 		panic("zerogram detected")
 	default:
@@ -587,6 +598,21 @@ func (detector languageDetector) sumUpProbabilities(
 		}
 	}
 	return summedUpProbabilities
+}
+
+func (detector languageDetector) loadLanguageModels(
+	languageModels *sync.Map,
+	language Language,
+	ngramLength int,
+) languageModel {
+	existingModels, exists := languageModels.Load(language)
+	if exists {
+		return existingModels.(languageModel)
+	}
+	jsonData := loadJson(language, ngramLength)
+	loadedModels := newTrainingDataLanguageModelFromJson(jsonData)
+	languageModels.Store(language, loadedModels)
+	return loadedModels
 }
 
 func collectLanguagesWithUniqueCharacters(languages []Language) []Language {
