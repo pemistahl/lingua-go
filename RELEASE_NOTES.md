@@ -1,3 +1,12 @@
+## Lingua 1.0.4 (released on 28 Nov 2021)
+
+### Bug Fixes
+
+- It was possible to include `lingua.Unknown` in the set of input languages
+  for building the language detector. It is only meant as a return value,
+  so it is now automatically removed from the set of input languages.
+  Thanks to @marians for identifying this problem. (#7)
+
 ## Lingua 1.0.3 (released on 20 Oct 2021)
 
 ### Improvements

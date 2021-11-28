@@ -166,6 +166,12 @@ func (builder *languageDetectorBuilder) FromAllLanguagesWithout(languages ...Lan
 }
 
 func (builder *languageDetectorBuilder) FromLanguages(languages ...Language) LanguageDetectorBuilder {
+	for i, language := range languages {
+		if language == Unknown {
+			languages = append(languages[:i], languages[i+1:]...)
+			break
+		}
+	}
 	if len(languages) < 2 {
 		panic(missingLanguageMessage)
 	}
@@ -173,6 +179,12 @@ func (builder *languageDetectorBuilder) FromLanguages(languages ...Language) Lan
 }
 
 func (builder *languageDetectorBuilder) FromIsoCodes639_1(isoCodes ...IsoCode639_1) LanguageDetectorBuilder {
+	for i, isoCode := range isoCodes {
+		if isoCode == UnknownIsoCode639_1 {
+			isoCodes = append(isoCodes[:i], isoCodes[i+1:]...)
+			break
+		}
+	}
 	if len(isoCodes) < 2 {
 		panic(missingLanguageMessage)
 	}
@@ -184,6 +196,12 @@ func (builder *languageDetectorBuilder) FromIsoCodes639_1(isoCodes ...IsoCode639
 }
 
 func (builder *languageDetectorBuilder) FromIsoCodes639_3(isoCodes ...IsoCode639_3) LanguageDetectorBuilder {
+	for i, isoCode := range isoCodes {
+		if isoCode == UnknownIsoCode639_3 {
+			isoCodes = append(isoCodes[:i], isoCodes[i+1:]...)
+			break
+		}
+	}
 	if len(isoCodes) < 2 {
 		panic(missingLanguageMessage)
 	}

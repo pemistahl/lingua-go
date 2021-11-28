@@ -243,7 +243,7 @@ Erroneously classified as Dutch: 0.20%, Latin: 0.10%
 
 ## 7. <a name="library-dependency"></a> How to add it to your project? <sup>[Top ▲](#table-of-contents)</sup>
 
-    go get github.com/pemistahl/lingua-go@v1.0.3
+    go get github.com/pemistahl/lingua-go@v1.0.4
 
 ## 8. <a name="library-build"></a> How to build? <sup>[Top ▲](#table-of-contents)</sup>
 
@@ -337,7 +337,9 @@ input text. The longer the input text, the larger the distance between the langu
 want to classify very short text phrases, do not set the minimum relative distance too high.
 Otherwise [`Unknown`](https://github.com/pemistahl/lingua-go/blob/main/language.go#L106) will be
 returned most of the time as in the example above. This is the return value for cases where
-language detection is not reliably possible.
+language detection is not reliably possible. This value is not meant to be included in the set
+of input languages when building the language detector. If you include it, it will be
+automatically removed from the set of input languages.
 
 ### 9.3 Confidence values
 

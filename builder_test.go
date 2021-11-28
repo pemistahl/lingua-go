@@ -145,7 +145,7 @@ func TestLanguageDetectorBuilder_FromAllLanguagesWithout(t *testing.T) {
 func TestLanguageDetectorBuilder_FromAllLanguagesWithout_Panics(t *testing.T) {
 	assert.PanicsWithValue(
 		t,
-		"LanguageDetector needs at least 2 languages to choose from",
+		missingLanguageMessage,
 		func() {
 			NewLanguageDetectorBuilder().FromAllLanguagesWithout(AllLanguages()[1:]...)
 		},
@@ -153,48 +153,117 @@ func TestLanguageDetectorBuilder_FromAllLanguagesWithout_Panics(t *testing.T) {
 }
 
 func TestLanguageDetectorBuilder_FromLanguages(t *testing.T) {
-	builder := NewLanguageDetectorBuilder().FromLanguages(German, English)
-	assert.ElementsMatch(t, []Language{German, English}, builder.getLanguages())
+	testCases := []struct {
+		languages         []Language
+		expectedLanguages []Language
+	}{
+		{
+			[]Language{German, English},
+			[]Language{German, English},
+		},
+		{
+			[]Language{German, English, Unknown},
+			[]Language{German, English},
+		},
+	}
+	for _, testCase := range testCases {
+		builder := NewLanguageDetectorBuilder().FromLanguages(testCase.languages...)
+		assert.ElementsMatch(t, testCase.expectedLanguages, builder.getLanguages())
+	}
 }
 
 func TestLanguageDetectorBuilder_FromLanguages_Panics(t *testing.T) {
-	assert.PanicsWithValue(
-		t,
-		"LanguageDetector needs at least 2 languages to choose from",
-		func() {
-			NewLanguageDetectorBuilder().FromLanguages(German)
-		},
-	)
+	testCases := []struct {
+		languages []Language
+	}{
+		{[]Language{German}},
+		{[]Language{German, Unknown}},
+	}
+	for _, testCase := range testCases {
+		assert.PanicsWithValue(
+			t,
+			missingLanguageMessage,
+			func() {
+				NewLanguageDetectorBuilder().FromLanguages(testCase.languages...)
+			},
+		)
+	}
 }
 
 func TestLanguageDetectorBuilder_FromIsoCodes639_1(t *testing.T) {
-	builder := NewLanguageDetectorBuilder().FromIsoCodes639_1(DE, SV)
-	assert.ElementsMatch(t, []Language{German, Swedish}, builder.getLanguages())
+	testCases := []struct {
+		isoCodes          []IsoCode639_1
+		expectedLanguages []Language
+	}{
+		{
+			[]IsoCode639_1{DE, EN},
+			[]Language{German, English},
+		},
+		{
+			[]IsoCode639_1{DE, EN, UnknownIsoCode639_1},
+			[]Language{German, English},
+		},
+	}
+	for _, testCase := range testCases {
+		builder := NewLanguageDetectorBuilder().FromIsoCodes639_1(testCase.isoCodes...)
+		assert.ElementsMatch(t, testCase.expectedLanguages, builder.getLanguages())
+	}
 }
 
 func TestLanguageDetectorBuilder_FromIsoCodes639_1_Panics(t *testing.T) {
-	assert.PanicsWithValue(
-		t,
-		"LanguageDetector needs at least 2 languages to choose from",
-		func() {
-			NewLanguageDetectorBuilder().FromIsoCodes639_1(DE)
-		},
-	)
+	testCases := []struct {
+		isoCodes []IsoCode639_1
+	}{
+		{[]IsoCode639_1{DE}},
+		{[]IsoCode639_1{DE, UnknownIsoCode639_1}},
+	}
+	for _, testCase := range testCases {
+		assert.PanicsWithValue(
+			t,
+			missingLanguageMessage,
+			func() {
+				NewLanguageDetectorBuilder().FromIsoCodes639_1(testCase.isoCodes...)
+			},
+		)
+	}
 }
 
 func TestLanguageDetectorBuilder_FromIsoCodes639_3(t *testing.T) {
-	builder := NewLanguageDetectorBuilder().FromIsoCodes639_3(DEU, SWE)
-	assert.ElementsMatch(t, []Language{German, Swedish}, builder.getLanguages())
+	testCases := []struct {
+		isoCodes          []IsoCode639_3
+		expectedLanguages []Language
+	}{
+		{
+			[]IsoCode639_3{DEU, ENG},
+			[]Language{German, English},
+		},
+		{
+			[]IsoCode639_3{DEU, ENG, UnknownIsoCode639_3},
+			[]Language{German, English},
+		},
+	}
+	for _, testCase := range testCases {
+		builder := NewLanguageDetectorBuilder().FromIsoCodes639_3(testCase.isoCodes...)
+		assert.ElementsMatch(t, testCase.expectedLanguages, builder.getLanguages())
+	}
 }
 
 func TestLanguageDetectorBuilder_FromIsoCodes639_3_Panics(t *testing.T) {
-	assert.PanicsWithValue(
-		t,
-		"LanguageDetector needs at least 2 languages to choose from",
-		func() {
-			NewLanguageDetectorBuilder().FromIsoCodes639_3(DEU)
-		},
-	)
+	testCases := []struct {
+		isoCodes []IsoCode639_3
+	}{
+		{[]IsoCode639_3{DEU}},
+		{[]IsoCode639_3{DEU, UnknownIsoCode639_3}},
+	}
+	for _, testCase := range testCases {
+		assert.PanicsWithValue(
+			t,
+			missingLanguageMessage,
+			func() {
+				NewLanguageDetectorBuilder().FromIsoCodes639_3(testCase.isoCodes...)
+			},
+		)
+	}
 }
 
 func TestLanguageDetectorBuilder_WithMinimumRelativeDistance_Panics_1(t *testing.T) {
