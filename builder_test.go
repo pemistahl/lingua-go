@@ -158,12 +158,12 @@ func TestLanguageDetectorBuilder_FromLanguages(t *testing.T) {
 		expectedLanguages []Language
 	}{
 		{
-			[]Language{German, English},
-			[]Language{German, English},
+			[]Language{German, Zulu},
+			[]Language{German, Zulu},
 		},
 		{
-			[]Language{German, English, Unknown},
-			[]Language{German, English},
+			[]Language{German, Zulu, Unknown},
+			[]Language{German, Zulu},
 		},
 	}
 	for _, testCase := range testCases {
@@ -196,12 +196,12 @@ func TestLanguageDetectorBuilder_FromIsoCodes639_1(t *testing.T) {
 		expectedLanguages []Language
 	}{
 		{
-			[]IsoCode639_1{DE, EN},
-			[]Language{German, English},
+			[]IsoCode639_1{DE, ZU},
+			[]Language{German, Zulu},
 		},
 		{
-			[]IsoCode639_1{DE, EN, UnknownIsoCode639_1},
-			[]Language{German, English},
+			[]IsoCode639_1{DE, ZU, UnknownIsoCode639_1},
+			[]Language{German, Zulu},
 		},
 	}
 	for _, testCase := range testCases {
@@ -234,12 +234,12 @@ func TestLanguageDetectorBuilder_FromIsoCodes639_3(t *testing.T) {
 		expectedLanguages []Language
 	}{
 		{
-			[]IsoCode639_3{DEU, ENG},
-			[]Language{German, English},
+			[]IsoCode639_3{DEU, ZUL},
+			[]Language{German, Zulu},
 		},
 		{
-			[]IsoCode639_3{DEU, ENG, UnknownIsoCode639_3},
-			[]Language{German, English},
+			[]IsoCode639_3{DEU, ZUL, UnknownIsoCode639_3},
+			[]Language{German, Zulu},
 		},
 	}
 	for _, testCase := range testCases {

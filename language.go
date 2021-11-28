@@ -150,9 +150,8 @@ func AllLanguagesWithLatinScript() []Language {
 	return allLanguagesWithScript(latin)
 }
 
-// GetLanguageFromIsoCode639_1 returns a sorted slice of all built-in
-// languages whose ISO 639-1 codes are specified as arguments passed to
-// this method.
+// GetLanguageFromIsoCode639_1 returns the language for the given
+// ISO 639-1 code.
 func GetLanguageFromIsoCode639_1(isoCode IsoCode639_1) Language {
 	for _, language := range AllLanguages() {
 		if language.IsoCode639_1() == isoCode {
@@ -162,9 +161,8 @@ func GetLanguageFromIsoCode639_1(isoCode IsoCode639_1) Language {
 	return -1
 }
 
-// GetLanguageFromIsoCode639_3 returns a sorted slice of all built-in
-// languages whose ISO 639-3 codes are specified as arguments passed to
-// this method.
+// GetLanguageFromIsoCode639_3 returns the language for the given
+// ISO 639-3 code.
 func GetLanguageFromIsoCode639_3(isoCode IsoCode639_3) Language {
 	for _, language := range AllLanguages() {
 		if language.IsoCode639_3() == isoCode {
