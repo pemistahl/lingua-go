@@ -1,3 +1,19 @@
+## Lingua 1.0.5 (released on 25 Dec 2021)
+
+### Bug Fixes
+
+- The character *â* was erroneously not treated as a possible indicator
+  for French.
+
+### Improvements
+
+- The dependencies to the other language detectors which are used for
+  the accuracy comparisons were always downloaded together with the main
+  library. They are only needed when you want to update the accuracy reports,
+  therefore the `cmd/` subdirectory now contains its own Go module that defines
+  those dependencies. They have now been removed from the main library.
+  Thanks to @dim and @BoeingX for identifying this problem. (#8)
+
 ## Lingua 1.0.4 (released on 28 Nov 2021)
 
 ### Bug Fixes
