@@ -217,9 +217,12 @@ of the rule-based engine is quite good, however, filtering based on your own kno
 If you want to reproduce the accuracy results above, you can generate the test reports yourself for both classifiers
 and all languages by doing:
 
-    go run cmd/accuracy_reporter.go
+    cd cmd
+    go run accuracy_reporter.go
 
-For each detector and language, a test report file is then written into
+For *gocld3* to run successfully, you need to install the exact 
+[version 3.17.3](https://github.com/protocolbuffers/protobuf/releases/tag/v3.17.3) of Google's protocol buffers which is a bit
+unfortunate. For each detector and language, a test report file is then written into
 [`/accuracy-reports`](https://github.com/pemistahl/lingua-go/tree/main/accuracy-reports).
 As an example, here is the current output of the *Lingua* German report:
 
@@ -243,11 +246,11 @@ Erroneously classified as Dutch: 0.20%, Latin: 0.10%
 
 ## 7. <a name="library-dependency"></a> How to add it to your project? <sup>[Top ▲](#table-of-contents)</sup>
 
-    go get github.com/pemistahl/lingua-go@v1.0.4
+    go get github.com/pemistahl/lingua-go@v1.0.5
 
 ## 8. <a name="library-build"></a> How to build? <sup>[Top ▲](#table-of-contents)</sup>
 
-*Lingua* requires Go version 1.16.
+*Lingua* requires at least Go version 1.16.
 
 ```
 git clone https://github.com/pemistahl/lingua-go.git

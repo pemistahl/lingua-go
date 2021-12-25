@@ -1,5 +1,3 @@
-// +build ignore
-
 /*
  * Copyright © 2021 Peter M. Stahl pemistahl@gmail.com
  *
@@ -246,8 +244,8 @@ func main() {
 	defer cld3.FreeLanguageIdentifier(cld3Detector)
 
 	workingDirectory, _ := os.Getwd()
-	testDataDirectory := filepath.Join(workingDirectory, "language-testdata")
-	accuracyReportsDirectory := filepath.Join(workingDirectory, "accuracy-reports")
+	testDataDirectory := filepath.Join(workingDirectory, "../language-testdata")
+	accuracyReportsDirectory := filepath.Join(workingDirectory, "../accuracy-reports")
 	linguaReportsDirectory := filepath.Join(accuracyReportsDirectory, "lingua")
 	cld3ReportsDirectory := filepath.Join(accuracyReportsDirectory, "cld3")
 	whatlangReportsDirectory := filepath.Join(accuracyReportsDirectory, "whatlang")

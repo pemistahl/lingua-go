@@ -1,0 +1,13 @@
+github.com/abadojack/whatlanggo v1.0.1 h1:19N6YogDnf71CTHm3Mp2qhYfkRdyvbgwWdd2EPxJRG4=
+github.com/abadojack/whatlanggo v1.0.1/go.mod h1:66WiQbSbJBIlOZMsvbKe5m6pzQovxCH9B/K8tQB2uoc=
+github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+github.com/jmhodges/gocld3 v0.0.0-20210219072212-f4c0e00f8117/go.mod h1:iXPcR1NTGhFX/JBpurxM+ac4EI7rMq6qRHZQ2pLIRjQ=
+github.com/jmhodges/gocld3 v0.0.0-20211031064447-cc40e88f7505 h1:t0brQCrhSbDvvSfiz8MXOCv7QGnPF6Ne5JHuih2//s4=
+github.com/jmhodges/gocld3 v0.0.0-20211031064447-cc40e88f7505/go.mod h1:iXPcR1NTGhFX/JBpurxM+ac4EI7rMq6qRHZQ2pLIRjQ=
+github.com/pemistahl/lingua-go v1.0.4 h1:h/Wk5b64UEC7dYm7rN444bwmvwpc86waBsdg4LkuPSg=
+github.com/pemistahl/lingua-go v1.0.4/go.mod h1:lhXsJKfWt9Q06koQvEIAcwWNLM1VfwJhvbgLNxJnaqQ=
+github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
+github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
+github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
+gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
+gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
