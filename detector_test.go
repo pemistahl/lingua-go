@@ -625,7 +625,7 @@ func TestFilterLanguagesByRules(t *testing.T) {
 		{"direktør", []Language{Bokmal, Danish, Nynorsk}},
 		{"vývoj", []Language{Czech, Icelandic, Slovak, Turkish, Vietnamese}},
 		{"päralt", []Language{Estonian, Finnish, German, Slovak, Swedish}},
-		{"labâk", []Language{Portuguese, Romanian, Turkish, Vietnamese}},
+		{"labâk", []Language{French, Portuguese, Romanian, Turkish, Vietnamese}},
 		{"pràctiques", []Language{Catalan, French, Italian, Portuguese, Vietnamese}},
 		{"überrascht", []Language{
 			Azerbaijani, Catalan, Estonian, German, Hungarian, Spanish, Turkish},

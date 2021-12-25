@@ -61,13 +61,13 @@ var charsToLanguagesMapping = map[string][]Language{
 	"ЁёЫыЭэ": {Belarusian, Kazakh, Mongolian, Russian},
 	"ЩщЪъ":   {Bulgarian, Kazakh, Mongolian, Russian},
 	"Òò":     {Catalan, Italian, Vietnamese, Yoruba},
-	"Ââ":     {Portuguese, Romanian, Turkish, Vietnamese},
 	"Ææ":     {Bokmal, Danish, Icelandic, Nynorsk},
 	"Åå":     {Bokmal, Danish, Nynorsk, Swedish},
 
 	"Ýý": {Czech, Icelandic, Slovak, Turkish, Vietnamese},
 	"Ää": {Estonian, Finnish, German, Slovak, Swedish},
 	"Àà": {Catalan, French, Italian, Portuguese, Vietnamese},
+	"Ââ": {French, Portuguese, Romanian, Turkish, Vietnamese},
 
 	"Üü":     {Azerbaijani, Catalan, Estonian, German, Hungarian, Spanish, Turkish},
 	"ČčŠšŽž": {Bosnian, Czech, Croatian, Latvian, Lithuanian, Slovak, Slovene},
