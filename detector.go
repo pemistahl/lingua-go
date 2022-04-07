@@ -413,7 +413,9 @@ func (detector languageDetector) filterLanguagesByRules(words []string) []Langua
 			for _, character := range []rune(characters) {
 				if strings.ContainsRune(word, character) {
 					for _, language := range languages {
-						languageCounts[language]++
+						if containsLanguage(filteredLanguages, language) {
+							languageCounts[language]++
+						}
 					}
 				}
 			}
@@ -429,13 +431,7 @@ func (detector languageDetector) filterLanguagesByRules(words []string) []Langua
 	}
 
 	if len(languageSubset) > 0 {
-		var finallyFilteredLanguages []Language
-		for _, language := range filteredLanguages {
-			if containsLanguage(languageSubset, language) {
-				finallyFilteredLanguages = append(finallyFilteredLanguages, language)
-			}
-		}
-		return finallyFilteredLanguages
+		return languageSubset
 	}
 
 	return filteredLanguages
