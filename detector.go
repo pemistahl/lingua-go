@@ -408,14 +408,18 @@ func (detector languageDetector) filterLanguagesByRules(words []string) []Langua
 
 	languageCounts := make(map[Language]uint32)
 
-	for _, word := range words {
-		for characters, languages := range charsToLanguagesMapping {
+	for characters, languages := range charsToLanguagesMapping {
+		var relevantLanguages []Language
+		for _, language := range languages {
+			if containsLanguage(filteredLanguages, language) {
+				relevantLanguages = append(relevantLanguages, language)
+			}
+		}
+		for _, word := range words {
 			for _, character := range []rune(characters) {
 				if strings.ContainsRune(word, character) {
-					for _, language := range languages {
-						if containsLanguage(filteredLanguages, language) {
-							languageCounts[language]++
-						}
+					for _, language := range relevantLanguages {
+						languageCounts[language]++
 					}
 				}
 			}
