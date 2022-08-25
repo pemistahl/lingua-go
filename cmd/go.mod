@@ -1,6 +1,6 @@
 module github.com/pemistahl/lingua-go/cmd
 
-go 1.16
+go 1.18
 
 require (
 	github.com/abadojack/whatlanggo v1.0.1
