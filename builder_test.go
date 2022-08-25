@@ -271,7 +271,9 @@ func TestLanguageDetectorBuilder_WithMinimumRelativeDistance_Panics_1(t *testing
 		t,
 		"Minimum relative distance must lie in between 0.0 and 0.99",
 		func() {
-			NewLanguageDetectorBuilder().FromAllLanguages().WithMinimumRelativeDistance(-2.3)
+			NewLanguageDetectorBuilder().
+				FromAllLanguages().
+				WithMinimumRelativeDistance(-2.3)
 		},
 	)
 }
@@ -281,7 +283,18 @@ func TestLanguageDetectorBuilder_WithMinimumRelativeDistance_Panics_2(t *testing
 		t,
 		"Minimum relative distance must lie in between 0.0 and 0.99",
 		func() {
-			NewLanguageDetectorBuilder().FromAllLanguages().WithMinimumRelativeDistance(1.7)
+			NewLanguageDetectorBuilder().
+				FromAllLanguages().
+				WithMinimumRelativeDistance(1.7)
 		},
 	)
+}
+
+func BenchmarkPreloadingAllLanguageModels(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		NewLanguageDetectorBuilder().
+			FromAllLanguages().
+			WithPreloadedLanguageModels().
+			Build()
+	}
 }

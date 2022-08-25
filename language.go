@@ -22,9 +22,10 @@ import (
 	"strings"
 )
 
-//go:generate stringer -type=Language
 // Language is the type used for enumerating the so far 75 languages which can
 // be detected by Lingua.
+//
+//go:generate stringer -type=Language
 type Language int
 
 const (

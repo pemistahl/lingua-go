@@ -16,14 +16,16 @@
 
 package lingua
 
-//go:generate stringer -type=IsoCode639_1
 // IsoCode639_1 is the type used for enumerating the ISO 639-1 code
 // representations of the supported languages.
+//
+//go:generate stringer -type=IsoCode639_1
 type IsoCode639_1 int
 
-//go:generate stringer -type=IsoCode639_3
 // IsoCode639_3 is the type used for enumerating the ISO 639-3 code
 // representations of the supported languages.
+//
+//go:generate stringer -type=IsoCode639_3
 type IsoCode639_3 int
 
 const (
