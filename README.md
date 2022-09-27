@@ -1,4 +1,4 @@
-![lingua](images/logo.png)
+![lingua](https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/logo.png)
 
 <br>
 
@@ -189,7 +189,7 @@ Detailed statistics including mean, median and standard deviation values for eac
 available in the file
 [ACCURACY_TABLE.md](https://github.com/pemistahl/lingua-go/blob/main/ACCURACY_TABLE.md).
 
-<img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/images/plots/boxplot-average.png" alt="Average Detection Performance" />
+<img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/plots/boxplot-average.png" alt="Average Detection Performance" />
 
 ## 5. <a name="why-is-it-better"></a> Why is it better than other libraries? <sup>[Top ▲](#table-of-contents)</sup>
 
@@ -223,7 +223,7 @@ and all languages by doing:
 For *gocld3* to run successfully, you need to install the exact 
 [version 3.17.3](https://github.com/protocolbuffers/protobuf/releases/tag/v3.17.3) of Google's protocol buffers which is a bit
 unfortunate. For each detector and language, a test report file is then written into
-[`/accuracy-reports`](https://github.com/pemistahl/lingua-go/tree/main/accuracy-reports).
+[`/accuracy-reports`](https://github.com/pemistahl/lingua-go/tree/main/cmd/accuracy-reports).
 As an example, here is the current output of the *Lingua* German report:
 
 ```

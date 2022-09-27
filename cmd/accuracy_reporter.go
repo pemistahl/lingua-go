@@ -243,9 +243,8 @@ func main() {
 	cld3Detector, _ := cld3.NewLanguageIdentifier(0, 512)
 	defer cld3.FreeLanguageIdentifier(cld3Detector)
 
-	workingDirectory, _ := os.Getwd()
-	testDataDirectory := filepath.Join(workingDirectory, "../language-testdata")
-	accuracyReportsDirectory := filepath.Join(workingDirectory, "../accuracy-reports")
+	testDataDirectory, _ := filepath.Abs("language-testdata")
+	accuracyReportsDirectory, _ := filepath.Abs("accuracy-reports")
 	linguaReportsDirectory := filepath.Join(accuracyReportsDirectory, "lingua")
 	cld3ReportsDirectory := filepath.Join(accuracyReportsDirectory, "cld3")
 	whatlangReportsDirectory := filepath.Join(accuracyReportsDirectory, "whatlang")

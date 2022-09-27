@@ -15,10 +15,10 @@ Each section contains two plots. The bar plot shows the detailed accuracy result
 
 <br/>
 
-![boxplot-single-words](/images/plots/boxplot-single-words.png)
+![boxplot-single-words](https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/plots/boxplot-single-words.png)
 <br/>
 
-![barplot-single-words](/images/plots/barplot-single-words.png)
+![barplot-single-words](https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/plots/barplot-single-words.png)
 
 <br/><br/>
 
@@ -26,11 +26,11 @@ Each section contains two plots. The bar plot shows the detailed accuracy result
 
 <br/>
 
-![boxplot-word-pairs](/images/plots/boxplot-word-pairs.png)
+![boxplot-word-pairs](https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/plots/boxplot-word-pairs.png)
 
 <br/>
 
-![barplot-word-pairs](/images/plots/barplot-word-pairs.png)
+![barplot-word-pairs](https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/plots/barplot-word-pairs.png)
 
 <br/><br/>
 
@@ -38,11 +38,11 @@ Each section contains two plots. The bar plot shows the detailed accuracy result
 
 <br/>
 
-![boxplot-sentences](/images/plots/boxplot-sentences.png)
+![boxplot-sentences](https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/plots/boxplot-sentences.png)
 
 <br/>
 
-![barplot-sentences](/images/plots/barplot-sentences.png)
+![barplot-sentences](https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/plots/barplot-sentences.png)
 
 <br/><br/>
 
@@ -50,8 +50,8 @@ Each section contains two plots. The bar plot shows the detailed accuracy result
 
 <br/>
 
-![boxplot-average](/images/plots/boxplot-average.png)
+![boxplot-average](https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/plots/boxplot-average.png)
 
 <br/>
 
-![barplot-average](/images/plots/barplot-average.png)
+![barplot-average](https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/plots/barplot-average.png)
