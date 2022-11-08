@@ -533,29 +533,31 @@ func (detector languageDetector) computeSumOfNgramProbabilities(language Languag
 	return sum
 }
 
-func (detector languageDetector) lookUpNgramProbability(language Language, ngram ngram) float64 {
-	ngramLength := utf8.RuneCountInString(ngram.value)
+func (detector languageDetector) lookUpNgramProbability(language Language, ngrm ngram) float64 {
+	ngramLength := utf8.RuneCountInString(ngrm.value)
+	var models map[string]float64
+
 	switch ngramLength {
 	case 5:
-		models := detector.loadLanguageModels(detector.fivegramLanguageModels, language, ngramLength)
-		return models.getRelativeFrequency(ngram)
+		models = detector.loadLanguageModels(detector.fivegramLanguageModels, language, ngramLength)
 	case 4:
-		models := detector.loadLanguageModels(detector.quadrigramLanguageModels, language, ngramLength)
-		return models.getRelativeFrequency(ngram)
+		models = detector.loadLanguageModels(detector.quadrigramLanguageModels, language, ngramLength)
 	case 3:
-		models := detector.loadLanguageModels(detector.trigramLanguageModels, language, ngramLength)
-		return models.getRelativeFrequency(ngram)
+		models = detector.loadLanguageModels(detector.trigramLanguageModels, language, ngramLength)
 	case 2:
-		models := detector.loadLanguageModels(detector.bigramLanguageModels, language, ngramLength)
-		return models.getRelativeFrequency(ngram)
+		models = detector.loadLanguageModels(detector.bigramLanguageModels, language, ngramLength)
 	case 1:
-		models := detector.loadLanguageModels(detector.unigramLanguageModels, language, ngramLength)
-		return models.getRelativeFrequency(ngram)
+		models = detector.loadLanguageModels(detector.unigramLanguageModels, language, ngramLength)
 	case 0:
 		panic("zerogram detected")
 	default:
 		panic(fmt.Sprintf("unsupported ngram length detected: %v", ngramLength))
 	}
+
+	if frequency, exists := models[ngrm.value]; exists {
+		return frequency
+	}
+	return 0
 }
 
 func (detector languageDetector) countUnigrams(
@@ -604,10 +606,10 @@ func (detector languageDetector) loadLanguageModels(
 	languageModels *sync.Map,
 	language Language,
 	ngramLength int,
-) languageModel {
+) map[string]float64 {
 	existingModels, exists := languageModels.Load(language)
 	if exists {
-		return existingModels.(languageModel)
+		return existingModels.(map[string]float64)
 	}
 	jsonData := loadJson(language, ngramLength)
 	loadedModels := newTrainingDataLanguageModelFromJson(jsonData)

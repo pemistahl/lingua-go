@@ -54,10 +54,10 @@ var expectedUnigramRelativeFrequencies = mapKeysToNgramsAndValuesToRats(map[stri
 	"s": "1/10", "t": "13/100", "u": "3/100", "w": "1/50", "y": "3/100",
 })
 
-func expectedUnigramJsonRelativeFrequencies() map[ngram]float64 {
-	frequencies := make(map[ngram]float64)
-	for ngram, rat := range expectedUnigramRelativeFrequencies {
-		frequencies[ngram], _ = rat.Float64()
+func expectedUnigramJsonRelativeFrequencies() map[string]float64 {
+	frequencies := make(map[string]float64)
+	for ngrm, rat := range expectedUnigramRelativeFrequencies {
+		frequencies[ngrm.value], _ = rat.Float64()
 	}
 	return frequencies
 }
@@ -212,16 +212,12 @@ func TestNewTrainingDataLanguageModel(t *testing.T) {
 
 func TestNewTrainingDataLanguageModelFromJson(t *testing.T) {
 	model := trainingDataLanguageModel{
-		language:                English,
-		absoluteFrequencies:     nil,
-		relativeFrequencies:     expectedUnigramRelativeFrequencies,
-		jsonRelativeFrequencies: nil,
+		language:            English,
+		absoluteFrequencies: nil,
+		relativeFrequencies: expectedUnigramRelativeFrequencies,
 	}
 	deserialized := newTrainingDataLanguageModelFromJson(model.toJson())
-	assert.Equal(t, English, deserialized.language)
-	assert.Equal(t, map[ngram]uint32(nil), deserialized.absoluteFrequencies)
-	assert.Equal(t, map[ngram]*big.Rat(nil), deserialized.relativeFrequencies)
-	assert.Equal(t, expectedUnigramJsonRelativeFrequencies(), deserialized.jsonRelativeFrequencies)
+	assert.Equal(t, expectedUnigramJsonRelativeFrequencies(), deserialized)
 }
 
 func TestNewTestDataLanguageModel(t *testing.T) {

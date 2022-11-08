@@ -25,20 +25,15 @@ import (
 	"strings"
 )
 
-type languageModel interface {
-	getRelativeFrequency(ngram ngram) float64
-}
-
 type jsonLanguageModel struct {
 	Language Language          `json:"language"`
 	Ngrams   map[string]string `json:"ngrams"`
 }
 
 type trainingDataLanguageModel struct {
-	language                Language
-	absoluteFrequencies     map[ngram]uint32
-	relativeFrequencies     map[ngram]*big.Rat
-	jsonRelativeFrequencies map[ngram]float64
+	language            Language
+	absoluteFrequencies map[ngram]uint32
+	relativeFrequencies map[ngram]*big.Rat
 }
 
 type testDataLanguageModel struct {
@@ -56,34 +51,28 @@ func newTrainingDataLanguageModel(
 	relativeFrequencies := computeRelativeFrequencies(ngramLength, absoluteFrequencies, lowerNgramAbsoluteFrequencies)
 
 	return trainingDataLanguageModel{
-		language:                language,
-		absoluteFrequencies:     absoluteFrequencies,
-		relativeFrequencies:     relativeFrequencies,
-		jsonRelativeFrequencies: nil,
+		language:            language,
+		absoluteFrequencies: absoluteFrequencies,
+		relativeFrequencies: relativeFrequencies,
 	}
 }
 
-func newTrainingDataLanguageModelFromJson(jsonData []byte) trainingDataLanguageModel {
+func newTrainingDataLanguageModelFromJson(jsonData []byte) map[string]float64 {
 	var jsonModel jsonLanguageModel
 	err := json.Unmarshal(jsonData, &jsonModel)
 	if err != nil {
 		panic(err.Error())
 	}
-	jsonRelativeFrequencies := make(map[ngram]float64)
+	jsonRelativeFrequencies := make(map[string]float64)
 	for rat, ngrams := range jsonModel.Ngrams {
 		r := new(big.Rat)
 		r.SetString(rat)
 		f, _ := r.Float64()
-		for _, ngram := range strings.Split(ngrams, " ") {
-			jsonRelativeFrequencies[newNgram(ngram)] = f
+		for _, ngrm := range strings.Split(ngrams, " ") {
+			jsonRelativeFrequencies[ngrm] = f
 		}
 	}
-	return trainingDataLanguageModel{
-		language:                jsonModel.Language,
-		absoluteFrequencies:     nil,
-		relativeFrequencies:     nil,
-		jsonRelativeFrequencies: jsonRelativeFrequencies,
-	}
+	return jsonRelativeFrequencies
 }
 
 func (model trainingDataLanguageModel) toJson() []byte {
@@ -110,13 +99,6 @@ func (model trainingDataLanguageModel) toJson() []byte {
 		panic(err.Error())
 	}
 	return serializedJsonModel
-}
-
-func (model trainingDataLanguageModel) getRelativeFrequency(ngram ngram) float64 {
-	if frequency, exists := model.jsonRelativeFrequencies[ngram]; exists {
-		return frequency
-	}
-	return 0
 }
 
 func newTestDataLanguageModel(text string, ngramLength int) testDataLanguageModel {
