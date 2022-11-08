@@ -673,12 +673,3 @@ func (language *Language) UnmarshalJSON(bytes []byte) error {
 	}
 	return fmt.Errorf("string \"%v\" cannot be unmarshalled to an instance of type Language", s)
 }
-
-func containsLanguage(languages []Language, language Language) bool {
-	for _, l := range languages {
-		if l == language {
-			return true
-		}
-	}
-	return false
-}

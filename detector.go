@@ -295,7 +295,7 @@ func (detector languageDetector) detectLanguageWithRules(words []string) Languag
 			for key := range wordLanguageCounts {
 				language = key
 			}
-			if containsLanguage(detector.languages, language) {
+			if slices.Contains(detector.languages, language) {
 				totalLanguageCounts[language]++
 			} else {
 				totalLanguageCounts[Unknown]++
@@ -318,7 +318,7 @@ func (detector languageDetector) detectLanguageWithRules(words []string) Languag
 				secondMostFrequentLanguageCount := wordLanguageCounts[keys[1]]
 
 				if mostFrequentLanguageCount > secondMostFrequentLanguageCount &&
-					containsLanguage(detector.languages, mostFrequentLanguage) {
+					slices.Contains(detector.languages, mostFrequentLanguage) {
 					totalLanguageCounts[mostFrequentLanguage]++
 				} else {
 					totalLanguageCounts[Unknown]++
@@ -405,7 +405,7 @@ func (detector languageDetector) filterLanguagesByRules(words []string) []Langua
 	var filteredLanguages []Language
 
 	for _, language := range detector.languages {
-		if containsAlphabet(language.alphabets(), mostFrequentAlphabet) {
+		if slices.Contains(language.alphabets(), mostFrequentAlphabet) {
 			filteredLanguages = append(filteredLanguages, language)
 		}
 	}
@@ -415,7 +415,7 @@ func (detector languageDetector) filterLanguagesByRules(words []string) []Langua
 	for characters, languages := range charsToLanguagesMapping {
 		var relevantLanguages []Language
 		for _, language := range languages {
-			if containsLanguage(filteredLanguages, language) {
+			if slices.Contains(filteredLanguages, language) {
 				relevantLanguages = append(relevantLanguages, language)
 			}
 		}
@@ -465,7 +465,7 @@ func (detector languageDetector) lookUpLanguageModels(
 		var intersectedLanguages []Language
 		if len(languages) > 0 {
 			for _, language := range filteredLanguages {
-				if containsLanguage(languages, language) {
+				if slices.Contains(languages, language) {
 					intersectedLanguages = append(intersectedLanguages, language)
 				}
 			}
@@ -632,7 +632,7 @@ func collectLanguagesWithUniqueCharacters(languages []Language) []Language {
 func collectOneLanguageAlphabets(languages []Language) map[alphabet]Language {
 	oneLanguageAlphabets := make(map[alphabet]Language)
 	for alphabet, language := range allAlphabetsSupportingSingleLanguage() {
-		if containsLanguage(languages, language) {
+		if slices.Contains(languages, language) {
 			oneLanguageAlphabets[alphabet] = language
 		}
 	}
