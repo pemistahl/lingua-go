@@ -65,6 +65,7 @@ type LanguageDetector interface {
 type languageDetector struct {
 	languages                     []Language
 	minimumRelativeDistance       float64
+	isLowAccuracyModeEnabled      bool
 	languagesWithUniqueCharacters []Language
 	oneLanguageAlphabets          map[alphabet]Language
 	unigramLanguageModels         *sync.Map
@@ -78,10 +79,12 @@ func newLanguageDetector(
 	languages []Language,
 	minimumRelativeDistance float64,
 	isEveryLanguageModelPreloaded bool,
+	isLowAccuracyModeEnabled bool,
 ) LanguageDetector {
 	detector := languageDetector{
 		languages,
 		minimumRelativeDistance,
+		isLowAccuracyModeEnabled,
 		collectLanguagesWithUniqueCharacters(languages),
 		collectOneLanguageAlphabets(languages),
 		&unigramModels,
@@ -102,11 +105,14 @@ func (detector languageDetector) preloadLanguageModels(languages []Language) {
 		wg.Add(1)
 		go func(language Language, wg *sync.WaitGroup) {
 			defer wg.Done()
-			detector.loadLanguageModels(detector.unigramLanguageModels, language, 1)
-			detector.loadLanguageModels(detector.bigramLanguageModels, language, 2)
 			detector.loadLanguageModels(detector.trigramLanguageModels, language, 3)
-			detector.loadLanguageModels(detector.quadrigramLanguageModels, language, 4)
-			detector.loadLanguageModels(detector.fivegramLanguageModels, language, 5)
+
+			if !detector.isLowAccuracyModeEnabled {
+				detector.loadLanguageModels(detector.unigramLanguageModels, language, 1)
+				detector.loadLanguageModels(detector.bigramLanguageModels, language, 2)
+				detector.loadLanguageModels(detector.quadrigramLanguageModels, language, 4)
+				detector.loadLanguageModels(detector.fivegramLanguageModels, language, 5)
+			}
 		}(language, &wg)
 	}
 	wg.Wait()
@@ -161,9 +167,14 @@ func (detector languageDetector) ComputeLanguageConfidenceValues(text string) []
 	}
 
 	characterCount := utf8.RuneCountInString(cleanedUpText)
+
+	if detector.isLowAccuracyModeEnabled && characterCount < 3 {
+		return values
+	}
+
 	var ngramLengthRange []int
 
-	if characterCount >= 120 {
+	if characterCount >= 120 || detector.isLowAccuracyModeEnabled {
 		ngramLengthRange = []int{3}
 	} else {
 		ngramLengthRange = []int{1, 2, 3, 4, 5}

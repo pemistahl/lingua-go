@@ -235,8 +235,14 @@ func (s *statistic) formatLanguageAccuracies(language lingua.Language) string {
 func main() {
 	start := time.Now()
 
-	linguaDetector := lingua.NewLanguageDetectorBuilder().
+	linguaDetectorWithHighAccuracy := lingua.NewLanguageDetectorBuilder().
 		FromAllLanguages().
+		WithPreloadedLanguageModels().
+		Build()
+
+	linguaDetectorWithLowAccuracy := lingua.NewLanguageDetectorBuilder().
+		FromAllLanguages().
+		WithLowAccuracyMode().
 		WithPreloadedLanguageModels().
 		Build()
 
@@ -245,11 +251,17 @@ func main() {
 
 	testDataDirectory, _ := filepath.Abs("language-testdata")
 	accuracyReportsDirectory, _ := filepath.Abs("accuracy-reports")
-	linguaReportsDirectory := filepath.Join(accuracyReportsDirectory, "lingua")
+	linguaHighAccuracyReportsDirectory := filepath.Join(accuracyReportsDirectory, "lingua-high-accuracy")
+	linguaLowAccuracyReportsDirectory := filepath.Join(accuracyReportsDirectory, "lingua-low-accuracy")
 	cld3ReportsDirectory := filepath.Join(accuracyReportsDirectory, "cld3")
 	whatlangReportsDirectory := filepath.Join(accuracyReportsDirectory, "whatlang")
 
-	err := os.MkdirAll(linguaReportsDirectory, os.ModePerm)
+	err := os.MkdirAll(linguaHighAccuracyReportsDirectory, os.ModePerm)
+	if err != nil {
+		panic("Lingua reports directory could not be created")
+	}
+
+	err = os.MkdirAll(linguaLowAccuracyReportsDirectory, os.ModePerm)
 	if err != nil {
 		panic("Lingua reports directory could not be created")
 	}
@@ -281,10 +293,14 @@ func main() {
 		"single-words-cld3",
 		"word-pairs-cld3",
 		"sentences-cld3",
-		"average-lingua",
-		"single-words-lingua",
-		"word-pairs-lingua",
-		"sentences-lingua\n",
+		"average-lingua-low",
+		"single-words-lingua-low",
+		"word-pairs-lingua-low",
+		"sentences-lingua-low",
+		"average-lingua-high",
+		"single-words-lingua-high",
+		"word-pairs-lingua-high",
+		"sentences-lingua-high\n",
 	}
 
 	_, err = aggregatedReportFile.WriteString(strings.Join(aggregatedReportColumns, ","))
@@ -302,13 +318,17 @@ func main() {
 		wordPairs := getFileContent(testDataDirectory, "word-pairs", language)
 		sentences := getFileContent(testDataDirectory, "sentences", language)
 
-		linguaStatistics := newDetectorStatistics()
+		linguaHighAccuracyStatistics := newDetectorStatistics()
+		linguaLowAccuracyStatistics := newDetectorStatistics()
 		cld3Statistics := newDetectorStatistics()
 		whatlangStatistics := newDetectorStatistics()
 
 		for _, singleWord := range singleWords {
-			linguaLanguage, _ := linguaDetector.DetectLanguageOf(singleWord)
-			linguaStatistics.addSingleWordCounts(linguaLanguage, singleWord)
+			linguaLanguageInHighAccuracyMode, _ := linguaDetectorWithHighAccuracy.DetectLanguageOf(singleWord)
+			linguaHighAccuracyStatistics.addSingleWordCounts(linguaLanguageInHighAccuracyMode, singleWord)
+
+			linguaLanguageInLowAccuracyMode, _ := linguaDetectorWithLowAccuracy.DetectLanguageOf(singleWord)
+			linguaLowAccuracyStatistics.addSingleWordCounts(linguaLanguageInLowAccuracyMode, singleWord)
 
 			cld3Language := mapCld3ToLingua(cld3Detector.FindLanguage(singleWord).Language)
 			cld3Statistics.addSingleWordCounts(cld3Language, singleWord)
@@ -318,8 +338,11 @@ func main() {
 		}
 
 		for _, wordPair := range wordPairs {
-			linguaLanguage, _ := linguaDetector.DetectLanguageOf(wordPair)
-			linguaStatistics.addWordPairCounts(linguaLanguage, wordPair)
+			linguaLanguageInHighAccuracyMode, _ := linguaDetectorWithHighAccuracy.DetectLanguageOf(wordPair)
+			linguaHighAccuracyStatistics.addWordPairCounts(linguaLanguageInHighAccuracyMode, wordPair)
+
+			linguaLanguageInLowAccuracyMode, _ := linguaDetectorWithLowAccuracy.DetectLanguageOf(wordPair)
+			linguaLowAccuracyStatistics.addWordPairCounts(linguaLanguageInLowAccuracyMode, wordPair)
 
 			cld3Language := mapCld3ToLingua(cld3Detector.FindLanguage(wordPair).Language)
 			cld3Statistics.addWordPairCounts(cld3Language, wordPair)
@@ -329,8 +352,11 @@ func main() {
 		}
 
 		for _, sentence := range sentences {
-			linguaLanguage, _ := linguaDetector.DetectLanguageOf(sentence)
-			linguaStatistics.addSentenceCounts(linguaLanguage, sentence)
+			linguaLanguageInHighAccuracyMode, _ := linguaDetectorWithHighAccuracy.DetectLanguageOf(sentence)
+			linguaHighAccuracyStatistics.addSentenceCounts(linguaLanguageInHighAccuracyMode, sentence)
+
+			linguaLanguageInLowAccuracyMode, _ := linguaDetectorWithLowAccuracy.DetectLanguageOf(sentence)
+			linguaLowAccuracyStatistics.addSentenceCounts(linguaLanguageInLowAccuracyMode, sentence)
 
 			cld3Language := mapCld3ToLingua(cld3Detector.FindLanguage(sentence).Language)
 			cld3Statistics.addSentenceCounts(cld3Language, sentence)
@@ -339,23 +365,27 @@ func main() {
 			whatlangStatistics.addSentenceCounts(whatlangLanguage, sentence)
 		}
 
-		linguaStatistics.computeAccuracyValues()
+		linguaHighAccuracyStatistics.computeAccuracyValues()
+		linguaLowAccuracyStatistics.computeAccuracyValues()
 		cld3Statistics.computeAccuracyValues()
 		whatlangStatistics.computeAccuracyValues()
 
-		linguaReport := linguaStatistics.createReportData(language)
+		linguaHighAccuracyReport := linguaHighAccuracyStatistics.createReportData(language)
+		linguaLowAccuracyReport := linguaLowAccuracyStatistics.createReportData(language)
 		cld3Report := cld3Statistics.createReportData(language)
 		whatlangReport := whatlangStatistics.createReportData(language)
 
-		linguaAggregatedReportRow := linguaStatistics.createAggregatedReportRow(language)
+		linguaHighAccuracyAggregatedReportRow := linguaHighAccuracyStatistics.createAggregatedReportRow(language)
+		linguaLowAccuracyAggregatedReportRow := linguaLowAccuracyStatistics.createAggregatedReportRow(language)
 		cld3AggregatedReportRow := cld3Statistics.createAggregatedReportRow(language)
 		whatlangAggregatedReportRow := whatlangStatistics.createAggregatedReportRow(language)
 		totalAggregatedReportRow := fmt.Sprintf(
-			"%s,%s,%s,%s\n",
+			"%s,%s,%s,%s,%s\n",
 			language,
 			whatlangAggregatedReportRow,
 			cld3AggregatedReportRow,
-			linguaAggregatedReportRow,
+			linguaLowAccuracyAggregatedReportRow,
+			linguaHighAccuracyAggregatedReportRow,
 		)
 
 		_, err = aggregatedReportFile.WriteString(totalAggregatedReportRow)
@@ -364,17 +394,31 @@ func main() {
 		}
 
 		reportFileName := fmt.Sprintf("%s.txt", language)
-		linguaReportsFilePath := filepath.Join(linguaReportsDirectory, reportFileName)
+		linguaHighAccuracyReportsFilePath := filepath.Join(linguaHighAccuracyReportsDirectory, reportFileName)
+		linguaLowAccuracyReportsFilePath := filepath.Join(linguaLowAccuracyReportsDirectory, reportFileName)
 		cld3ReportsFilePath := filepath.Join(cld3ReportsDirectory, reportFileName)
 		whatlangReportsFilePath := filepath.Join(whatlangReportsDirectory, reportFileName)
 
-		if len(linguaReport) > 0 {
-			linguaReportsFile, err := os.Create(linguaReportsFilePath)
+		if len(linguaHighAccuracyReport) > 0 {
+			linguaReportsFile, err := os.Create(linguaHighAccuracyReportsFilePath)
 			if err != nil {
 				panic("Lingua reports file could not be created")
 			}
 
-			_, err = linguaReportsFile.WriteString(linguaReport)
+			_, err = linguaReportsFile.WriteString(linguaHighAccuracyReport)
+			if err != nil {
+				panic("Lingua reports file could not be written")
+			}
+			linguaReportsFile.Close()
+		}
+
+		if len(linguaLowAccuracyReport) > 0 {
+			linguaReportsFile, err := os.Create(linguaLowAccuracyReportsFilePath)
+			if err != nil {
+				panic("Lingua reports file could not be created")
+			}
+
+			_, err = linguaReportsFile.WriteString(linguaLowAccuracyReport)
 			if err != nil {
 				panic("Lingua reports file could not be written")
 			}

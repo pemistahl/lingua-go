@@ -89,7 +89,7 @@ type LanguageDetectorBuilder interface {
 	// dependent on the length of the input text. The longer the input
 	// text, the larger the distance between the languages. So if you
 	// want to classify very short text phrases, do not set the minimum
-	// relative distance too high. Otherwise you will get most results
+	// relative distance too high. Otherwise, you will get most results
 	// returned as Unknown which is the return value for cases
 	// where language detection is not reliably possible.
 	//
@@ -107,6 +107,20 @@ type LanguageDetectorBuilder interface {
 	// method allows to switch between these two loading modes.
 	WithPreloadedLanguageModels() LanguageDetectorBuilder
 
+	// WithLowAccuracyMode disables the high accuracy mode in order to save
+	// memory and increase performance.
+	//
+	// By default, Lingua's high detection accuracy comes at the cost of
+	// loading large language models into memory which might not be feasible
+	// for systems running low on resources.
+	//
+	// This method disables the high accuracy mode so that only a small subset
+	// of language models is loaded into memory. The downside of this approach
+	// is that detection accuracy for short texts consisting of less than 120
+	// characters will drop significantly. However, detection accuracy for texts
+	// which are longer than 120 characters will remain mostly unaffected.
+	WithLowAccuracyMode() LanguageDetectorBuilder
+
 	// Build creates and returns the configured instance of LanguageDetector.
 	Build() LanguageDetector
 	getLanguages() []Language
@@ -117,6 +131,7 @@ type languageDetectorBuilder struct {
 	languages                     []Language
 	minimumRelativeDistance       float64
 	isEveryLanguageModelPreloaded bool
+	isLowAccuracyModeEnabled      bool
 }
 
 // NewLanguageDetectorBuilder returns a new instance that implements the
@@ -225,11 +240,17 @@ func (builder *languageDetectorBuilder) WithPreloadedLanguageModels() LanguageDe
 	return builder
 }
 
+func (builder *languageDetectorBuilder) WithLowAccuracyMode() LanguageDetectorBuilder {
+	builder.isLowAccuracyModeEnabled = true
+	return builder
+}
+
 func (builder *languageDetectorBuilder) Build() LanguageDetector {
 	return newLanguageDetector(
 		builder.languages,
 		builder.minimumRelativeDistance,
 		builder.isEveryLanguageModelPreloaded,
+		builder.isLowAccuracyModeEnabled,
 	)
 }
 
@@ -245,6 +266,7 @@ func (builder *languageDetectorBuilder) from(languages []Language) LanguageDetec
 	builder.languages = removeDuplicateLanguages(languages)
 	builder.minimumRelativeDistance = 0.0
 	builder.isEveryLanguageModelPreloaded = false
+	builder.isLowAccuracyModeEnabled = false
 	return builder
 }
 

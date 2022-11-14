@@ -7,3 +7,7 @@ require (
 	github.com/jmhodges/gocld3 v0.0.0-20211031064447-cc40e88f7505
 	github.com/pemistahl/lingua-go v1.0.5
 )
+
+require golang.org/x/exp v0.0.0-20221106115401-f9659909a136 // indirect
+
+replace github.com/pemistahl/lingua-go => ../

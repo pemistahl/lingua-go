@@ -170,6 +170,7 @@ func newDetectorForAllLanguages() languageDetector {
 	return languageDetector{
 		languages:                     languages,
 		minimumRelativeDistance:       0.0,
+		isLowAccuracyModeEnabled:      false,
 		languagesWithUniqueCharacters: collectLanguagesWithUniqueCharacters(languages),
 		oneLanguageAlphabets:          collectOneLanguageAlphabets(languages),
 		unigramLanguageModels:         &emptyLanguageModels,
@@ -670,6 +671,30 @@ func TestLanguageDetectionIsDeterministic(t *testing.T) {
 			fmt.Sprintf("language detector is non-deterministic for languages %v", testCase.languages),
 		)
 	}
+}
+
+func TestLowAccuracyModeReportsUnknownLanguageForUnigramsAndBigrams(t *testing.T) {
+	detector := NewLanguageDetectorBuilder().
+		FromLanguages(English, German).
+		WithPreloadedLanguageModels().
+		WithLowAccuracyMode().
+		Build()
+
+	languageForTrigram, exists := detector.DetectLanguageOf("bed")
+	assert.NotEqual(t, Unknown, languageForTrigram)
+	assert.Equal(t, true, exists)
+
+	languageForBigram, exists := detector.DetectLanguageOf("be")
+	assert.Equal(t, Unknown, languageForBigram)
+	assert.Equal(t, false, exists)
+
+	languageForUnigram, exists := detector.DetectLanguageOf("b")
+	assert.Equal(t, Unknown, languageForUnigram)
+	assert.Equal(t, false, exists)
+
+	languageForEmptyString, exists := detector.DetectLanguageOf("")
+	assert.Equal(t, Unknown, languageForEmptyString)
+	assert.Equal(t, false, exists)
 }
 
 func BenchmarkLanguageDetection(b *testing.B) {
