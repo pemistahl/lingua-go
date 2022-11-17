@@ -41,25 +41,35 @@ type LanguageDetector interface {
 	DetectLanguageOf(text string) (Language, bool)
 
 	// ComputeLanguageConfidenceValues computes confidence values for each
-	// language considered possible for the given input text.
+	// language supported by this detector for the given input text. These
+	// values denote how likely it is that the given text has been written
+	// in any of the languages supported by this detector.
 	//
-	// A slice of ConfidenceValue is returned containing all possible languages
-	// sorted by their confidence value in descending order. The values that
+	// A slice of ConfidenceValue is returned containing those languages which
+	// the calling instance of LanguageDetector has been built from. The entries
+	// are sorted by their confidence value in descending order. The values that
 	// this method computes are part of a relative confidence metric, not of an
-	// absolute one. Each value is a number between 0.0 and 1.0. The most likely
-	// language is always returned with value 1.0. All other languages get values
-	// assigned which are lower than 1.0, denoting how less likely those languages
-	// are in comparison to the most likely language.
+	// absolute one. Each value is a number between 0.0 and 1.0.
 	//
-	// The slice returned by this method does not necessarily contain all
-	// languages which the calling instance of LanguageDetector was built from.
-	// If the rule-based engine decides that a specific language is truly
-	// impossible, then it will not be part of the returned slice. Likewise,
-	// if no ngram probabilities can be found within the detector's languages
-	// for the given input text, the returned slice will be empty.
-	// The confidence value for each language not being part of the returned
-	// slice is assumed to be 0.0.
+	// If the language is unambiguously identified by the rule engine, the value
+	// 1.0 will always be returned for this language. The other languages will
+	// receive a value of 0.0. If the statistics engine is additionally needed,
+	// the most likely language will be returned with value 0.99 and the least
+	// likely language will be returned with value 0.01. All other languages get
+	// values assigned between 0.01 and 0.99, denoting how less likely those
+	// languages are in comparison to the most likely language.
 	ComputeLanguageConfidenceValues(text string) []ConfidenceValue
+
+	// ComputeLanguageConfidence computes the confidence value for the given
+	// language and input text. This value denotes how likely it is that the
+	// given text has been written in the given language.
+	//
+	// The value that this method computes is a number between 0.0 and 1.0.
+	// If the language is unambiguously identified by the rule engine, the value
+	// 1.0 will always be returned. If the given language is not supported by
+	// this detector instance, the value 0.0 will always be returned. Otherwise,
+	// a value between 0.01 and 0.99 will be returned.
+	ComputeLanguageConfidence(text string, language Language) float64
 }
 
 type languageDetector struct {
@@ -120,17 +130,7 @@ func (detector languageDetector) preloadLanguageModels(languages []Language) {
 
 func (detector languageDetector) DetectLanguageOf(text string) (Language, bool) {
 	confidenceValues := detector.ComputeLanguageConfidenceValues(text)
-
-	if len(confidenceValues) == 0 {
-		return Unknown, false
-	}
-
 	mostLikely := confidenceValues[0]
-
-	if len(confidenceValues) == 1 {
-		return mostLikely.Language(), true
-	}
-
 	secondMostLikely := confidenceValues[1]
 
 	if mostLikely.Value() == secondMostLikely.Value() {
@@ -144,10 +144,15 @@ func (detector languageDetector) DetectLanguageOf(text string) (Language, bool) 
 }
 
 func (detector languageDetector) ComputeLanguageConfidenceValues(text string) []ConfidenceValue {
-	var values []ConfidenceValue
+	values := make(confidenceValueSlice, len(detector.languages))
+	for i, language := range detector.languages {
+		values[i] = newConfidenceValue(language, 0)
+	}
+
 	cleanedUpText := detector.cleanUpInputText(text)
 
 	if len(cleanedUpText) == 0 || noLetter.MatchString(cleanedUpText) {
+		sort.Sort(values)
 		return values
 	}
 
@@ -155,20 +160,34 @@ func (detector languageDetector) ComputeLanguageConfidenceValues(text string) []
 	languageDetectedByRules := detector.detectLanguageWithRules(words)
 
 	if languageDetectedByRules != Unknown {
-		values = append(values, newConfidenceValue(languageDetectedByRules, 1.0))
+		for i := range values {
+			if values[i].Language() == languageDetectedByRules {
+				values[i] = newConfidenceValue(languageDetectedByRules, 1)
+				break
+			}
+		}
+		sort.Sort(values)
 		return values
 	}
 
 	filteredLanguages := detector.filterLanguagesByRules(words)
 
 	if len(filteredLanguages) == 1 {
-		values = append(values, newConfidenceValue(filteredLanguages[0], 1.0))
+		languageDetectedByFilter := filteredLanguages[0]
+		for i := range values {
+			if values[i].Language() == languageDetectedByFilter {
+				values[i] = newConfidenceValue(languageDetectedByFilter, 1)
+				break
+			}
+		}
+		sort.Sort(values)
 		return values
 	}
 
 	characterCount := utf8.RuneCountInString(cleanedUpText)
 
 	if detector.isLowAccuracyModeEnabled && characterCount < 3 {
+		sort.Sort(values)
 		return values
 	}
 
@@ -202,11 +221,22 @@ func (detector languageDetector) ComputeLanguageConfidenceValues(text string) []
 	summedUpProbabilities := detector.sumUpProbabilities(probabilityMaps, unigramCounts, filteredLanguages)
 
 	if len(summedUpProbabilities) == 0 {
+		sort.Sort(values)
 		return values
 	}
 
-	highestProbability := detector.getHighestProbability(summedUpProbabilities)
-	return detector.computeConfidenceValues(summedUpProbabilities, highestProbability)
+	highestProbability, lowestProbability := detector.getHighestAndLowestProbability(summedUpProbabilities)
+	return detector.computeConfidenceValues(values, summedUpProbabilities, highestProbability, lowestProbability)
+}
+
+func (detector languageDetector) ComputeLanguageConfidence(text string, language Language) float64 {
+	confidenceValues := detector.ComputeLanguageConfidenceValues(text)
+	for _, confidenceValue := range confidenceValues {
+		if confidenceValue.Language() == language {
+			return confidenceValue.Value()
+		}
+	}
+	return 0
 }
 
 func (detector languageDetector) getProbabilityMaps(
@@ -502,33 +532,36 @@ func (detector languageDetector) computeLanguageProbabilities(
 	return probabilities
 }
 
-func (detector languageDetector) getHighestProbability(probabilities map[Language]float64) float64 {
-	keys := make([]Language, 0, len(probabilities))
+func (detector languageDetector) getHighestAndLowestProbability(probabilities map[Language]float64) (float64, float64) {
+	probabilityCount := len(probabilities)
+	keys := make([]Language, 0, probabilityCount)
 	for key := range probabilities {
 		keys = append(keys, key)
 	}
 	sort.Slice(keys, func(i, j int) bool {
 		return probabilities[keys[i]] > probabilities[keys[j]]
 	})
-	return probabilities[keys[0]]
+	return probabilities[keys[0]], probabilities[keys[probabilityCount-1]]
 }
 
 func (detector languageDetector) computeConfidenceValues(
+	confidenceValues confidenceValueSlice,
 	probabilities map[Language]float64,
 	highestProbability float64,
+	lowestProbability float64,
 ) []ConfidenceValue {
-	var confidenceValues []ConfidenceValue
+	denominator := highestProbability - lowestProbability
 	for language, probability := range probabilities {
-		value := newConfidenceValue(language, highestProbability/probability)
-		confidenceValues = append(confidenceValues, value)
-	}
-	sort.Slice(confidenceValues, func(i, j int) bool {
-		first, second := confidenceValues[i], confidenceValues[j]
-		if first.Value() == second.Value() {
-			return first.Language() < second.Language()
+		// Apply min-max normalization
+		normalizedProbability := 0.98*(probability-lowestProbability)/denominator + 0.01
+		for i := range confidenceValues {
+			if confidenceValues[i].Language() == language {
+				confidenceValues[i] = newConfidenceValue(language, normalizedProbability)
+				break
+			}
 		}
-		return first.Value() > second.Value()
-	})
+	}
+	sort.Sort(confidenceValues)
 	return confidenceValues
 }
 

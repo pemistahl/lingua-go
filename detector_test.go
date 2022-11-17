@@ -131,6 +131,8 @@ func testDataModel(strs []string) testDataLanguageModel {
 // ##############################
 
 func newDetectorForEnglishAndGerman() languageDetector {
+	languages := []Language{English, German}
+
 	var unigramLanguageModels sync.Map
 	unigramLanguageModels.Store(English, unigramModelForEnglish)
 	unigramLanguageModels.Store(German, unigramModelForGerman)
@@ -152,10 +154,11 @@ func newDetectorForEnglishAndGerman() languageDetector {
 	fivegramLanguageModels.Store(German, fivegramModelForGerman)
 
 	return languageDetector{
-		languages:                     []Language{English, German},
+		languages:                     languages,
 		minimumRelativeDistance:       0.0,
-		languagesWithUniqueCharacters: []Language{},
-		oneLanguageAlphabets:          map[alphabet]Language{},
+		isLowAccuracyModeEnabled:      false,
+		languagesWithUniqueCharacters: collectLanguagesWithUniqueCharacters(languages),
+		oneLanguageAlphabets:          collectOneLanguageAlphabets(languages),
 		unigramLanguageModels:         &unigramLanguageModels,
 		bigramLanguageModels:          &bigramLanguageModels,
 		trigramLanguageModels:         &trigramLanguageModels,
@@ -344,35 +347,26 @@ func TestComputeLanguageProbabilities(t *testing.T) {
 	}
 }
 
-func TestComputeLanguageConfidenceValues(t *testing.T) {
-	unigramCountForBothLanguages := 5.0
-	totalProbabilityForGerman := (
-	// unigrams
-	math.Log(0.06) + math.Log(0.07) + math.Log(0.08) + math.Log(0.09) + math.Log(0.1) +
-		// bigrams
-		math.Log(0.15) + math.Log(0.16) + math.Log(0.17) + math.Log(0.18) +
-		// trigrams
-		math.Log(0.22) + math.Log(0.23) + math.Log(0.24) +
-		// quadrigrams
-		math.Log(0.27) + math.Log(0.28) +
-		// fivegrams
-		math.Log(0.3)) / unigramCountForBothLanguages
+func TestComputeLanguageConfidenceValues_LanguageDetectedByRules(t *testing.T) {
+	confidenceValues := detectorForEnglishAndGerman.ComputeLanguageConfidenceValues("groß")
 
-	totalProbabilityForEnglish := (
-	// unigrams
-	math.Log(0.01) + math.Log(0.02) + math.Log(0.03) + math.Log(0.04) + math.Log(0.05) +
-		// bigrams
-		math.Log(0.11) + math.Log(0.12) + math.Log(0.13) + math.Log(0.14) +
-		// trigrams
-		math.Log(0.19) + math.Log(0.2) + math.Log(0.21) +
-		// quadrigrams
-		math.Log(0.25) + math.Log(0.26) +
-		// fivegrams
-		math.Log(0.29)) / unigramCountForBothLanguages
+	assert.Equal(
+		t,
+		2,
+		len(confidenceValues),
+		fmt.Sprintf("expected 2 confidence values, got %v", len(confidenceValues)),
+	)
 
-	expectedConfidenceForGerman := 1.0
-	expectedConfidenceForEnglish := totalProbabilityForGerman / totalProbabilityForEnglish
+	first, second := confidenceValues[0], confidenceValues[1]
 
+	assert.Equal(t, German, first.Language())
+	assert.Equal(t, 1.0, first.Value())
+
+	assert.Equal(t, English, second.Language())
+	assert.Equal(t, 0.0, second.Value())
+}
+
+func TestComputeLanguageConfidenceValues_KnownNgrams(t *testing.T) {
 	confidenceValues := detectorForEnglishAndGerman.ComputeLanguageConfidenceValues("Alter")
 
 	assert.Equal(
@@ -385,10 +379,58 @@ func TestComputeLanguageConfidenceValues(t *testing.T) {
 	first, second := confidenceValues[0], confidenceValues[1]
 
 	assert.Equal(t, German, first.Language())
-	assert.Equal(t, expectedConfidenceForGerman, first.Value())
+	assert.Equal(t, 0.99, first.Value())
 
 	assert.Equal(t, English, second.Language())
-	assert.InDelta(t, expectedConfidenceForEnglish, second.Value(), delta)
+	assert.Equal(t, 0.01, second.Value())
+}
+
+func TestComputeLanguageConfidenceValues_UnknownNgrams(t *testing.T) {
+	confidenceValues := detectorForEnglishAndGerman.ComputeLanguageConfidenceValues("проарплап")
+
+	assert.Equal(
+		t,
+		2,
+		len(confidenceValues),
+		fmt.Sprintf("expected 2 confidence values, got %v", len(confidenceValues)),
+	)
+
+	first, second := confidenceValues[0], confidenceValues[1]
+
+	assert.Equal(t, English, first.Language())
+	assert.Equal(t, 0.0, first.Value())
+
+	assert.Equal(t, German, second.Language())
+	assert.Equal(t, 0.0, second.Value())
+}
+
+func TestComputeLanguageConfidence_LanguageDetectedByRules(t *testing.T) {
+	confidence := detectorForEnglishAndGerman.ComputeLanguageConfidence("groß", German)
+	assert.Equal(t, 1.0, confidence)
+
+	confidence = detectorForEnglishAndGerman.ComputeLanguageConfidence("groß", English)
+	assert.Equal(t, 0.0, confidence)
+}
+
+func TestComputeLanguageConfidence_KnownNgrams(t *testing.T) {
+	confidence := detectorForEnglishAndGerman.ComputeLanguageConfidence("Alter", German)
+	assert.Equal(t, 0.99, confidence)
+
+	confidence = detectorForEnglishAndGerman.ComputeLanguageConfidence("Alter", English)
+	assert.Equal(t, 0.01, confidence)
+}
+
+func TestComputeLanguageConfidence_UnknownNgrams(t *testing.T) {
+	confidence := detectorForEnglishAndGerman.ComputeLanguageConfidence("проарплап", German)
+	assert.Equal(t, 0.0, confidence)
+
+	confidence = detectorForEnglishAndGerman.ComputeLanguageConfidence("проарплап", English)
+	assert.Equal(t, 0.0, confidence)
+}
+
+func TestComputeLanguageConfidence_UnknownLanguage(t *testing.T) {
+	confidence := detectorForEnglishAndGerman.ComputeLanguageConfidence("groß", French)
+	assert.Equal(t, 0.0, confidence)
 }
 
 func TestDetectLanguage(t *testing.T) {

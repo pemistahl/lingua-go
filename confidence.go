@@ -31,6 +31,8 @@ type confidenceValue struct {
 	value    float64
 }
 
+type confidenceValueSlice []ConfidenceValue
+
 func newConfidenceValue(language Language, value float64) ConfidenceValue {
 	return confidenceValue{language, value}
 }
@@ -41,4 +43,20 @@ func (c confidenceValue) Language() Language {
 
 func (c confidenceValue) Value() float64 {
 	return c.value
+}
+
+func (c confidenceValueSlice) Len() int {
+	return len(c)
+}
+
+func (c confidenceValueSlice) Less(i, j int) bool {
+	first, second := c[i], c[j]
+	if first.Value() == second.Value() {
+		return first.Language() < second.Language()
+	}
+	return first.Value() > second.Value()
+}
+
+func (c confidenceValueSlice) Swap(i, j int) {
+	c[i], c[j] = c[j], c[i]
 }

@@ -64,7 +64,7 @@ func Example_minimumRelativeDistance() {
 
 	detector := lingua.NewLanguageDetectorBuilder().
 		FromLanguages(languages...).
-		WithMinimumRelativeDistance(0.25).
+		WithMinimumRelativeDistance(0.7).
 		Build()
 
 	language, exists := detector.DetectLanguageOf("languages are awesome")
@@ -80,22 +80,19 @@ func Example_minimumRelativeDistance() {
 // Knowing about the most likely language is nice but how reliable is the
 // computed likelihood? And how less likely are the other examined languages in
 // comparison to the most likely one? In the example below, a slice of
-// ConfidenceValue is returned containing all possible languages sorted by their
-// confidence value in descending order. The values that this method computes are
-// part of a relative confidence metric, not of an absolute one. Each value is a
-// number between 0.0 and 1.0. The most likely language is always returned with
-// value 1.0. All other languages get values assigned which are lower than 1.0,
-// denoting how less likely those languages are in comparison to the most likely
-// language.
+// ConfidenceValue is returned containing those languages which the calling
+// instance of LanguageDetector has been built from. The entries are sorted by
+// their confidence value in descending order. The values that this method
+// computes are part of a relative confidence metric, not of an absolute one.
+// Each value is a number between 0.0 and 1.0.
 //
-// The slice returned by this method does not necessarily contain all
-// languages which the calling instance of LanguageDetector was built from.
-// If the rule-based engine decides that a specific language is truly
-// impossible, then it will not be part of the returned slice. Likewise,
-// if no ngram probabilities can be found within the detector's languages
-// for the given input text, the returned slice will be empty.
-// The confidence value for each language not being part of the returned
-// slice is assumed to be 0.0.
+// If the language is unambiguously identified by the rule engine, the value
+// 1.0 will always be returned for this language. The other languages will
+// receive a value of 0.0. If the statistics engine is additionally needed,
+// the most likely language will be returned with value 0.99 and the least
+// likely language will be returned with value 0.01. All other languages get
+// values assigned between 0.01 and 0.99, denoting how less likely those
+// languages are in comparison to the most likely language.
 func Example_confidenceValues() {
 	languages := []lingua.Language{
 		lingua.English,
@@ -115,10 +112,10 @@ func Example_confidenceValues() {
 	}
 
 	// Output:
-	// English: 1.00
-	// French: 0.79
-	// German: 0.75
-	// Spanish: 0.72
+	// English: 0.99
+	// French: 0.32
+	// German: 0.15
+	// Spanish: 0.01
 }
 
 // By default, Lingua uses lazy-loading to load only those language models on
