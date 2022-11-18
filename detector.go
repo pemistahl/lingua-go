@@ -18,6 +18,7 @@ package lingua
 
 import (
 	"fmt"
+	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
 	"math"
 	"sort"
@@ -243,9 +244,9 @@ func (detector languageDetector) getProbabilityMaps(
 	probabilityChannel <-chan map[Language]float64,
 	ngramLengthRange []int,
 ) []map[Language]float64 {
-	var probabilityMaps []map[Language]float64
-	for range ngramLengthRange {
-		probabilityMaps = append(probabilityMaps, <-probabilityChannel)
+	probabilityMaps := make([]map[Language]float64, len(ngramLengthRange))
+	for i := range ngramLengthRange {
+		probabilityMaps[i] = <-probabilityChannel
 	}
 	return probabilityMaps
 }
@@ -259,12 +260,13 @@ func (detector languageDetector) cleanUpInputText(text string) string {
 }
 
 func (detector languageDetector) splitTextIntoWords(text string) []string {
-	var normalizedTextBuilder []string
-	for _, chr := range text {
+	normalizedTextBuilder := make([]string, len(text))
+	for i, chr := range text {
 		char := string(chr)
-		normalizedTextBuilder = append(normalizedTextBuilder, char)
 		if detector.isLogogram(char) {
-			normalizedTextBuilder = append(normalizedTextBuilder, " ")
+			normalizedTextBuilder[i] = char + " "
+		} else {
+			normalizedTextBuilder[i] = char
 		}
 	}
 	normalizedText := strings.Join(normalizedTextBuilder, "")
@@ -347,10 +349,7 @@ func (detector languageDetector) detectLanguageWithRules(words []string) Languag
 			if containsChinese && containsJapanese {
 				totalLanguageCounts[Japanese]++
 			} else {
-				keys := make([]Language, 0, len(wordLanguageCounts))
-				for key := range wordLanguageCounts {
-					keys = append(keys, key)
-				}
+				keys := maps.Keys(wordLanguageCounts)
 				sort.Slice(keys, func(i, j int) bool {
 					return wordLanguageCounts[keys[i]] > wordLanguageCounts[keys[j]]
 				})
@@ -389,10 +388,7 @@ func (detector languageDetector) detectLanguageWithRules(words []string) Languag
 			return Japanese
 		}
 	}
-	sortedLanguages := make([]Language, 0, len(totalLanguageCounts))
-	for language := range totalLanguageCounts {
-		sortedLanguages = append(sortedLanguages, language)
-	}
+	sortedLanguages := maps.Keys(totalLanguageCounts)
 	sort.Slice(sortedLanguages, func(i, j int) bool {
 		return totalLanguageCounts[sortedLanguages[i]] > totalLanguageCounts[sortedLanguages[j]]
 	})
@@ -425,19 +421,16 @@ func (detector languageDetector) filterLanguagesByRules(words []string) []Langua
 	}
 
 	if len(detectedAlphabets) > 1 {
-		distinctAlphabetCounts := make(map[uint32]bool)
+		distinctAlphabetCounts := make(map[uint32]struct{})
 		for _, count := range detectedAlphabets {
-			distinctAlphabetCounts[count] = true
+			distinctAlphabetCounts[count] = struct{}{}
 		}
 		if len(distinctAlphabetCounts) == 1 {
 			return detector.languages
 		}
 	}
 
-	sortedAlphabets := make([]alphabet, 0, len(detectedAlphabets))
-	for alphabet := range detectedAlphabets {
-		sortedAlphabets = append(sortedAlphabets, alphabet)
-	}
+	sortedAlphabets := maps.Keys(detectedAlphabets)
 	sort.Slice(sortedAlphabets, func(i, j int) bool {
 		return detectedAlphabets[sortedAlphabets[i]] > detectedAlphabets[sortedAlphabets[j]]
 	})
@@ -498,20 +491,18 @@ func (detector languageDetector) lookUpLanguageModels(
 	probabilityChannel <- probabilities
 
 	if ngramLength == 1 {
-		var languages []Language
-		for language := range probabilities {
-			languages = append(languages, language)
-		}
+		intersectedLanguages := make([]Language, len(filteredLanguages))
 
-		var intersectedLanguages []Language
-		if len(languages) > 0 {
-			for _, language := range filteredLanguages {
-				if slices.Contains(languages, language) {
-					intersectedLanguages = append(intersectedLanguages, language)
+		if len(probabilities) > 0 {
+			for i, language := range filteredLanguages {
+				if _, exists := probabilities[language]; exists {
+					intersectedLanguages[i] = language
 				}
 			}
 		} else {
-			intersectedLanguages = filteredLanguages
+			for i, language := range filteredLanguages {
+				intersectedLanguages[i] = language
+			}
 		}
 
 		detector.countUnigrams(unigramCountChannel, testDataModel, intersectedLanguages)
@@ -534,10 +525,7 @@ func (detector languageDetector) computeLanguageProbabilities(
 
 func (detector languageDetector) getHighestAndLowestProbability(probabilities map[Language]float64) (float64, float64) {
 	probabilityCount := len(probabilities)
-	keys := make([]Language, 0, probabilityCount)
-	for key := range probabilities {
-		keys = append(keys, key)
-	}
+	keys := maps.Keys(probabilities)
 	sort.Slice(keys, func(i, j int) bool {
 		return probabilities[keys[i]] > probabilities[keys[j]]
 	})
@@ -565,7 +553,7 @@ func (detector languageDetector) computeConfidenceValues(
 	return confidenceValues
 }
 
-func (detector languageDetector) computeSumOfNgramProbabilities(language Language, ngrams map[ngram]bool) float64 {
+func (detector languageDetector) computeSumOfNgramProbabilities(language Language, ngrams map[ngram]struct{}) float64 {
 	sum := 0.0
 	for ngram := range ngrams {
 		for _, elem := range ngram.rangeOfLowerOrderNgrams() {

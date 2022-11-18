@@ -119,9 +119,9 @@ var fivegramModelForGerman = map[string]float64{
 // ##############################
 
 func testDataModel(strs []string) testDataLanguageModel {
-	ngrams := make(map[ngram]bool)
+	ngrams := make(map[ngram]struct{})
 	for _, s := range strs {
-		ngrams[newNgram(s)] = true
+		ngrams[newNgram(s)] = struct{}{}
 	}
 	return testDataLanguageModel{ngrams}
 }
@@ -287,9 +287,9 @@ func TestComputeSumOfNgramProbabilities(t *testing.T) {
 		},
 	}
 	for _, testCase := range testCases {
-		mappedNgrams := make(map[ngram]bool)
+		mappedNgrams := make(map[ngram]struct{})
 		for _, ngram := range testCase.ngrams {
-			mappedNgrams[newNgram(ngram)] = true
+			mappedNgrams[newNgram(ngram)] = struct{}{}
 		}
 		sumOfProbabilities := detectorForEnglishAndGerman.computeSumOfNgramProbabilities(English, mappedNgrams)
 		message := fmt.Sprintf(

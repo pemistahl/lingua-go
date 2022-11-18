@@ -37,7 +37,7 @@ type trainingDataLanguageModel struct {
 }
 
 type testDataLanguageModel struct {
-	ngrams map[ngram]bool
+	ngrams map[ngram]struct{}
 }
 
 func newTrainingDataLanguageModel(
@@ -105,14 +105,14 @@ func newTestDataLanguageModel(text string, ngramLength int) testDataLanguageMode
 	if ngramLength > maxNgramLength {
 		panic(fmt.Sprintf("ngram length %v is greater than %v", ngramLength, maxNgramLength))
 	}
-	ngrams := make(map[ngram]bool)
+	ngrams := make(map[ngram]struct{})
 	chars := []rune(text)
 	charsCount := len(chars)
 	if charsCount >= ngramLength {
 		for i := 0; i <= charsCount-ngramLength; i++ {
 			slice := string(chars[i : i+ngramLength])
 			if letter.MatchString(slice) {
-				ngrams[newNgram(slice)] = true
+				ngrams[newNgram(slice)] = struct{}{}
 			}
 		}
 	}

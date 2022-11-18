@@ -223,7 +223,7 @@ func TestNewTrainingDataLanguageModelFromJson(t *testing.T) {
 func TestNewTestDataLanguageModel(t *testing.T) {
 	params := []struct {
 		ngramLength    int
-		expectedNgrams map[ngram]bool
+		expectedNgrams map[ngram]struct{}
 	}{
 		{1, expectedUnigrams},
 		{2, expectedBigrams},
@@ -237,10 +237,10 @@ func TestNewTestDataLanguageModel(t *testing.T) {
 	}
 }
 
-func mapStringsToNgrams(strings ...string) map[ngram]bool {
-	ngrams := make(map[ngram]bool)
+func mapStringsToNgrams(strings ...string) map[ngram]struct{} {
+	ngrams := make(map[ngram]struct{})
 	for _, s := range strings {
-		ngrams[newNgram(s)] = true
+		ngrams[newNgram(s)] = struct{}{}
 	}
 	return ngrams
 }
