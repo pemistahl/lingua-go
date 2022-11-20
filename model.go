@@ -17,23 +17,15 @@
 package lingua
 
 import (
-	"encoding/json"
 	"fmt"
-	"math/big"
 	"regexp"
-	"sort"
 	"strings"
 )
-
-type jsonLanguageModel struct {
-	Language Language          `json:"language"`
-	Ngrams   map[string]string `json:"ngrams"`
-}
 
 type trainingDataLanguageModel struct {
 	language            Language
 	absoluteFrequencies map[ngram]uint32
-	relativeFrequencies map[ngram]*big.Rat
+	relativeFrequencies map[ngram]float64
 }
 
 type testDataLanguageModel struct {
@@ -55,50 +47,6 @@ func newTrainingDataLanguageModel(
 		absoluteFrequencies: absoluteFrequencies,
 		relativeFrequencies: relativeFrequencies,
 	}
-}
-
-func newTrainingDataLanguageModelFromJson(jsonData []byte) map[string]float64 {
-	var jsonModel jsonLanguageModel
-	err := json.Unmarshal(jsonData, &jsonModel)
-	if err != nil {
-		panic(err.Error())
-	}
-	jsonRelativeFrequencies := make(map[string]float64)
-	for rat, ngrams := range jsonModel.Ngrams {
-		r := new(big.Rat)
-		r.SetString(rat)
-		f, _ := r.Float64()
-		for _, ngrm := range strings.Split(ngrams, " ") {
-			jsonRelativeFrequencies[ngrm] = f
-		}
-	}
-	return jsonRelativeFrequencies
-}
-
-func (model trainingDataLanguageModel) toJson() []byte {
-	ratsToNgrams := make(map[string]ngramSlice)
-	for ngram, rat := range model.relativeFrequencies {
-		r := rat.String()
-		ratsToNgrams[r] = append(ratsToNgrams[r], ngram)
-	}
-	ratsToJoinedNgrams := make(map[string]string)
-	for rat, ngrams := range ratsToNgrams {
-		sort.Sort(ngrams)
-		var ngramValues []string
-		for _, ngram := range ngrams {
-			ngramValues = append(ngramValues, ngram.value)
-		}
-		ratsToJoinedNgrams[rat] = strings.Join(ngramValues, " ")
-	}
-	jsonModel := jsonLanguageModel{
-		Language: model.language,
-		Ngrams:   ratsToJoinedNgrams,
-	}
-	serializedJsonModel, err := json.Marshal(jsonModel)
-	if err != nil {
-		panic(err.Error())
-	}
-	return serializedJsonModel
 }
 
 func newTestDataLanguageModel(text string, ngramLength int) testDataLanguageModel {
@@ -145,8 +93,8 @@ func computeRelativeFrequencies(
 	ngramLength int,
 	absoluteFrequencies map[ngram]uint32,
 	lowerNgramAbsoluteFrequencies map[ngram]uint32,
-) map[ngram]*big.Rat {
-	ngramProbabilities := make(map[ngram]*big.Rat)
+) map[ngram]float64 {
+	ngramProbabilities := make(map[ngram]float64, len(absoluteFrequencies))
 	var totalNgramFrequency uint32
 	for _, frequency := range absoluteFrequencies {
 		totalNgramFrequency += frequency
@@ -160,7 +108,7 @@ func computeRelativeFrequencies(
 			slice := string(chars[0 : ngramLength-1])
 			denominator = lowerNgramAbsoluteFrequencies[newNgram(slice)]
 		}
-		ngramProbabilities[ngram] = big.NewRat(int64(frequency), int64(denominator))
+		ngramProbabilities[ngram] = float64(frequency) / float64(denominator)
 	}
 	return ngramProbabilities
 }

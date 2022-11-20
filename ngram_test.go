@@ -17,7 +17,6 @@
 package lingua
 
 import (
-	"encoding/json"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -34,17 +33,4 @@ func TestRangeOfLowerOrderNgrams(t *testing.T) {
 			newNgram("ä"),
 		},
 		n.rangeOfLowerOrderNgrams())
-}
-
-func TestNgram_MarshalJSON(t *testing.T) {
-	serialized, err := json.Marshal(newNgram("äbcde"))
-	assert.Equal(t, "\"äbcde\"", string(serialized))
-	assert.Equal(t, nil, err)
-}
-
-func TestNgram_UnmarshalJSON(t *testing.T) {
-	var ngram ngram
-	err := json.Unmarshal([]byte("\"äbcde\""), &ngram)
-	assert.Equal(t, newNgram("äbcde"), ngram)
-	assert.Equal(t, nil, err)
 }

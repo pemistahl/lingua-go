@@ -8,6 +8,9 @@ require (
 	github.com/pemistahl/lingua-go v1.0.5
 )
 
-require golang.org/x/exp v0.0.0-20221106115401-f9659909a136 // indirect
+require (
+	golang.org/x/exp v0.0.0-20221106115401-f9659909a136 // indirect
+	google.golang.org/protobuf v1.28.1 // indirect
+)
 
 replace github.com/pemistahl/lingua-go => ../

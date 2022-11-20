@@ -20,8 +20,8 @@ import (
 	"archive/zip"
 	"fmt"
 	"github.com/stretchr/testify/assert"
+	"google.golang.org/protobuf/proto"
 	"io"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -56,78 +56,185 @@ these mutually
 contradictory different
 `
 
-const expectedUnigramJsonModel = `
-{
-	"language":"ENGLISH",
-	"ngrams":{
-		"1/10":"n o s",
-		"1/100":"b g l m",
-		"1/20":"d r",
-		"1/25":"h",
-		"1/50":"f w",
-		"13/100":"t",
-		"3/100":"a c p u y",
-		"3/50":"i",
-		"7/50":"e"
-	}
-}`
+var expectedUnigramModel = SerializableLanguageModel{
+	Language:    SerializableLanguage_ENGLISH,
+	NgramLength: 1,
+	TotalNgrams: 20,
+	NgramSets: []*SerializableNgramSet{
+		{
+			Probability: 0.01,
+			Ngrams:      []string{"b", "g", "l", "m"},
+		},
+		{
+			Probability: 0.02,
+			Ngrams:      []string{"f", "w"},
+		},
+		{
+			Probability: 0.03,
+			Ngrams:      []string{"a", "c", "p", "u", "y"},
+		},
+		{
+			Probability: 0.04,
+			Ngrams:      []string{"h"},
+		},
+		{
+			Probability: 0.05,
+			Ngrams:      []string{"d", "r"},
+		},
+		{
+			Probability: 0.06,
+			Ngrams:      []string{"i"},
+		},
+		{
+			Probability: 0.1,
+			Ngrams:      []string{"n", "o", "s"},
+		},
+		{
+			Probability: 0.13,
+			Ngrams:      []string{"t"},
+		},
+		{
+			Probability: 0.14,
+			Ngrams:      []string{"e"},
+		},
+	},
+}
 
-const expectedBigramJsonModel = `
-{
-	"language":"ENGLISH",
-	"ngrams":{
-		"1/1":"by he",
-		"1/10":"nc nd ng no ns od of os si",
-		"1/13":"ta to",
-		"1/14":"ed em ey",
-		"1/2":"fo wa wo",
-		"1/3":"al ar ay ce co ct po pr pu uc ur us",
-		"1/5":"de do ds du nt on or ot rd re ro rp st",
-		"1/6":"io is",
-		"2/13":"ti",
-		"2/3":"in",
-		"2/5":"se",
-		"2/7":"es",
-		"3/13":"te",
-		"3/14":"en",
-		"4/13":"th"
-	}
-}`
+var expectedBigramModel = SerializableLanguageModel{
+	Language:    SerializableLanguage_ENGLISH,
+	NgramLength: 2,
+	TotalNgrams: 53,
+	NgramSets: []*SerializableNgramSet{
+		{
+			Probability: 1.0 / 14,
+			Ngrams:      []string{"ed", "em", "ey"},
+		},
+		{
+			Probability: 1.0 / 13,
+			Ngrams:      []string{"ta", "to"},
+		},
+		{
+			Probability: 0.1,
+			Ngrams:      []string{"nc", "nd", "ng", "no", "ns", "od", "of", "os", "si"},
+		},
+		{
+			Probability: 2.0 / 13,
+			Ngrams:      []string{"ti"},
+		},
+		{
+			Probability: 1.0 / 6,
+			Ngrams:      []string{"io", "is"},
+		},
+		{
+			Probability: 0.2,
+			Ngrams:      []string{"de", "do", "ds", "du", "nt", "on", "or", "ot", "rd", "re", "ro", "rp", "st"},
+		},
+		{
+			Probability: 3.0 / 14,
+			Ngrams:      []string{"en"},
+		},
+		{
+			Probability: 3.0 / 13,
+			Ngrams:      []string{"te"},
+		},
+		{
+			Probability: 2.0 / 7,
+			Ngrams:      []string{"es"},
+		},
+		{
+			Probability: 4.0 / 13,
+			Ngrams:      []string{"th"},
+		},
+		{
+			Probability: 1.0 / 3,
+			Ngrams:      []string{"al", "ar", "ay", "ce", "co", "ct", "po", "pr", "pu", "uc", "ur", "us"},
+		},
+		{
+			Probability: 0.4,
+			Ngrams:      []string{"se"},
+		},
+		{
+			Probability: 0.5,
+			Ngrams:      []string{"fo", "wa", "wo"},
+		},
+		{
+			Probability: 2.0 / 3,
+			Ngrams:      []string{"in"},
+		},
+		{
+			Probability: 1,
+			Ngrams:      []string{"by", "he"},
+		},
+	},
+}
 
-const expectedTrigramJsonModel = `
-{
-	"language":"ENGLISH",
-	"ngrams":{
-		"1/1":"are ces con cti ded duc for ion ist nce nde not nsi nte odu ose pos pro pur rds rod rpo sis tal the tot uct urp use way wor",
-		"1/2":"ons ord ota sti tin tio",
-		"1/3":"enc end ent tes",
-		"1/4":"ese est hem hes hey ing int sen ses",
-		"2/3":"ten"
-	}
-}`
+var expectedTrigramModel = SerializableLanguageModel{
+	Language:    SerializableLanguage_ENGLISH,
+	NgramLength: 3,
+	TotalNgrams: 51,
+	NgramSets: []*SerializableNgramSet{
+		{
+			Probability: 0.25,
+			Ngrams:      []string{"ese", "est", "hem", "hes", "hey", "ing", "int", "sen", "ses"},
+		},
+		{
+			Probability: 1.0 / 3,
+			Ngrams:      []string{"enc", "end", "ent", "tes"},
+		},
+		{
+			Probability: 0.5,
+			Ngrams:      []string{"ons", "ord", "ota", "sti", "tin", "tio"},
+		},
+		{
+			Probability: 2.0 / 3,
+			Ngrams:      []string{"ten"},
+		},
+		{
+			Probability: 1,
+			Ngrams:      []string{"are", "ces", "con", "cti", "ded", "duc", "for", "ion", "ist", "nce", "nde", "not", "nsi", "nte", "odu", "ose", "pos", "pro", "pur", "rds", "rod", "rpo", "sis", "tal", "the", "tot", "uct", "urp", "use", "way", "wor"},
+		},
+	},
+}
 
-const expectedQuadrigramJsonModel = `
-{
-	"language":"ENGLISH",
-	"ngrams":{
-		"1/1":"cons ctio duct ence ende ente esti hese inte nces nded nsis nten oduc onsi ords oses otal pose prod purp rodu rpos sent sist stin test ting tion tota ucti urpo word",
-		"1/2":"tenc tend",
-		"1/4":"them thes they"
-	}
-}`
+var expectedQuadrigramModel = SerializableLanguageModel{
+	Language:    SerializableLanguage_ENGLISH,
+	NgramLength: 4,
+	TotalNgrams: 38,
+	NgramSets: []*SerializableNgramSet{
+		{
+			Probability: 0.25,
+			Ngrams:      []string{"them", "thes", "they"},
+		},
+		{
+			Probability: 0.5,
+			Ngrams:      []string{"tenc", "tend"},
+		},
+		{
+			Probability: 1,
+			Ngrams:      []string{"cons", "ctio", "duct", "ence", "ende", "ente", "esti", "hese", "inte", "nces", "nded", "nsis", "nten", "oduc", "onsi", "ords", "oses", "otal", "pose", "prod", "purp", "rodu", "rpos", "sent", "sist", "stin", "test", "ting", "tion", "tota", "ucti", "urpo", "word"},
+		},
+	},
+}
 
-const expectedFivegramJsonModel = `
-{
-	"language":"ENGLISH",
-	"ngrams":{
-		"1/1":"consi ction ducti ences ended enten estin inten nsist oduct onsis poses produ purpo roduc rpose sente sting tence tende testi these total uctio urpos words",
-		"1/2":"ntenc ntend"
-	}
-}`
+var expectedFivegramModel = SerializableLanguageModel{
+	Language:    SerializableLanguage_ENGLISH,
+	NgramLength: 5,
+	TotalNgrams: 28,
+	NgramSets: []*SerializableNgramSet{
+		{
+			Probability: 0.5,
+			Ngrams:      []string{"ntenc", "ntend"},
+		},
+		{
+			Probability: 1,
+			Ngrams:      []string{"consi", "ction", "ducti", "ences", "ended", "enten", "estin", "inten", "nsist", "oduct", "onsis", "poses", "produ", "purpo", "roduc", "rpose", "sente", "sting", "tence", "tende", "testi", "these", "total", "uctio", "urpos", "words"},
+		},
+	},
+}
 
 func TestCreateAndWriteLanguageModelFiles(t *testing.T) {
 	inputFilePath := createTempInputFile(content)
-	outputDirectoryPath, _ := ioutil.TempDir("", "linguaOutputDirectory")
+	outputDirectoryPath, _ := os.MkdirTemp("", "linguaOutputDirectory")
 
 	err := CreateAndWriteLanguageModelFiles(inputFilePath, outputDirectoryPath, English, "\\p{L}")
 
@@ -143,24 +250,24 @@ func TestCreateAndWriteLanguageModelFiles(t *testing.T) {
 	quadrigramsFile := files[2]
 	fivegramsFile := files[1]
 
-	assert.Equal(t, "unigrams.json.zip", unigramsFile.Name())
-	assert.Equal(t, "bigrams.json.zip", bigramsFile.Name())
-	assert.Equal(t, "trigrams.json.zip", trigramsFile.Name())
-	assert.Equal(t, "quadrigrams.json.zip", quadrigramsFile.Name())
-	assert.Equal(t, "fivegrams.json.zip", fivegramsFile.Name())
+	assert.Equal(t, "unigrams.pb.bin.zip", unigramsFile.Name())
+	assert.Equal(t, "bigrams.pb.bin.zip", bigramsFile.Name())
+	assert.Equal(t, "trigrams.pb.bin.zip", trigramsFile.Name())
+	assert.Equal(t, "quadrigrams.pb.bin.zip", quadrigramsFile.Name())
+	assert.Equal(t, "fivegrams.pb.bin.zip", fivegramsFile.Name())
 
-	assertLanguageModelFileContent(t, outputDirectoryPath, unigramsFile.Name(), "unigrams.json", expectedUnigramJsonModel)
-	assertLanguageModelFileContent(t, outputDirectoryPath, bigramsFile.Name(), "bigrams.json", expectedBigramJsonModel)
-	assertLanguageModelFileContent(t, outputDirectoryPath, trigramsFile.Name(), "trigrams.json", expectedTrigramJsonModel)
-	assertLanguageModelFileContent(t, outputDirectoryPath, quadrigramsFile.Name(), "quadrigrams.json", expectedQuadrigramJsonModel)
-	assertLanguageModelFileContent(t, outputDirectoryPath, fivegramsFile.Name(), "fivegrams.json", expectedFivegramJsonModel)
+	assertLanguageModelFileContent(t, outputDirectoryPath, unigramsFile.Name(), "unigrams.pb.bin", &expectedUnigramModel)
+	assertLanguageModelFileContent(t, outputDirectoryPath, bigramsFile.Name(), "bigrams.pb.bin", &expectedBigramModel)
+	assertLanguageModelFileContent(t, outputDirectoryPath, trigramsFile.Name(), "trigrams.pb.bin", &expectedTrigramModel)
+	assertLanguageModelFileContent(t, outputDirectoryPath, quadrigramsFile.Name(), "quadrigrams.pb.bin", &expectedQuadrigramModel)
+	assertLanguageModelFileContent(t, outputDirectoryPath, fivegramsFile.Name(), "fivegrams.pb.bin", &expectedFivegramModel)
 
 	cleanUp(inputFilePath, outputDirectoryPath)
 }
 
 func TestCreateAndWriteTestDataFiles(t *testing.T) {
 	inputFilePath := createTempInputFile(corpus)
-	outputDirectoryPath, _ := ioutil.TempDir("", "linguaOutputDirectory")
+	outputDirectoryPath, _ := os.MkdirTemp("", "linguaOutputDirectory")
 
 	err := CreateAndWriteTestDataFiles(inputFilePath, outputDirectoryPath, "\\p{L}", 4)
 
@@ -198,7 +305,7 @@ func TestCreateAndWriteTestDataFiles(t *testing.T) {
 }
 
 func createTempInputFile(content string) string {
-	inputFile, _ := ioutil.TempFile("", "text.*.txt")
+	inputFile, _ := os.CreateTemp("", "text.*.txt")
 	defer inputFile.Close()
 	_, _ = inputFile.WriteString(content)
 	return inputFile.Name()
@@ -206,10 +313,10 @@ func createTempInputFile(content string) string {
 
 func assertLanguageModelFileContent(
 	t *testing.T,
-	outputDirectoryPath,
-	zipFileName,
-	expectedFileName,
-	expectedFileContent string,
+	outputDirectoryPath string,
+	zipFileName string,
+	expectedFileName string,
+	expectedModel *SerializableLanguageModel,
 ) {
 	zipFilePath := filepath.Join(outputDirectoryPath, zipFileName)
 	zipFile, _ := zip.OpenReader(zipFilePath)
@@ -217,15 +324,31 @@ func assertLanguageModelFileContent(
 
 	assert.Equal(t, 1, len(zipFile.File), "zip archive does not contain exactly one file")
 
-	jsonFile := zipFile.File[0]
+	protobufFile := zipFile.File[0]
 
-	assert.Equal(t, expectedFileName, jsonFile.Name)
+	assert.Equal(t, expectedFileName, protobufFile.Name)
 
-	jsonFileReader, _ := jsonFile.Open()
-	defer jsonFileReader.Close()
-	jsonFileContent, _ := io.ReadAll(jsonFileReader)
+	protobufFileReader, _ := protobufFile.Open()
+	defer protobufFileReader.Close()
+	protobufFileContent, _ := io.ReadAll(protobufFileReader)
 
-	assert.Equal(t, minify(expectedFileContent), string(jsonFileContent))
+	actualModel := SerializableLanguageModel{}
+	_ = proto.Unmarshal(protobufFileContent, &actualModel)
+
+	expectedNgrams := make(map[float64][]string)
+	for _, ngramSet := range expectedModel.NgramSets {
+		expectedNgrams[ngramSet.Probability] = ngramSet.Ngrams
+	}
+
+	actualNgrams := make(map[float64][]string)
+	for _, ngramSet := range actualModel.NgramSets {
+		actualNgrams[ngramSet.Probability] = ngramSet.Ngrams
+	}
+
+	assert.Equal(t, expectedModel.Language, actualModel.Language)
+	assert.Equal(t, expectedModel.NgramLength, actualModel.NgramLength)
+	assert.Equal(t, expectedModel.TotalNgrams, actualModel.TotalNgrams)
+	assert.Equal(t, expectedNgrams, actualNgrams)
 }
 
 func assertTestDataFileContent(

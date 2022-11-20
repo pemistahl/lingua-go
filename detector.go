@@ -17,15 +17,23 @@
 package lingua
 
 import (
+	"archive/zip"
+	"bytes"
+	"embed"
 	"fmt"
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
+	"google.golang.org/protobuf/proto"
+	"io"
 	"math"
 	"sort"
 	"strings"
 	"sync"
 	"unicode/utf8"
 )
+
+//go:embed language-models
+var languageModels embed.FS
 
 var unigramModels sync.Map
 var bigramModels sync.Map
@@ -500,9 +508,7 @@ func (detector languageDetector) lookUpLanguageModels(
 				}
 			}
 		} else {
-			for i, language := range filteredLanguages {
-				intersectedLanguages[i] = language
-			}
+			copy(intersectedLanguages, filteredLanguages)
 		}
 
 		detector.countUnigrams(unigramCountChannel, testDataModel, intersectedLanguages)
@@ -645,10 +651,41 @@ func (detector languageDetector) loadLanguageModels(
 	if exists {
 		return existingModels.(map[string]float64)
 	}
-	jsonData := loadJson(language, ngramLength)
-	loadedModels := newTrainingDataLanguageModelFromJson(jsonData)
-	languageModels.Store(language, loadedModels)
-	return loadedModels
+
+	protobufData := loadProtobufData(language, ngramLength)
+	if protobufData == nil {
+		return nil
+	}
+
+	model := SerializableLanguageModel{}
+	if err := proto.Unmarshal(protobufData, &model); err != nil {
+		panic(err.Error())
+	}
+
+	modelMap := make(map[string]float64, model.TotalNgrams)
+	for _, ngramSet := range model.NgramSets {
+		for _, ngrm := range ngramSet.Ngrams {
+			modelMap[ngrm] = ngramSet.Probability
+		}
+	}
+
+	languageModels.Store(language, modelMap)
+	return modelMap
+}
+
+func loadProtobufData(language Language, ngramLength int) []byte {
+	ngramName := getNgramNameByLength(ngramLength)
+	isoCode := strings.ToLower(language.IsoCode639_1().String())
+	zipFilePath := fmt.Sprintf("language-models/%s/%ss.pb.bin.zip", isoCode, ngramName)
+	zipFileBytes, err := languageModels.ReadFile(zipFilePath)
+	if err != nil {
+		return nil
+	}
+	zipFile, _ := zip.NewReader(bytes.NewReader(zipFileBytes), int64(len(zipFileBytes)))
+	protobufFile, _ := zipFile.File[0].Open()
+	defer protobufFile.Close()
+	protobufFileContent, _ := io.ReadAll(protobufFile)
+	return protobufFileContent
 }
 
 func collectLanguagesWithUniqueCharacters(languages []Language) []Language {

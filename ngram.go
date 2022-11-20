@@ -17,7 +17,6 @@
 package lingua
 
 import (
-	"encoding/json"
 	"fmt"
 	"unicode/utf8"
 )
@@ -25,8 +24,6 @@ import (
 type ngram struct {
 	value string
 }
-
-type ngramSlice []ngram
 
 func newNgram(value string) ngram {
 	charCount := utf8.RuneCountInString(value)
@@ -66,29 +63,4 @@ func (n ngram) rangeOfLowerOrderNgrams() []ngram {
 
 func (n ngram) String() string {
 	return n.value
-}
-
-func (n ngram) MarshalJSON() ([]byte, error) {
-	return json.Marshal(n.String())
-}
-
-func (n *ngram) UnmarshalJSON(bytes []byte) error {
-	var s string
-	if err := json.Unmarshal(bytes, &s); err != nil {
-		return err
-	}
-	*n = newNgram(s)
-	return nil
-}
-
-func (ngrams ngramSlice) Len() int {
-	return len(ngrams)
-}
-
-func (ngrams ngramSlice) Less(i, j int) bool {
-	return ngrams[i].value < ngrams[j].value
-}
-
-func (ngrams ngramSlice) Swap(i, j int) {
-	ngrams[i], ngrams[j] = ngrams[j], ngrams[i]
 }
