@@ -1976,6 +1976,12 @@ fmt.Printf("%.2f", confidence)
 // French: 0.32
 ```
 
+The value that this method computes is a number between 0.0 and 1.0.
+If the language is unambiguously identified by the rule engine, the value
+1.0 will always be returned. If the given language is not supported by
+this detector instance, the value 0.0 will always be returned. Otherwise,
+a value between 0.01 and 0.99 will be returned.
+
 ### 9.4 Eager loading versus lazy loading
 
 By default, *Lingua* uses lazy-loading to load only those language models on demand which are
