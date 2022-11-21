@@ -1,3 +1,38 @@
+## Lingua 1.1.0 (released on 21 Nov 2022)
+
+### Features
+
+- The new method `LanguageDetectorBuilder.WithLowAccuracyMode()` has been
+  introduced. By activating it, detection accuracy for short text is reduced 
+  in favor of a smaller memory footprint and faster detection performance. (#17)
+
+- The new method `LanguageDetector.ComputeLanguageConfidence()` has been
+  introduced. It allows to retrieve the confidence value for one specific
+  language only, given the input text. (#19)
+
+### Improvements
+
+- The computation of the confidence values has been revised and the min-max
+  normalization algorithm is now applied to the values, making them better
+  comparable by behaving more like real probabilities. (#16)
+
+- The language models are now serialized as protocol buffers instead of json.
+  Thanks to this change, they are now loaded into memory twice as fast as before. (#22)
+
+### Bug Fixes
+
+- The unigram counts in the statistics engine were not retrieved correctly.
+  This has been fixed, producing more correct detection results. (#14)
+
+### Compatibility
+
+- The lowest supported Go version is 1.18 now. Older versions are no longer
+  compatible with this library.
+
+### Miscellaneous
+
+- The library now has a fresh and colorful new logo. Why? Well, why not? (-:
+
 ## Lingua 1.0.5 (released on 25 Dec 2021)
 
 ### Bug Fixes

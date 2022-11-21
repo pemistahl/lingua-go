@@ -14,7 +14,7 @@ Thank you very much in advance for all contributions, however small they may be.
 
 ### How to add new languages?
 
-1. Clone *Lingua's* repository to your own computer as described in README's [section 8][library build url].
+1. Clone *Lingua's* repository to your own computer.
 2. Open enums [`IsoCode639_1`][isocode639_1 url] and [`IsoCode639_3`][isocode639_3 url] and add the 
 language's iso codes. Among other sites, Wikipedia provides a [comprehensive list][wikipedia isocodes list].
 3. Open enum [`Language`][language url] and add a new entry for your language. If the language is written
@@ -37,20 +37,19 @@ Look at the other languages' directories to see how it looks like. It should be 
 8. Put the test data files in [`/language-testdata`][testdata directory url].
 9. Add the new language to [`/cmd/accuracy_reporter.go`][accuracy reporter url] as well.
 10. Fix the existing unit tests by adding your new language.
-11. For accuracy report generation, run `go run cmd/accuracy_reporter.go`.
+11. For accuracy report generation, run `cd cmd && go run accuracy_reporter.go`.
 12. Be happy! :-) You have successfully contributed a new language and have thereby significantly widened
 this library's fields of application.
 
-[library build url]: https://github.com/pemistahl/lingua-go#library-build
 [isocode639_1 url]: https://github.com/pemistahl/lingua-go/blob/main/isocode.go#L31
 [isocode639_3 url]: https://github.com/pemistahl/lingua-go/blob/main/isocode.go#L261
 [wikipedia isocodes list]: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 [language url]: https://github.com/pemistahl/lingua-go/blob/main/language.go#L31
-[alphabet url]: https://github.com/pemistahl/lingua-go/blob/main/alphabet.go#L27
-[language method url]: https://github.com/pemistahl/lingua-go/blob/main/language.go#L608
+[alphabet url]: https://github.com/pemistahl/lingua-go/blob/main/alphabet.go#L26
+[language method url]: https://github.com/pemistahl/lingua-go/blob/main/language.go#L607
 [chars to languages mapping url]: https://github.com/pemistahl/lingua-go/blob/main/constant.go#L31
-[language model files writer url]: https://github.com/pemistahl/lingua-go/blob/main/writer.go#L53
-[test data files writer url]: https://github.com/pemistahl/lingua-go/blob/main/writer.go#L194
+[language model files writer url]: https://github.com/pemistahl/lingua-go/blob/main/writer.go#L55
+[test data files writer url]: https://github.com/pemistahl/lingua-go/blob/main/writer.go#L201
 [language models directory url]: https://github.com/pemistahl/lingua-go/tree/main/language-models
-[testdata directory url]: https://github.com/pemistahl/lingua-go/tree/main/language-testdata
+[testdata directory url]: https://github.com/pemistahl/lingua-go/tree/main/cmd/language-testdata
 [accuracy reporter url]: https://github.com/pemistahl/lingua-go/blob/main/cmd/accuracy_reporter.go

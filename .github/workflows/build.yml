@@ -19,9 +19,17 @@ on:
   push:
     branches:
       - main
+    paths:
+      - '**.go'
+      - '**.mod'
+      - '**.yml'
   pull_request:
     branches:
       - main
+    paths:
+      - '**.go'
+      - '**.mod'
+      - '**.yml'
 
 jobs:
   build-and-test:

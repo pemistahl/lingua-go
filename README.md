@@ -9,6 +9,8 @@
   [![license](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 </div>
 
+<br>
+
 ## 1. What does this library do?
 
 Its task is simple: It tells you which language some provided textual data is written in.
@@ -252,19 +254,19 @@ including mean, median and standard deviation.
         <th></th>
         <th>Lingua<br>(high accuracy mode)</th>
         <th>Lingua<br>(low accuracy mode)</th>
-        <th>CLD3</th>
+        <th>&nbsp;&nbsp;CLD3&nbsp;&nbsp;</th>
         <th>Whatlang</th>
         <th>Lingua<br>(high accuracy mode)</th>
         <th>Lingua<br>(low accuracy mode)</th>
-        <th>CLD3</th>
+        <th>&nbsp;&nbsp;CLD3&nbsp;&nbsp;</th>
         <th>Whatlang</th>
         <th>Lingua<br>(high accuracy mode)</th>
         <th>Lingua<br>(low accuracy mode)</th>
-        <th>CLD3</th>
+        <th>&nbsp;&nbsp;CLD3&nbsp;&nbsp;</th>
         <th>Whatlang</th>
         <th>Lingua<br>(high accuracy mode)</th>
         <th>Lingua<br>(low accuracy mode)</th>
-        <th>CLD3</th>
+        <th>&nbsp;&nbsp;CLD3&nbsp;&nbsp;</th>
         <th>Whatlang</th>
     </tr>
     <tr>
@@ -1992,7 +1994,7 @@ lingua.NewLanguageDetectorBuilder().
 Multiple instances of `LanguageDetector` share the same language models in memory which are
 accessed asynchronously by the instances.
 
-## 9.5 Low accuracy mode versus high accuracy mode
+### 9.5 Low accuracy mode versus high accuracy mode
 
 *Lingua's* high detection accuracy comes at the cost of being noticeably slower
 than other language detectors. The large language models also consume significant
