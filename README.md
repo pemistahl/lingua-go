@@ -1,29 +1,15 @@
-![lingua](https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/logo.png)
+<div align="center">
+  <img width="800" height="150" src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/logo.png" alt="Lingua banner image">
+  
+  [![Build Status](https://github.com/pemistahl/lingua-go/workflows/build/badge.svg?branch=main)](https://github.com/pemistahl/lingua-go/actions?query=workflow%3A%22build%22+branch%3Amain)
+  [![codecov](https://codecov.io/gh/pemistahl/lingua-go/branch/main/graph/badge.svg)](https://codecov.io/gh/pemistahl/lingua-go)
+  [![supported languages](https://img.shields.io/badge/supported%20languages-75-green.svg)](#supported-languages)
+  [![Go Reference](https://pkg.go.dev/badge/github.com/pemistahl/lingua-go.svg)](https://pkg.go.dev/github.com/pemistahl/lingua-go)
+  [![Go Report Card](https://goreportcard.com/badge/github.com/pemistahl/lingua-go)](https://goreportcard.com/report/github.com/pemistahl/lingua-go)
+  [![license](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+</div>
 
-<br>
-
-[![Build Status](https://github.com/pemistahl/lingua-go/workflows/build/badge.svg?branch=main)](https://github.com/pemistahl/lingua-go/actions?query=workflow%3A%22build%22+branch%3Amain)
-[![codecov](https://codecov.io/gh/pemistahl/lingua-go/branch/main/graph/badge.svg)](https://codecov.io/gh/pemistahl/lingua-go)
-[![supported languages](https://img.shields.io/badge/supported%20languages-75-green.svg)](#supported-languages)
-[![Go Reference](https://pkg.go.dev/badge/github.com/pemistahl/lingua-go.svg)](https://pkg.go.dev/github.com/pemistahl/lingua-go)
-[![Go Report Card](https://goreportcard.com/badge/github.com/pemistahl/lingua-go)](https://goreportcard.com/report/github.com/pemistahl/lingua-go)
-[![license](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
-
-## <a name="table-of-contents"></a> Table of Contents
-
-1. [What does this library do?](#library-purpose)
-2. [Why does this library exist?](#library-reason)
-3. [Which languages are supported?](#supported-languages)
-4. [How good is it?](#library-accuracy)
-5. [Why is it better than other libraries?](#why-is-it-better)
-6. [Test report generation](#report-generation)
-7. [How to add it to your project?](#library-dependency)
-8. [How to build?](#library-build)
-9. [How to use?](#library-use)
-10. [What's next for version 1.1.0?](#whats-next)
-11. [Contributions](#contributions)
-
-## 1. <a name="library-purpose"></a> What does this library do? <sup>[Top ▲](#table-of-contents)</sup>
+## 1. What does this library do?
 
 Its task is simple: It tells you which language some provided textual data is written in.
 This is very useful as a preprocessing step for linguistic data in natural language
@@ -31,7 +17,7 @@ processing applications such as text classification and spell checking.
 Other use cases, for instance, might include routing e-mails to the right geographically
 located customer service department, based on the e-mails' languages.
 
-## 2. <a name="library-reason"></a> Why does this library exist? <sup>[Top ▲](#table-of-contents)</sup>
+## 2. Why does this library exist?
 
 Language detection is often done as part of large machine learning frameworks or natural
 language processing applications. In cases where you don't need the full-fledged
@@ -47,13 +33,13 @@ Unfortunately, it has two major drawbacks:
 2. The more languages take part in the decision process, the less accurate are the
    detection results.
 
-*Lingua* aims at eliminating these problems. It nearly does not need any configuration and
+*Lingua* aims at eliminating these problems. She nearly does not need any configuration and
 yields pretty accurate results on both long and short text, even on single words and phrases.
-It draws on both rule-based and statistical methods but does not use any dictionaries of words.
-It does not need a connection to any external API or service either.
+She draws on both rule-based and statistical methods but does not use any dictionaries of words.
+She does not need a connection to any external API or service either.
 Once the library has been downloaded, it can be used completely offline.
 
-## 3. <a name="supported-languages"></a> Which languages are supported? <sup>[Top ▲](#table-of-contents)</sup>
+## 3. Which languages are supported?
 
 Compared to other language detection libraries, *Lingua's* focus is on *quality over quantity*, that is,
 getting detection right for a small set of languages first before adding new ones.
@@ -159,7 +145,7 @@ Currently, the following 75 languages are supported:
 - Z
     - Zulu
 
-## 4. <a name="library-accuracy"></a> How good is it? <sup>[Top ▲](#table-of-contents)</sup>
+## 4. How good is it?
 
 *Lingua* is able to report accuracy statistics for some bundled test data available for each
 supported language. The test data for each language is split into three parts:
@@ -181,17 +167,1598 @@ running over the data of *Lingua's* supported 75 languages. Additionally, I have
 [gocld3](https://github.com/jmhodges/gocld3) bindings. Languages that are not supported
 by *CLD3* or *Whatlanggo* are simply ignored during the detection process.
 
-The box plot below shows the distribution of the averaged accuracy values for all three performed tasks:
-Single word detection, word pair detection and sentence detection. *Lingua* clearly outperforms its contenders.
-Bar plots for each language and further box plots for the separate detection tasks can be found in the file
-[ACCURACY_PLOTS.md](https://github.com/pemistahl/lingua-go/blob/main/ACCURACY_PLOTS.md).
-Detailed statistics including mean, median and standard deviation values for each language and classifier are
-available in the file
-[ACCURACY_TABLE.md](https://github.com/pemistahl/lingua-go/blob/main/ACCURACY_TABLE.md).
+Each of the following sections contains two plots. The bar plot shows the detailed accuracy
+results for each supported language. The box plot illustrates the distributions of the
+accuracy values for each classifier. The boxes themselves represent the areas which the
+middle 50 % of data lie within. Within the colored boxes, the horizontal lines mark the
+median of the distributions.
+
+### 4.1 Single word detection
+
+<br/>
+
+<img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/plots/boxplot-single-words.png" alt="Single Word Detection Performance" />
+
+<br/>
+
+<details>
+    <summary>Bar plot</summary>
+    <img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/plots/barplot-single-words.png" alt="Single Word Detection Performance" />
+</details>
+
+<br/><br/>
+
+### 4.2 Word pair detection
+
+<br/>
+
+<img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/plots/boxplot-word-pairs.png" alt="Word Pair Detection Performance" />
+
+<br/>
+
+<details>
+    <summary>Bar plot</summary>
+    <img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/plots/barplot-word-pairs.png" alt="Word Pair Detection Performance" />
+</details>
+
+<br/><br/>
+
+### 4.3 Sentence detection
+
+<br/>
+
+<img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/plots/boxplot-sentences.png" alt="Sentence Detection Performance" />
+
+<br/>
+
+<details>
+    <summary>Bar plot</summary>
+    <img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/plots/barplot-sentences.png" alt="Sentence Detection Performance" />
+</details>
+
+<br/><br/>
+
+### 4.4 Average detection
+
+<br/>
 
 <img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/plots/boxplot-average.png" alt="Average Detection Performance" />
 
-## 5. <a name="why-is-it-better"></a> Why is it better than other libraries? <sup>[Top ▲](#table-of-contents)</sup>
+<br/>
+
+<details>
+    <summary>Bar plot</summary>
+    <img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/plots/barplot-average.png" alt="Average Detection Performance" />
+</details>
+
+<br/><br/>
+
+### 4.5 Mean, median and standard deviation
+
+The table below shows detailed statistics for each language and classifier
+including mean, median and standard deviation.
+
+<details>
+  <summary>Open table</summary>
+  <table>
+    <tr>
+        <th>Language</th>
+        <th colspan="4">Average</th>
+        <th colspan="4">Single Words</th>
+        <th colspan="4">Word Pairs</th>
+        <th colspan="4">Sentences</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th>Lingua<br>(high accuracy mode)</th>
+        <th>Lingua<br>(low accuracy mode)</th>
+        <th>CLD3</th>
+        <th>Whatlang</th>
+        <th>Lingua<br>(high accuracy mode)</th>
+        <th>Lingua<br>(low accuracy mode)</th>
+        <th>CLD3</th>
+        <th>Whatlang</th>
+        <th>Lingua<br>(high accuracy mode)</th>
+        <th>Lingua<br>(low accuracy mode)</th>
+        <th>CLD3</th>
+        <th>Whatlang</th>
+        <th>Lingua<br>(high accuracy mode)</th>
+        <th>Lingua<br>(low accuracy mode)</th>
+        <th>CLD3</th>
+        <th>Whatlang</th>
+    </tr>
+    <tr>
+		<td>Afrikaans</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 79</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 64</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 55</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 51</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 58</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 38</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 22</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 21</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 81</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 46</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 39</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+	</tr>
+	<tr>
+		<td>Albanian</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 88</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 80</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 55</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 69</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 54</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 18</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 86</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 48</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Arabic</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 89</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 88</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 79</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 77</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 91</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+	</tr>
+	<tr>
+		<td>Armenian</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Azerbaijani</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 82</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 81</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 65</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 77</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 71</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 45</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 78</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 82</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 58</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 91</td>
+	</tr>
+	<tr>
+		<td>Basque</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 74</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 71</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 56</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 33</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 87</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 76</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 91</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Belarusian</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 81</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 80</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 67</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 64</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 86</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 80</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+	</tr>
+	<tr>
+		<td>Bengali</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Bokmal</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 58</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 49</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 34</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 39</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 27</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 15</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 59</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 47</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 29</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 75</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 74</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 60</td>
+	</tr>
+	<tr>
+		<td>Bosnian</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 35</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 29</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 33</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 29</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 23</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 19</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 35</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 29</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 28</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 40</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 36</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 52</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Bulgarian</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 87</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 78</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 70</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 61</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 70</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 56</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 45</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 37</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 91</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 81</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 66</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 57</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 89</td>
+	</tr>
+	<tr>
+		<td>Catalan</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 70</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 58</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 48</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 51</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 33</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 19</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 74</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 60</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 42</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 86</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 81</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Chinese</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 83</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Croatian</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 72</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 60</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 42</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 55</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 53</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 36</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 26</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 28</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 74</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 57</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 42</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 44</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 85</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 58</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 91</td>
+	</tr>
+	<tr>
+		<td>Czech</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 80</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 71</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 64</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 50</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 66</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 54</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 39</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 31</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 72</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 65</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 46</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 91</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 87</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 88</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 71</td>
+	</tr>
+	<tr>
+		<td>Danish</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 81</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 70</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 58</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 47</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 61</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 45</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 26</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 24</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 70</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 54</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 38</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 79</td>
+	</tr>
+	<tr>
+		<td>Dutch</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 77</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 64</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 58</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 47</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 55</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 36</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 29</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 22</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 81</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 61</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 47</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 36</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 82</td>
+	</tr>
+	<tr>
+		<td>English</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 81</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 54</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 49</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 55</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 29</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 22</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 17</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 89</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 44</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 36</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+	</tr>
+	<tr>
+		<td>Esperanto</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 66</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 57</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 52</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 67</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 44</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 22</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 25</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 85</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 61</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 51</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 45</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 88</td>
+	</tr>
+	<tr>
+		<td>Estonian</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 83</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 70</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 61</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 80</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 41</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 36</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 88</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 69</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 53</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+	</tr>
+	<tr>
+		<td>Finnish</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 91</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 80</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 71</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 77</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 58</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 45</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 70</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+	</tr>
+	<tr>
+		<td>French</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 89</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 77</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 55</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 64</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 74</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 52</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 22</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 37</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 83</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 49</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 59</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+	</tr>
+	<tr>
+		<td>Ganda</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 91</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 79</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 65</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 87</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Georgian</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>German</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 89</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 80</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 66</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 65</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 74</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 57</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 40</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 38</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 60</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+	</tr>
+	<tr>
+		<td>Greek</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Gujarati</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Hebrew</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 76</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+	</tr>
+	<tr>
+		<td>Hindi</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 73</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 33</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 58</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 52</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 61</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 11</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 34</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 27</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 64</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 20</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 45</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 40</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 67</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 88</td>
+	</tr>
+	<tr>
+		<td>Hungarian</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 76</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 87</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 77</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 53</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 38</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 76</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 53</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
+	</tr>
+	<tr>
+		<td>Icelandic</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 88</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 71</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 83</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 72</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 42</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 70</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Indonesian</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 60</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 48</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 46</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 67</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 39</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 25</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 26</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 39</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 61</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 46</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 45</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 66</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 81</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 72</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 66</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
+	</tr>
+	<tr>
+		<td>Irish</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 91</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 85</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 67</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 82</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 70</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 42</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 66</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Italian</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 87</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 71</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 56</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 69</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 42</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 31</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 25</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 74</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 57</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 47</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+	</tr>
+	<tr>
+		<td>Japanese</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+	</tr>
+	<tr>
+		<td>Kazakh</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 82</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 80</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 78</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 83</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Korean</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Latin</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 87</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 73</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 72</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 49</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 44</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 76</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 58</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 83</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Latvian</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 87</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 75</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 59</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 85</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 75</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 51</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 36</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 77</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 54</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 87</td>
+	</tr>
+	<tr>
+		<td>Lithuanian</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 87</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 72</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 86</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 76</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 42</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 38</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 89</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 75</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 56</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+	</tr>
+	<tr>
+		<td>Macedonian</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 72</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 60</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 66</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 52</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 30</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 39</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 86</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 70</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 54</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 55</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+	</tr>
+	<tr>
+		<td>Malay</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 31</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 31</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 22</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 26</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 22</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 11</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 38</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 36</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 22</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 30</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 36</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 34</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Maori</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 91</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 82</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 52</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 82</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 22</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 87</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 43</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 91</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Marathi</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 85</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 41</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 73</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 74</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 20</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 69</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 52</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 85</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 30</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 74</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 72</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
+	</tr>
+	<tr>
+		<td>Mongolian</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 83</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 89</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 63</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 87</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Nynorsk</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 66</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 52</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 34</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 41</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 25</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 10</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 66</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 49</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 24</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 81</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 69</td>
+	</tr>
+	<tr>
+		<td>Persian</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 80</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 76</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 70</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 78</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 57</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 46</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 80</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 70</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 66</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+	</tr>
+	<tr>
+		<td>Polish</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 77</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 66</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 85</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 77</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 51</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 45</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 80</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 59</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+	</tr>
+	<tr>
+		<td>Portuguese</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 81</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 69</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 53</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 57</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 59</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 42</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 21</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 26</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 85</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 70</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 40</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 48</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+	</tr>
+	<tr>
+		<td>Punjabi</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Romanian</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 87</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 72</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 53</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 59</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 69</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 49</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 24</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 34</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 74</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 48</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 52</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 88</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
+	</tr>
+	<tr>
+		<td>Russian</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 78</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 71</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 53</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 76</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 59</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 48</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 40</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 72</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 52</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 68</td>
+	</tr>
+	<tr>
+		<td>Serbian</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 88</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 78</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 78</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 57</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 74</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 63</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 34</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 80</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 75</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 51</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 91</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 86</td>
+	</tr>
+	<tr>
+		<td>Shona</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 91</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 81</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 76</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 68</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 78</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 56</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 51</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 44</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 86</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 79</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 65</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
+	</tr>
+	<tr>
+		<td>Slovak</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 75</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 63</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 64</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 49</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 32</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 78</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 61</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Slovene</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 82</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 67</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 63</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 48</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 61</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 39</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 29</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 25</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 87</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 68</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 60</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 38</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 81</td>
+	</tr>
+	<tr>
+		<td>Somali</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 85</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 69</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 68</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 82</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 64</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 38</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 38</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 70</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 66</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+	</tr>
+	<tr>
+		<td>Sotho</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 85</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 72</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 49</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 67</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 43</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 15</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 75</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 33</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Spanish</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 70</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 56</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 48</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 48</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 44</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 26</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 16</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 19</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 69</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 49</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 32</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 33</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
+	</tr>
+	<tr>
+		<td>Swahili</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 81</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 70</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 57</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 60</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 43</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 25</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 68</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 49</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Swedish</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 72</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 61</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 49</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 64</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 46</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 30</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 24</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 88</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 76</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 56</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 39</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 83</td>
+	</tr>
+	<tr>
+		<td>Tagalog</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 78</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 66</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 52</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 52</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 36</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 23</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 83</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 67</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 43</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
+	</tr>
+	<tr>
+		<td>Tamil</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Telugu</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+	</tr>
+	<tr>
+		<td>Thai</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+	</tr>
+	<tr>
+		<td>Tsonga</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 72</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 66</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 46</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 89</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 73</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Tswana</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 71</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 65</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 44</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 88</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 73</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Turkish</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 87</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 69</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 54</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 71</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 41</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 26</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 91</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 70</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 44</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+	</tr>
+	<tr>
+		<td>Ukrainian</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 86</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 81</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 72</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 75</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 53</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 83</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 71</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
+	</tr>
+	<tr>
+		<td>Urdu</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 91</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 80</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 61</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 57</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 80</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 65</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 39</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 31</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 78</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 53</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 46</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+	</tr>
+	<tr>
+		<td>Vietnamese</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 91</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 87</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 66</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 73</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 79</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 76</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 26</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 36</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 87</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 74</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 85</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+	</tr>
+	<tr>
+		<td>Welsh</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 91</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 82</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 69</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 78</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 61</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 43</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 87</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 66</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Xhosa</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 82</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 69</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 66</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 64</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 45</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 40</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 85</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 67</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 65</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
+	</tr>
+	<tr>
+		<td>Yoruba</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 75</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 15</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 22</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 50</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 33</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 5</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 11</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 77</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 61</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 11</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 14</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 28</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 41</td>
+	</tr>
+	<tr>
+		<td>Zulu</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 81</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 70</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 63</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 70</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 45</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 35</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 44</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 83</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 72</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 63</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 68</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+	</tr>
+	<tr>
+		<td colspan="16"></td>
+	</tr>
+	<tr>
+		<td><strong>Mean</strong></td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> <strong>86</strong></td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> <strong>77</strong></td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> <strong>69</strong></td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> <strong>67</strong></td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> <strong>74</strong></td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> <strong>61</strong></td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> <strong>48</strong></td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> <strong>48</strong></td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> <strong>89</strong></td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> <strong>78</strong></td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> <strong>67</strong></td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> <strong>63</strong></td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> <strong>96</strong></td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> <strong>93</strong></td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> <strong>93</strong></td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> <strong>91</strong></td>
+	</tr>
+	<tr>
+		<td colspan="16"></td>
+	</tr>
+	<tr>
+		<td>Median</td>
+		<td>89.0</td>
+		<td>80.0</td>
+		<td>68.0</td>
+		<td>62.0</td>
+		<td>74.0</td>
+		<td>57.0</td>
+		<td>41.0</td>
+		<td>38.0</td>
+		<td>94.0</td>
+		<td>81.0</td>
+		<td>66.0</td>
+		<td>57.0</td>
+		<td>99.0</td>
+		<td>97.0</td>
+		<td>98.0</td>
+		<td>94.0</td>
+	</tr>
+	<tr>
+		<td>Standard Deviation</td>
+		<td>13.1</td>
+		<td>17.24</td>
+		<td>19.04</td>
+		<td>20.22</td>
+		<td>18.41</td>
+		<td>24.8</td>
+		<td>27.86</td>
+		<td>29.28</td>
+		<td>13.12</td>
+		<td>18.93</td>
+		<td>21.83</td>
+		<td>24.2</td>
+		<td>11.05</td>
+		<td>11.84</td>
+		<td>13.95</td>
+		<td>11.24</td>
+	</tr>
+  </table>
+</details>
+
+## 5. Why is it better than other libraries?
 
 Every language detector uses a probabilistic [n-gram](https://en.wikipedia.org/wiki/N-gram) model trained on the
 character distribution in some training corpus. Most libraries only use n-grams of size 3 (trigrams) which is
@@ -208,11 +1775,11 @@ of the input text. Only then, in a second step, the probabilistic n-gram model i
 This makes sense because loading less language models means less memory consumption and better runtime performance.
 
 In general, it is always a good idea to restrict the set of languages to be considered in the classification process
-using the respective [api methods](#library-use). If you know beforehand that certain languages are
+using the respective api methods. If you know beforehand that certain languages are
 never to occur in an input text, do not let those take part in the classifcation process. The filtering mechanism
 of the rule-based engine is quite good, however, filtering based on your own knowledge of the input text is always preferable.
 
-## 6. <a name="report-generation"></a> Test report generation <sup>[Top ▲](#table-of-contents)</sup>
+## 6. Test report generation
 
 If you want to reproduce the accuracy results above, you can generate the test reports yourself for both classifiers
 and all languages by doing:
@@ -229,28 +1796,28 @@ As an example, here is the current output of the *Lingua* German report:
 ```
 ##### German #####
 
->>> Accuracy on average: 89.13%
+>>> Accuracy on average: 89.23%
 
 >> Detection of 1000 single words (average length: 9 chars)
 Accuracy: 73.90%
 Erroneously classified as Dutch: 2.30%, Danish: 2.10%, English: 2.00%, Latin: 1.90%, Bokmal: 1.60%, Basque: 1.20%, French: 1.20%, Italian: 1.20%, Esperanto: 1.10%, Swedish: 1.00%, Afrikaans: 0.80%, Tsonga: 0.70%, Nynorsk: 0.60%, Portuguese: 0.60%, Yoruba: 0.60%, Finnish: 0.50%, Sotho: 0.50%, Welsh: 0.50%, Estonian: 0.40%, Irish: 0.40%, Polish: 0.40%, Spanish: 0.40%, Swahili: 0.40%, Tswana: 0.40%, Bosnian: 0.30%, Icelandic: 0.30%, Tagalog: 0.30%, Albanian: 0.20%, Catalan: 0.20%, Croatian: 0.20%, Indonesian: 0.20%, Lithuanian: 0.20%, Maori: 0.20%, Romanian: 0.20%, Xhosa: 0.20%, Zulu: 0.20%, Latvian: 0.10%, Malay: 0.10%, Slovak: 0.10%, Slovene: 0.10%, Somali: 0.10%, Turkish: 0.10%
 
 >> Detection of 1000 word pairs (average length: 18 chars)
-Accuracy: 93.80%
-Erroneously classified as Dutch: 0.90%, Latin: 0.80%, English: 0.70%, Swedish: 0.60%, Danish: 0.50%, French: 0.40%, Bokmal: 0.30%, Irish: 0.20%, Tagalog: 0.20%, Tsonga: 0.20%, Afrikaans: 0.10%, Esperanto: 0.10%, Estonian: 0.10%, Finnish: 0.10%, Italian: 0.10%, Maori: 0.10%, Nynorsk: 0.10%, Portuguese: 0.10%, Somali: 0.10%, Swahili: 0.10%, Turkish: 0.10%, Welsh: 0.10%, Xhosa: 0.10%, Zulu: 0.10%
+Accuracy: 94.10%
+Erroneously classified as Dutch: 0.90%, Latin: 0.80%, English: 0.70%, Swedish: 0.60%, Danish: 0.50%, French: 0.40%, Bokmal: 0.30%, Irish: 0.20%, Tagalog: 0.20%, Afrikaans: 0.10%, Esperanto: 0.10%, Estonian: 0.10%, Finnish: 0.10%, Italian: 0.10%, Maori: 0.10%, Nynorsk: 0.10%, Somali: 0.10%, Swahili: 0.10%, Tsonga: 0.10%, Turkish: 0.10%, Welsh: 0.10%, Zulu: 0.10%
 
 >> Detection of 1000 sentences (average length: 111 chars)
 Accuracy: 99.70%
 Erroneously classified as Dutch: 0.20%, Latin: 0.10%
 ```
 
-## 7. <a name="library-dependency"></a> How to add it to your project? <sup>[Top ▲](#table-of-contents)</sup>
+## 7. How to add it to your project?
 
-    go get github.com/pemistahl/lingua-go@v1.0.5
+    go get github.com/pemistahl/lingua-go@v1.1.0
 
-## 8. <a name="library-build"></a> How to build? <sup>[Top ▲](#table-of-contents)</sup>
+## 8. How to build?
 
-*Lingua* requires at least Go version 1.16.
+*Lingua* requires at least Go version 1.18.
 
 ```
 git clone https://github.com/pemistahl/lingua-go.git
@@ -258,11 +1825,11 @@ cd lingua-go
 go build
 ```
 
-The source code is accompanied by an extensive unit test suite. To run them, simply say:
+The source code is accompanied by an extensive unit test suite. To run the tests, simply say:
 
     go test
 
-## 9. <a name="library-use"></a> How to use? <sup>[Top ▲](#table-of-contents)</sup>
+## 9. How to use?
 
 ### 9.1 Basic usage
 
@@ -321,7 +1888,7 @@ func main() {
 
     detector := lingua.NewLanguageDetectorBuilder().
         FromLanguages(languages...).
-        WithMinimumRelativeDistance(0.25).
+        WithMinimumRelativeDistance(0.7).
         Build()
 
     language, exists := detector.DetectLanguageOf("languages are awesome")
@@ -338,7 +1905,7 @@ func main() {
 Be aware that the distance between the language probabilities is dependent on the length of the
 input text. The longer the input text, the larger the distance between the languages. So if you
 want to classify very short text phrases, do not set the minimum relative distance too high.
-Otherwise [`Unknown`](https://github.com/pemistahl/lingua-go/blob/main/language.go#L106) will be
+Otherwise [`Unknown`](https://github.com/pemistahl/lingua-go/blob/main/language.go#L107) will be
 returned most of the time as in the example above. This is the return value for cases where
 language detection is not reliably possible. This value is not meant to be included in the set
 of input languages when building the language detector. If you include it, it will be
@@ -377,10 +1944,10 @@ func main() {
     }
 
     // Output:
-    // English: 1.00
-    // French: 0.79
-    // German: 0.75
-    // Spanish: 0.72
+    // English: 0.99
+    // French: 0.32
+    // German: 0.15
+    // Spanish: 0.01
 }
 ```
 
@@ -388,16 +1955,24 @@ In the example above, a slice of
 [`ConfidenceValue`](https://github.com/pemistahl/lingua-go/blob/main/confidence.go#L21) 
 is returned containing all possible languages sorted by their confidence value in descending 
 order. The values that this method computes are part of a **relative** confidence metric, not of 
-an absolute one. Each value is a number between 0.0 and 1.0. The most likely language is always 
-returned with value 1.0. All other languages get values assigned which are lower than 1.0,
-denoting how less likely those languages are in comparison to the most likely language.
+an absolute one. Each value is a number between 0.0 and 1.0. 
 
-The slice returned by this method does not necessarily contain all languages which the calling 
-instance of `LanguageDetector` was built from. If the rule-based engine decides that a specific 
-language is truly impossible, then it will not be part of the returned slice. Likewise, if no 
-ngram probabilities can be found within the detector's languages for the given input text, the 
-returned slice will be empty. The confidence value for each language not being part of the returned
-slice is assumed to be 0.0.
+If the language is unambiguously identified by the rule engine, the value 1.0 will always be 
+returned for this language. The other languages will receive a value of 0.0. If the statistics 
+engine is additionally needed, the most likely language will be returned with value 0.99 and the 
+least likely language will be returned with value 0.01. All other languages get values assigned 
+between 0.01 and 0.99, denoting how less likely those languages are in comparison to the most 
+likely language.
+
+There is also a method for returning the confidence value for one specific language only:
+
+```go
+confidence := detector.ComputeLanguageConfidence("languages are awesome", lingua.French)
+fmt.Printf("%.2f", confidence)
+
+// Output:
+// French: 0.32
+```
 
 ### 9.4 Eager loading versus lazy loading
 
@@ -417,21 +1992,49 @@ lingua.NewLanguageDetectorBuilder().
 Multiple instances of `LanguageDetector` share the same language models in memory which are
 accessed asynchronously by the instances.
 
-### 9.5 Methods to build the LanguageDetector
+## 9.5 Low accuracy mode versus high accuracy mode
+
+*Lingua's* high detection accuracy comes at the cost of being noticeably slower
+than other language detectors. The large language models also consume significant
+amounts of memory. These requirements might not be feasible for systems running low
+on resources. If you want to classify mostly long texts or need to save resources,
+you can enable a *low accuracy mode* that loads only a small subset of the language
+models into memory:
+
+```go
+lingua.NewLanguageDetectorBuilder().
+    FromAllLanguages().
+    WithLowAccuracyMode().
+    Build()
+```
+
+The downside of this approach is that detection accuracy for short texts consisting
+of less than 120 characters will drop significantly. However, detection accuracy for
+texts which are longer than 120 characters will remain mostly unaffected.
+
+In high accuracy mode (the default), the language detector consumes approximately
+1,800 MB of memory if all language models are loaded. In low accuracy mode, memory
+consumption is reduced to approximately 110 MB. The goal is to further reduce memory 
+consumption in later releases.
+
+An alternative for a smaller memory footprint and faster performance is to reduce the set
+of languages when building the language detector. In most cases, it is not advisable to
+build the detector from all supported languages. When you have knowledge about
+the texts you want to classify you can almost always rule out certain languages as impossible
+or unlikely to occur.
+
+### 9.6 Methods to build the LanguageDetector
 
 There might be classification tasks where you know beforehand that your language data is
-definitely not written in Latin, for instance (what a surprise :-). The detection accuracy can
-become better in such cases if you exclude certain languages from the decision process or just
+definitely not written in Latin, for instance. The detection accuracy can become better 
+in such cases if you exclude certain languages from the decision process or just
 explicitly include relevant languages:
 
 ```go
-// Including all languages available in the library
-// consumes at least 2GB of memory and might
-// lead to slow runtime performance.
+// Include all languages available in the library.
 lingua.NewLanguageDetectorBuilder().FromAllLanguages()
 
-// Include only languages that are not yet extinct
-// (= currently excludes Latin).
+// Include only languages that are not yet extinct (= currently excludes Latin).
 lingua.NewLanguageDetectorBuilder().FromAllSpokenLanguages()
 
 // Include only languages written with Cyrillic script.
@@ -450,11 +2053,12 @@ lingua.NewLanguageDetectorBuilder().FromIsoCodes639_1(lingua.EN, lingua.DE)
 lingua.NewLanguageDetectorBuilder().FromIsoCodes639_3(lingua.ENG, lingua.DEU)
 ```
 
-## 10. <a name="whats-next"></a> What's next for version 1.1.0? <sup>[Top ▲](#table-of-contents)</sup>
+## 10. What's next for version 1.2.0?
 
-Take a look at the [planned issues](https://github.com/pemistahl/lingua-go/milestone/1).
+Take a look at the [planned issues](https://github.com/pemistahl/lingua-go/milestone/3).
 
-## 11. <a name="contributions"></a> Contributions <sup>[Top ▲](#table-of-contents)</sup>
+## 11. Contributions
 
-In case you want to contribute something to *Lingua*, please take a look at the file 
-[CONTRIBUTING.md](https://github.com/pemistahl/lingua-go/blob/main/CONTRIBUTING.md).
+Any contributions to *Lingua* are very much appreciated. Please read the instructions
+in [`CONTRIBUTING.md`](https://github.com/pemistahl/lingua-go/blob/main/CONTRIBUTING.md)
+for how to add new languages to the library.
