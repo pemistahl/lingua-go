@@ -1,3 +1,9 @@
+## Lingua 1.1.1 (released on 22 Nov 2022)
+
+### Documentation
+
+- Some documentation mistakes have been fixed and missing information has been added.
+
 ## Lingua 1.1.0 (released on 21 Nov 2022)
 
 ### Features

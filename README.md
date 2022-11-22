@@ -14,7 +14,7 @@
 
 ## 1. What does this library do?
 
-Its task is simple: It tells you which language some provided textual data is written in.
+Its task is simple: It tells you which language some text is written in.
 This is very useful as a preprocessing step for linguistic data in natural language
 processing applications such as text classification and spell checking.
 Other use cases, for instance, might include routing e-mails to the right geographically
@@ -1816,7 +1816,7 @@ Erroneously classified as Dutch: 0.20%, Latin: 0.10%
 
 ## 7. How to add it to your project?
 
-    go get github.com/pemistahl/lingua-go@v1.1.0
+    go get github.com/pemistahl/lingua-go@v1.1.1
 
 ## 8. How to build?
 
@@ -1974,7 +1974,7 @@ confidence := detector.ComputeLanguageConfidence("languages are awesome", lingua
 fmt.Printf("%.2f", confidence)
 
 // Output:
-// French: 0.32
+// 0.32
 ```
 
 The value that this method computes is a number between 0.0 and 1.0.

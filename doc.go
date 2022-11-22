@@ -19,7 +19,7 @@ Package lingua accurately detects the natural language of written text, be it lo
 
 # What this library does
 
-Its task is simple: It tells you which language some provided textual data is written in.
+Its task is simple: It tells you which language some text is written in.
 This is very useful as a preprocessing step for linguistic data in natural language
 processing applications such as text classification and spell checking.
 Other use cases, for instance, might include routing e-mails to the right geographically
@@ -77,13 +77,7 @@ Whatlanggo running over the data of Lingua's supported 75 languages.
 Additionally, I have added Google's CLD3 (https://github.com/google/cld3/) to the comparison
 with the help of the gocld3 bindings (https://github.com/jmhodges/gocld3). Languages that are not
 supported by CLD3 or Whatlanggo are simply ignored during the detection process.
-
-The bar and box plots (https://github.com/pemistahl/lingua-go/blob/main/ACCURACY_PLOTS.md)
-show the measured accuracy values for all three performed tasks: Single word detection,
-word pair detection and sentence detection. Lingua clearly outperforms its contenders.
-Detailed statistics including mean, median and standard deviation values for each language
-and classifier are available in
-tabular form (https://github.com/pemistahl/lingua-go/blob/main/ACCURACY_TABLE.md) as well.
+Lingua clearly outperforms its contenders.
 
 # Why it is better than other libraries
 

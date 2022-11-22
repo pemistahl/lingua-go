@@ -137,13 +137,10 @@ func Example_eagerLoading() {
 // can become better in such cases if you exclude certain languages from the
 // decision process or just explicitly include relevant languages.
 func Example_builderApi() {
-	// Including all languages available in the library
-	// consumes at least 2GB of memory and might
-	// lead to slow runtime performance.
+	// Include all languages available in the library.
 	lingua.NewLanguageDetectorBuilder().FromAllLanguages()
 
-	// Include only languages that are not yet extinct
-	// (= currently excludes Latin).
+	// Include only languages that are not yet extinct (= currently excludes Latin).
 	lingua.NewLanguageDetectorBuilder().FromAllSpokenLanguages()
 
 	// Include only languages written with Cyrillic script.
