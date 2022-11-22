@@ -1,5 +1,6 @@
 <div align="center">
-  <img width="800" height="150" src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/logo.png" alt="Lingua banner image">
+
+  ![lingua](https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/logo.png)
   
   [![Build Status](https://github.com/pemistahl/lingua-go/workflows/build/badge.svg?branch=main)](https://github.com/pemistahl/lingua-go/actions?query=workflow%3A%22build%22+branch%3Amain)
   [![codecov](https://codecov.io/gh/pemistahl/lingua-go/branch/main/graph/badge.svg)](https://codecov.io/gh/pemistahl/lingua-go)
