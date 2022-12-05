@@ -124,13 +124,13 @@ func (detector languageDetector) preloadLanguageModels(languages []Language) {
 		wg.Add(1)
 		go func(language Language, wg *sync.WaitGroup) {
 			defer wg.Done()
-			detector.loadLanguageModels(detector.trigramLanguageModels, language, 3)
+			loadLanguageModels(detector.trigramLanguageModels, language, 3)
 
 			if !detector.isLowAccuracyModeEnabled {
-				detector.loadLanguageModels(detector.unigramLanguageModels, language, 1)
-				detector.loadLanguageModels(detector.bigramLanguageModels, language, 2)
-				detector.loadLanguageModels(detector.quadrigramLanguageModels, language, 4)
-				detector.loadLanguageModels(detector.fivegramLanguageModels, language, 5)
+				loadLanguageModels(detector.unigramLanguageModels, language, 1)
+				loadLanguageModels(detector.bigramLanguageModels, language, 2)
+				loadLanguageModels(detector.quadrigramLanguageModels, language, 4)
+				loadLanguageModels(detector.fivegramLanguageModels, language, 5)
 			}
 		}(language, &wg)
 	}
@@ -158,14 +158,13 @@ func (detector languageDetector) ComputeLanguageConfidenceValues(text string) []
 		values[i] = newConfidenceValue(language, 0)
 	}
 
-	cleanedUpText := detector.cleanUpInputText(text)
+	words := splitTextIntoWords(text)
 
-	if len(cleanedUpText) == 0 || noLetter.MatchString(cleanedUpText) {
+	if len(words) == 0 {
 		sort.Sort(values)
 		return values
 	}
 
-	words := detector.splitTextIntoWords(cleanedUpText)
 	languageDetectedByRules := detector.detectLanguageWithRules(words)
 
 	if languageDetectedByRules != Unknown {
@@ -193,7 +192,10 @@ func (detector languageDetector) ComputeLanguageConfidenceValues(text string) []
 		return values
 	}
 
-	characterCount := utf8.RuneCountInString(cleanedUpText)
+	characterCount := 0
+	for _, word := range words {
+		characterCount += utf8.RuneCountInString(word)
+	}
 
 	if detector.isLowAccuracyModeEnabled && characterCount < 3 {
 		sort.Sort(values)
@@ -213,7 +215,7 @@ func (detector languageDetector) ComputeLanguageConfidenceValues(text string) []
 
 	for _, ngramLength := range ngramLengthRange {
 		go detector.lookUpLanguageModels(
-			cleanedUpText,
+			words,
 			ngramLength,
 			filteredLanguages,
 			probabilityChannel,
@@ -226,15 +228,15 @@ func (detector languageDetector) ComputeLanguageConfidenceValues(text string) []
 		unigramCounts = <-unigramCountChannel
 	}
 
-	probabilityMaps := detector.getProbabilityMaps(probabilityChannel, ngramLengthRange)
-	summedUpProbabilities := detector.sumUpProbabilities(probabilityMaps, unigramCounts, filteredLanguages)
+	probabilityMaps := getProbabilityMaps(probabilityChannel, ngramLengthRange)
+	summedUpProbabilities := sumUpProbabilities(probabilityMaps, unigramCounts, filteredLanguages)
 
 	if len(summedUpProbabilities) == 0 {
 		sort.Sort(values)
 		return values
 	}
 
-	highestProbability, lowestProbability := detector.getHighestAndLowestProbability(summedUpProbabilities)
+	highestProbability, lowestProbability := getHighestAndLowestProbability(summedUpProbabilities)
 	return detector.computeConfidenceValues(values, summedUpProbabilities, highestProbability, lowestProbability)
 }
 
@@ -248,7 +250,7 @@ func (detector languageDetector) ComputeLanguageConfidence(text string, language
 	return 0
 }
 
-func (detector languageDetector) getProbabilityMaps(
+func getProbabilityMaps(
 	probabilityChannel <-chan map[Language]float64,
 	ngramLengthRange []int,
 ) []map[Language]float64 {
@@ -259,50 +261,8 @@ func (detector languageDetector) getProbabilityMaps(
 	return probabilityMaps
 }
 
-func (detector languageDetector) cleanUpInputText(text string) string {
-	trimmed := strings.ToLower(strings.TrimSpace(text))
-	withoutPunctuation := punctuation.ReplaceAllString(trimmed, "")
-	withoutNumbers := numbers.ReplaceAllString(withoutPunctuation, "")
-	normalizedWhitespace := multipleWhitespace.ReplaceAllString(withoutNumbers, " ")
-	return normalizedWhitespace
-}
-
-func (detector languageDetector) splitTextIntoWords(text string) []string {
-	normalizedTextBuilder := make([]string, len(text))
-	for i, chr := range text {
-		char := string(chr)
-		if detector.isLogogram(char) {
-			normalizedTextBuilder[i] = char + " "
-		} else {
-			normalizedTextBuilder[i] = char
-		}
-	}
-	normalizedText := strings.Join(normalizedTextBuilder, "")
-	if strings.Contains(normalizedText, " ") {
-		substrings := strings.Split(normalizedText, " ")
-		var filteredSubstrings []string
-		for _, substring := range substrings {
-			if len(substring) > 0 {
-				filteredSubstrings = append(filteredSubstrings, substring)
-			}
-		}
-		return filteredSubstrings
-	}
-	return []string{normalizedText}
-}
-
-func (detector languageDetector) isLogogram(char string) bool {
-	if strings.TrimSpace(char) == "" {
-		return false
-	}
-	for _, language := range languagesSupportingLogograms {
-		for _, alphabet := range language.alphabets() {
-			if alphabet.matches(char) {
-				return true
-			}
-		}
-	}
-	return false
+func splitTextIntoWords(text string) []string {
+	return letters.FindAllString(strings.ToLower(text), -1)
 }
 
 func (detector languageDetector) detectLanguageWithRules(words []string) Language {
@@ -488,13 +448,13 @@ func (detector languageDetector) filterLanguagesByRules(words []string) []Langua
 }
 
 func (detector languageDetector) lookUpLanguageModels(
-	text string,
+	words []string,
 	ngramLength int,
 	filteredLanguages []Language,
 	probabilityChannel chan<- map[Language]float64,
 	unigramCountChannel chan<- map[Language]uint32,
 ) {
-	testDataModel := newTestDataLanguageModel(text, ngramLength)
+	testDataModel := newTestDataLanguageModel(words, ngramLength)
 	probabilities := detector.computeLanguageProbabilities(testDataModel, filteredLanguages)
 	probabilityChannel <- probabilities
 
@@ -529,7 +489,7 @@ func (detector languageDetector) computeLanguageProbabilities(
 	return probabilities
 }
 
-func (detector languageDetector) getHighestAndLowestProbability(probabilities map[Language]float64) (float64, float64) {
+func getHighestAndLowestProbability(probabilities map[Language]float64) (float64, float64) {
 	probabilityCount := len(probabilities)
 	keys := maps.Keys(probabilities)
 	sort.Slice(keys, func(i, j int) bool {
@@ -579,15 +539,15 @@ func (detector languageDetector) lookUpNgramProbability(language Language, ngrm 
 
 	switch ngramLength {
 	case 5:
-		models = detector.loadLanguageModels(detector.fivegramLanguageModels, language, ngramLength)
+		models = loadLanguageModels(detector.fivegramLanguageModels, language, ngramLength)
 	case 4:
-		models = detector.loadLanguageModels(detector.quadrigramLanguageModels, language, ngramLength)
+		models = loadLanguageModels(detector.quadrigramLanguageModels, language, ngramLength)
 	case 3:
-		models = detector.loadLanguageModels(detector.trigramLanguageModels, language, ngramLength)
+		models = loadLanguageModels(detector.trigramLanguageModels, language, ngramLength)
 	case 2:
-		models = detector.loadLanguageModels(detector.bigramLanguageModels, language, ngramLength)
+		models = loadLanguageModels(detector.bigramLanguageModels, language, ngramLength)
 	case 1:
-		models = detector.loadLanguageModels(detector.unigramLanguageModels, language, ngramLength)
+		models = loadLanguageModels(detector.unigramLanguageModels, language, ngramLength)
 	case 0:
 		panic("zerogram detected")
 	default:
@@ -616,7 +576,7 @@ func (detector languageDetector) countUnigrams(
 	unigramCountChannel <- unigramCounts
 }
 
-func (detector languageDetector) sumUpProbabilities(
+func sumUpProbabilities(
 	probabilityMaps []map[Language]float64,
 	unigramCounts map[Language]uint32,
 	filteredLanguages []Language,
@@ -642,7 +602,7 @@ func (detector languageDetector) sumUpProbabilities(
 	return summedUpProbabilities
 }
 
-func (detector languageDetector) loadLanguageModels(
+func loadLanguageModels(
 	languageModels *sync.Map,
 	language Language,
 	ngramLength int,

@@ -203,7 +203,7 @@ func TestNewTestDataLanguageModel(t *testing.T) {
 		{5, expectedFivegrams},
 	}
 	for i := range params {
-		model := newTestDataLanguageModel(strings.ToLower(text), params[i].ngramLength)
+		model := newTestDataLanguageModel(splitTextIntoWords(text), params[i].ngramLength)
 		assert.Equal(t, params[i].expectedNgrams, model.ngrams)
 	}
 }

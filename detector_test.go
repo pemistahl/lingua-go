@@ -193,17 +193,6 @@ var detectorForAllLanguages = newDetectorForAllLanguages()
 
 var delta = 0.00000000000001
 
-func TestCleanUpInputText(t *testing.T) {
-	text := `Weltweit    gibt es ungefähr 6.000 Sprachen,
-    wobei laut Schätzungen zufolge ungefähr 90  Prozent davon
-    am Ende dieses Jahrhunderts verdrängt sein werden.`
-
-	expectedCleanedText := "weltweit gibt es ungefähr sprachen wobei laut schätzungen " +
-		"zufolge ungefähr prozent davon am ende dieses jahrhunderts verdrängt sein werden"
-
-	assert.Equal(t, expectedCleanedText, detectorForAllLanguages.cleanUpInputText(text))
-}
-
 func TestSplitTextIntoWords(t *testing.T) {
 	testCases := []struct {
 		text          string
@@ -221,12 +210,16 @@ func TestSplitTextIntoWords(t *testing.T) {
 			"上海大学是一个好大学 this is a sentence",
 			[]string{"上", "海", "大", "学", "是", "一", "个", "好", "大", "学", "this", "is", "a", "sentence"},
 		},
+		{
+			"Weltweit    gibt es ungefähr 6.000 Sprachen.",
+			[]string{"weltweit", "gibt", "es", "ungefähr", "sprachen"},
+		},
 	}
 	for _, testCase := range testCases {
 		assert.Equal(
 			t,
 			testCase.expectedWords,
-			detectorForAllLanguages.splitTextIntoWords(testCase.text),
+			splitTextIntoWords(testCase.text),
 			fmt.Sprintf("unexpected tokenization for text '%s'", testCase.text),
 		)
 	}

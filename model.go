@@ -49,17 +49,19 @@ func newTrainingDataLanguageModel(
 	}
 }
 
-func newTestDataLanguageModel(text string, ngramLength int) testDataLanguageModel {
+func newTestDataLanguageModel(words []string, ngramLength int) testDataLanguageModel {
 	if ngramLength > maxNgramLength {
 		panic(fmt.Sprintf("ngram length %v is greater than %v", ngramLength, maxNgramLength))
 	}
 	ngrams := make(map[ngram]struct{})
-	chars := []rune(text)
-	charsCount := len(chars)
-	if charsCount >= ngramLength {
-		for i := 0; i <= charsCount-ngramLength; i++ {
-			slice := string(chars[i : i+ngramLength])
-			if letter.MatchString(slice) {
+
+	for _, word := range words {
+		chars := []rune(word)
+		charsCount := len(chars)
+
+		if charsCount >= ngramLength {
+			for i := 0; i <= charsCount-ngramLength; i++ {
+				slice := string(chars[i : i+ngramLength])
 				ngrams[newNgram(slice)] = struct{}{}
 			}
 		}
