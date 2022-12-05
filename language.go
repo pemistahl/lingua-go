@@ -16,12 +16,6 @@
 
 package lingua
 
-import (
-	"encoding/json"
-	"fmt"
-	"strings"
-)
-
 // Language is the type used for enumerating the so far 75 languages which can
 // be detected by Lingua.
 //
@@ -649,27 +643,4 @@ func (language Language) uniqueCharacters() string {
 	default:
 		return ""
 	}
-}
-
-// MarshalJSON returns a language's JSON representation
-// which is its full name written in uppercase.
-func (language Language) MarshalJSON() ([]byte, error) {
-	return json.Marshal(strings.ToUpper(language.String()))
-}
-
-// UnmarshalJSON converts a language's JSON representation
-// back to its instance of type Language.
-func (language *Language) UnmarshalJSON(bytes []byte) error {
-	var s string
-	if err := json.Unmarshal(bytes, &s); err != nil {
-		return err
-	}
-	for _, l := range AllLanguages() {
-		str := strings.ToUpper(l.String())
-		if str == s {
-			*language = l
-			return nil
-		}
-	}
-	return fmt.Errorf("string \"%v\" cannot be unmarshalled to an instance of type Language", s)
 }
