@@ -167,25 +167,8 @@ func newDetectorForEnglishAndGerman() languageDetector {
 	}
 }
 
-func newDetectorForAllLanguages() languageDetector {
-	languages := AllLanguages()
-	var emptyLanguageModels sync.Map
-	return languageDetector{
-		languages:                     languages,
-		minimumRelativeDistance:       0.0,
-		isLowAccuracyModeEnabled:      false,
-		languagesWithUniqueCharacters: collectLanguagesWithUniqueCharacters(languages),
-		oneLanguageAlphabets:          collectOneLanguageAlphabets(languages),
-		unigramLanguageModels:         &emptyLanguageModels,
-		bigramLanguageModels:          &emptyLanguageModels,
-		trigramLanguageModels:         &emptyLanguageModels,
-		quadrigramLanguageModels:      &emptyLanguageModels,
-		fivegramLanguageModels:        &emptyLanguageModels,
-	}
-}
-
 var detectorForEnglishAndGerman = newDetectorForEnglishAndGerman()
-var detectorForAllLanguages = newDetectorForAllLanguages()
+var detectorForAllLanguages = newLanguageDetector(AllLanguages(), 0.0, true, false)
 
 // ##############################
 // TESTS
@@ -434,6 +417,81 @@ func TestDetectLanguage(t *testing.T) {
 	language, exists = detectorForEnglishAndGerman.DetectLanguageOf("проарплап")
 	assert.Equal(t, Unknown, language)
 	assert.False(t, exists)
+}
+
+func TestDetectMultipleLanguages_EmptyString(t *testing.T) {
+	assert.Empty(t, detectorForAllLanguages.DetectMultipleLanguagesOf(""))
+}
+
+func TestDetectMultipleLanguages_English(t *testing.T) {
+	sentence := "I'm really not sure whether multi-language detection is a good idea."
+
+	results := detectorForAllLanguages.DetectMultipleLanguagesOf(sentence)
+	assert.Equal(t, 1, len(results))
+
+	result := results[0]
+	substring := sentence[result.StartIndex():result.EndIndex()]
+	assert.Equal(t, sentence, substring)
+	assert.Equal(t, English, result.Language())
+}
+
+func TestDetectMultipleLanguages_EnglishGerman(t *testing.T) {
+	sentence := "  He   turned around and asked: " +
+		"\"Entschuldigen Sie, sprechen Sie Deutsch?\""
+
+	results := detectorForAllLanguages.DetectMultipleLanguagesOf(sentence)
+	assert.Equal(t, 2, len(results))
+
+	firstResult := results[0]
+	firstSubstring := sentence[firstResult.StartIndex():firstResult.EndIndex()]
+	assert.Equal(t, "  He   turned around and asked: ", firstSubstring)
+	assert.Equal(t, English, firstResult.Language())
+
+	secondResult := results[1]
+	secondSubstring := sentence[secondResult.StartIndex():secondResult.EndIndex()]
+	assert.Equal(t, "\"Entschuldigen Sie, sprechen Sie Deutsch?\"", secondSubstring)
+	assert.Equal(t, German, secondResult.Language())
+}
+
+func TestDetectMultipleLanguages_ChineseEnglish(t *testing.T) {
+	sentence := "上海大学是一个好大学. It is such a great university."
+
+	results := detectorForAllLanguages.DetectMultipleLanguagesOf(sentence)
+	assert.Equal(t, 2, len(results))
+
+	firstResult := results[0]
+	firstSubstring := sentence[firstResult.StartIndex():firstResult.EndIndex()]
+	assert.Equal(t, "上海大学是一个好大学. ", firstSubstring)
+	assert.Equal(t, Chinese, firstResult.Language())
+
+	secondResult := results[1]
+	secondSubstring := sentence[secondResult.StartIndex():secondResult.EndIndex()]
+	assert.Equal(t, "It is such a great university.", secondSubstring)
+	assert.Equal(t, English, secondResult.Language())
+}
+
+func TestDetectMultipleLanguages_FrenchGermanEnglish(t *testing.T) {
+	sentence := "Parlez-vous français? " +
+		"Ich spreche Französisch nur ein bisschen. " +
+		"A little bit is better than nothing."
+
+	results := detectorForAllLanguages.DetectMultipleLanguagesOf(sentence)
+	assert.Equal(t, 3, len(results))
+
+	firstResult := results[0]
+	firstSubstring := sentence[firstResult.StartIndex():firstResult.EndIndex()]
+	assert.Equal(t, "Parlez-vous français? ", firstSubstring)
+	assert.Equal(t, French, firstResult.Language())
+
+	secondResult := results[1]
+	secondSubstring := sentence[secondResult.StartIndex():secondResult.EndIndex()]
+	assert.Equal(t, "Ich spreche Französisch nur ein bisschen. ", secondSubstring)
+	assert.Equal(t, German, secondResult.Language())
+
+	thirdResult := results[2]
+	thirdSubstring := sentence[thirdResult.StartIndex():thirdResult.EndIndex()]
+	assert.Equal(t, "A little bit is better than nothing.", thirdSubstring)
+	assert.Equal(t, English, thirdResult.Language())
 }
 
 func TestDetectLanguageWithRules(t *testing.T) {

@@ -50,6 +50,17 @@ type LanguageDetector interface {
 	// detected. If this is not possible, (Unknown, false) is returned.
 	DetectLanguageOf(text string) (Language, bool)
 
+	// DetectMultipleLanguagesOf attempts to detect multiple languages in
+	// mixed-language text. This feature is experimental and under continuous
+	// development.
+	//
+	// A slice of DetectionResult is returned containing an entry for each
+	// contiguous single-language text section as identified by the library.
+	// Each entry consists of the identified language, a start index and an
+	// end index. The indices denote the substring that has been identified
+	// as a contiguous single-language text section.
+	DetectMultipleLanguagesOf(text string) []DetectionResult
+
 	// ComputeLanguageConfidenceValues computes confidence values for each
 	// language supported by this detector for the given input text. These
 	// values denote how likely it is that the given text has been written
@@ -100,7 +111,7 @@ func newLanguageDetector(
 	minimumRelativeDistance float64,
 	isEveryLanguageModelPreloaded bool,
 	isLowAccuracyModeEnabled bool,
-) LanguageDetector {
+) languageDetector {
 	detector := languageDetector{
 		languages,
 		minimumRelativeDistance,
@@ -151,6 +162,158 @@ func (detector languageDetector) DetectLanguageOf(text string) (Language, bool) 
 	}
 
 	return mostLikely.Language(), true
+}
+
+func (detector languageDetector) DetectMultipleLanguagesOf(text string) []DetectionResult {
+	if len(text) == 0 {
+		return []DetectionResult{}
+	}
+
+	tokenWithoutWhitespaceIndices := tokensWithoutWhitespace.FindAllStringIndex(text, -1)
+	if len(tokenWithoutWhitespaceIndices) == 0 {
+		return []DetectionResult{}
+	}
+
+	var results []detectionResult
+	languageCounts := make(map[Language]int)
+
+	language, _ := detector.DetectLanguageOf(text)
+	languageCounts[language]++
+
+	for _, tokenIndex := range tokenWithoutWhitespaceIndices {
+		if tokenIndex[1]-tokenIndex[0] < 5 {
+			continue
+		}
+		word := text[tokenIndex[0]:tokenIndex[1]]
+		language, _ = detector.DetectLanguageOf(word)
+		languageCounts[language]++
+	}
+
+	languages := maps.Keys(languageCounts)
+
+	if len(languages) == 1 {
+		result := newDetectionResult(
+			0,
+			len([]rune(text))+1,
+			len(tokenWithoutWhitespaceIndices),
+			languages[0],
+		)
+		results = append(results, result)
+	} else {
+		countCounts := make(map[int]int)
+		for _, count := range languageCounts {
+			countCounts[count]++
+		}
+
+		counts := maps.Values(languageCounts)
+		sort.Sort(sort.Reverse(sort.IntSlice(counts)))
+		minCount := counts[0]
+
+		if countCounts[minCount] == 1 {
+			minCount -= 1
+		}
+
+		var filteredLanguages []Language
+		for language, count := range languageCounts {
+			if count >= minCount {
+				filteredLanguages = append(filteredLanguages, language)
+			}
+		}
+
+		previousDetectorLanguages := make([]Language, len(detector.languages))
+
+		hasEnoughFilteredLanguages := len(filteredLanguages) >= 2
+
+		if hasEnoughFilteredLanguages {
+			copy(previousDetectorLanguages, detector.languages)
+			detector.languages = filteredLanguages
+		} else {
+			copy(previousDetectorLanguages, detector.languages)
+			detector.languages = languages
+		}
+
+		currentStartIndex := 0
+		currentEndIndex := 0
+		wordCount := 0
+		currentLanguage := Unknown
+		tokenIndices := tokensWithOptionalWhitespace.FindAllStringIndex(text, -1)
+		lastIndex := len(tokenIndices) - 1
+
+		for i, tokenIndex := range tokenIndices {
+			word := text[tokenIndex[0]:tokenIndex[1]]
+			language, _ = detector.DetectLanguageOf(word)
+
+			if i == 0 {
+				currentLanguage = language
+			}
+
+			if language != currentLanguage {
+				result := newDetectionResult(currentStartIndex, currentEndIndex, wordCount, currentLanguage)
+				results = append(results, result)
+				currentStartIndex = currentEndIndex
+				currentLanguage = language
+				wordCount = 0
+			}
+
+			currentEndIndex = tokenIndex[1]
+			wordCount++
+
+			if i == lastIndex {
+				result := newDetectionResult(currentStartIndex, currentEndIndex, wordCount, currentLanguage)
+				results = append(results, result)
+			}
+		}
+
+		if len(results) > 1 {
+			var removableResults []int
+			for i, result := range results {
+				if result.wordCount == 1 {
+					removableResults = append(removableResults, i)
+				}
+			}
+
+			sort.Sort(sort.Reverse(sort.IntSlice(removableResults)))
+
+			for _, i := range removableResults {
+				if i == 0 {
+					results[i+1].startIndex = results[i].startIndex
+				} else {
+					results[i-1].endIndex = results[i].endIndex
+				}
+				results = slices.Delete(results, i, i+1)
+			}
+
+			removableResults = nil
+
+			for i := 0; i < len(results)-1; i++ {
+				if results[i].Language() == results[i+1].Language() {
+					removableResults = append(removableResults, i+1)
+				}
+			}
+
+			sort.Sort(sort.Reverse(sort.IntSlice(removableResults)))
+
+			for _, i := range removableResults {
+				if i == 0 {
+					results[i+1].startIndex = results[i].startIndex
+				} else {
+					results[i-1].endIndex = results[i].endIndex
+				}
+				results = slices.Delete(results, i, i+1)
+			}
+		}
+
+		if hasEnoughFilteredLanguages {
+			detector.languages = previousDetectorLanguages
+		}
+	}
+
+	detectionResults := make([]DetectionResult, len(results))
+	for i, result := range results {
+		detectionResults[i] = DetectionResult(result)
+	}
+
+	return detectionResults
 }
 
 func (detector languageDetector) ComputeLanguageConfidenceValues(text string) []ConfidenceValue {

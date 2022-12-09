@@ -25,6 +25,8 @@ var multipleWhitespace = regexp.MustCompile(`\s+`)
 var numbers = regexp.MustCompile(`\p{N}`)
 var punctuation = regexp.MustCompile(`\p{P}`)
 var letters = regexp.MustCompile(`\p{Han}|\p{Hangul}|\p{Hiragana}|\p{Katakana}|\p{L}+`)
+var tokensWithOptionalWhitespace = regexp.MustCompile(`\s*(?:\p{Han}|\p{Hangul}|\p{Hiragana}|\p{Katakana}|[\p{L}'-]+)[\p{N}\p{P}]*\s*`)
+var tokensWithoutWhitespace = regexp.MustCompile(`\p{Han}|\p{Hangul}|\p{Hiragana}|\p{Katakana}|\p{L}+`)
 
 var charsToLanguagesMapping = map[string][]Language{
 	"Ãã":     {Portuguese, Vietnamese},
