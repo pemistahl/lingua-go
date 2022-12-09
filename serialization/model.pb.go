@@ -19,7 +19,7 @@
 // 	protoc        v3.21.9
 // source: model.proto
 
-package lingua
+package serialization
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"

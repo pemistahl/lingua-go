@@ -21,6 +21,7 @@ import (
 	"bytes"
 	"embed"
 	"fmt"
+	"github.com/pemistahl/lingua-go/serialization"
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
 	"google.golang.org/protobuf/proto"
@@ -617,7 +618,7 @@ func loadLanguageModels(
 		return nil
 	}
 
-	model := SerializableLanguageModel{}
+	model := serialization.SerializableLanguageModel{}
 	if err := proto.Unmarshal(protobufData, &model); err != nil {
 		panic(err.Error())
 	}

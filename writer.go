@@ -21,6 +21,7 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
+	"github.com/pemistahl/lingua-go/serialization"
 	"google.golang.org/protobuf/proto"
 	"os"
 	"path/filepath"
@@ -452,25 +453,25 @@ func writeCompressedLanguageModel(
 	fileName string,
 ) error {
 	languageName := strings.ToUpper(model.language.String())
-	languageEnumValue := SerializableLanguage_value[languageName]
-	serializableLanguage := SerializableLanguage(languageEnumValue)
+	languageEnumValue := serialization.SerializableLanguage_value[languageName]
+	serializableLanguage := serialization.SerializableLanguage(languageEnumValue)
 
 	probabilitiesToNgrams := make(map[float64][]string)
 	for ngrm, probability := range model.relativeFrequencies {
 		probabilitiesToNgrams[probability] = append(probabilitiesToNgrams[probability], ngrm.value)
 	}
 
-	var ngramSets []*SerializableNgramSet
+	var ngramSets []*serialization.SerializableNgramSet
 	for probability, ngrams := range probabilitiesToNgrams {
 		sort.Strings(ngrams)
-		ngramSet := SerializableNgramSet{
+		ngramSet := serialization.SerializableNgramSet{
 			Probability: probability,
 			Ngrams:      ngrams,
 		}
 		ngramSets = append(ngramSets, &ngramSet)
 	}
 
-	serializableModel := SerializableLanguageModel{
+	serializableModel := serialization.SerializableLanguageModel{
 		Language:    serializableLanguage,
 		NgramLength: uint32(ngramLength),
 		TotalNgrams: uint32(len(model.relativeFrequencies)),

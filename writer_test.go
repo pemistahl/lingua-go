@@ -19,6 +19,7 @@ package lingua
 import (
 	"archive/zip"
 	"fmt"
+	"github.com/pemistahl/lingua-go/serialization"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/protobuf/proto"
 	"io"
@@ -56,11 +57,11 @@ these mutually
 contradictory different
 `
 
-var expectedUnigramModel = SerializableLanguageModel{
-	Language:    SerializableLanguage_ENGLISH,
+var expectedUnigramModel = serialization.SerializableLanguageModel{
+	Language:    serialization.SerializableLanguage_ENGLISH,
 	NgramLength: 1,
 	TotalNgrams: 20,
-	NgramSets: []*SerializableNgramSet{
+	NgramSets: []*serialization.SerializableNgramSet{
 		{
 			Probability: 0.01,
 			Ngrams:      []string{"b", "g", "l", "m"},
@@ -100,11 +101,11 @@ var expectedUnigramModel = SerializableLanguageModel{
 	},
 }
 
-var expectedBigramModel = SerializableLanguageModel{
-	Language:    SerializableLanguage_ENGLISH,
+var expectedBigramModel = serialization.SerializableLanguageModel{
+	Language:    serialization.SerializableLanguage_ENGLISH,
 	NgramLength: 2,
 	TotalNgrams: 53,
-	NgramSets: []*SerializableNgramSet{
+	NgramSets: []*serialization.SerializableNgramSet{
 		{
 			Probability: 1.0 / 14,
 			Ngrams:      []string{"ed", "em", "ey"},
@@ -168,11 +169,11 @@ var expectedBigramModel = SerializableLanguageModel{
 	},
 }
 
-var expectedTrigramModel = SerializableLanguageModel{
-	Language:    SerializableLanguage_ENGLISH,
+var expectedTrigramModel = serialization.SerializableLanguageModel{
+	Language:    serialization.SerializableLanguage_ENGLISH,
 	NgramLength: 3,
 	TotalNgrams: 51,
-	NgramSets: []*SerializableNgramSet{
+	NgramSets: []*serialization.SerializableNgramSet{
 		{
 			Probability: 0.25,
 			Ngrams:      []string{"ese", "est", "hem", "hes", "hey", "ing", "int", "sen", "ses"},
@@ -196,11 +197,11 @@ var expectedTrigramModel = SerializableLanguageModel{
 	},
 }
 
-var expectedQuadrigramModel = SerializableLanguageModel{
-	Language:    SerializableLanguage_ENGLISH,
+var expectedQuadrigramModel = serialization.SerializableLanguageModel{
+	Language:    serialization.SerializableLanguage_ENGLISH,
 	NgramLength: 4,
 	TotalNgrams: 38,
-	NgramSets: []*SerializableNgramSet{
+	NgramSets: []*serialization.SerializableNgramSet{
 		{
 			Probability: 0.25,
 			Ngrams:      []string{"them", "thes", "they"},
@@ -216,11 +217,11 @@ var expectedQuadrigramModel = SerializableLanguageModel{
 	},
 }
 
-var expectedFivegramModel = SerializableLanguageModel{
-	Language:    SerializableLanguage_ENGLISH,
+var expectedFivegramModel = serialization.SerializableLanguageModel{
+	Language:    serialization.SerializableLanguage_ENGLISH,
 	NgramLength: 5,
 	TotalNgrams: 28,
-	NgramSets: []*SerializableNgramSet{
+	NgramSets: []*serialization.SerializableNgramSet{
 		{
 			Probability: 0.5,
 			Ngrams:      []string{"ntenc", "ntend"},
@@ -316,7 +317,7 @@ func assertLanguageModelFileContent(
 	outputDirectoryPath string,
 	zipFileName string,
 	expectedFileName string,
-	expectedModel *SerializableLanguageModel,
+	expectedModel *serialization.SerializableLanguageModel,
 ) {
 	zipFilePath := filepath.Join(outputDirectoryPath, zipFileName)
 	zipFile, _ := zip.OpenReader(zipFilePath)
@@ -332,7 +333,7 @@ func assertLanguageModelFileContent(
 	defer protobufFileReader.Close()
 	protobufFileContent, _ := io.ReadAll(protobufFileReader)
 
-	actualModel := SerializableLanguageModel{}
+	actualModel := serialization.SerializableLanguageModel{}
 	_ = proto.Unmarshal(protobufFileContent, &actualModel)
 
 	expectedNgrams := make(map[float64][]string)

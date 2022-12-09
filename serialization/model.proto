@@ -17,7 +17,7 @@
 syntax = "proto3";
 
 package lingua;
-option go_package = "./lingua";
+option go_package = "./serialization";
 
 // SerializableLanguageModel represents a statistical language model
 // that is serialized as a protocol buffer and stored on disk as a binary file.
