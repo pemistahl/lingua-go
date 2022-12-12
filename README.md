@@ -1816,7 +1816,7 @@ Erroneously classified as Dutch: 0.20%, Latin: 0.10%
 
 ## 7. How to add it to your project?
 
-    go get github.com/pemistahl/lingua-go@v1.1.1
+    go get github.com/pemistahl/lingua-go
 
 ## 8. How to build?
 
@@ -2032,7 +2032,56 @@ build the detector from all supported languages. When you have knowledge about
 the texts you want to classify you can almost always rule out certain languages as impossible
 or unlikely to occur.
 
-### 9.6 Methods to build the LanguageDetector
+### 9.6 Detection of multiple languages in mixed-language texts
+
+In contrast to most other language detectors, *Lingua* is able to detect multiple languages 
+in mixed-language texts. This feature can yield quite reasonable results but it is still
+in an experimental state and therefore the detection result is highly dependent on the input
+text. It works best in high-accuracy mode with multiple long words for each language.
+The shorter the phrases and their words are, the less accurate are the results. Reducing the
+set of languages when building the language detector can also improve accuracy for this task
+if the languages occurring in the text are equal to the languages supported by the respective
+language detector instance.
+
+```go
+package main
+
+import (
+    "fmt"
+    "github.com/pemistahl/lingua-go"
+)
+
+func main() {
+    languages := []lingua.Language{
+        lingua.English,
+        lingua.French,
+        lingua.German,
+    }
+
+    detector := lingua.NewLanguageDetectorBuilder().
+        FromLanguages(languages...).
+        Build()
+
+    sentence := "Parlez-vous français? " + 
+        "Ich spreche Französisch nur ein bisschen. " +
+        "A little bit is better than nothing."
+
+    for _, result := range detector.DetectMultipleLanguagesOf(sentence) {
+        fmt.Printf("%s: '%s'\n", result.Language(), sentence[result.StartIndex():result.EndIndex()])
+    }
+
+    // Output:
+    // French: 'Parlez-vous français? '
+    // German: 'Ich spreche Französisch nur ein bisschen. '
+    // English: 'A little bit is better than nothing.'
+}
+```
+
+In the example above, a slice of [`DetectionResult`](https://github.com/pemistahl/lingua-go/blob/main/result.go#L22)
+is returned. Each entry in the slice describes a contiguous single-language text section,
+providing start and end indices of the respective substring.
+
+### 9.7 Methods to build the LanguageDetector
 
 There might be classification tasks where you know beforehand that your language data is
 definitely not written in Latin, for instance. The detection accuracy can become better 
@@ -2062,9 +2111,9 @@ lingua.NewLanguageDetectorBuilder().FromIsoCodes639_1(lingua.EN, lingua.DE)
 lingua.NewLanguageDetectorBuilder().FromIsoCodes639_3(lingua.ENG, lingua.DEU)
 ```
 
-## 10. What's next for version 1.2.0?
+## 10. What's next for version 1.3.0?
 
-Take a look at the [planned issues](https://github.com/pemistahl/lingua-go/milestone/3).
+Take a look at the [planned issues](https://github.com/pemistahl/lingua-go/milestone/4).
 
 ## 11. Contributions
 

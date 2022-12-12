@@ -1,3 +1,10 @@
+## Lingua 1.2.0 (released on 12 Dec 2022)
+
+### Features
+
+- The new method `LanguageDetector.DetectMultipleLanguagesOf()` has been
+  introduced. It allows to detect multiple languages in mixed-language text. (#9)
+
 ## Lingua 1.1.1 (released on 22 Nov 2022)
 
 ### Documentation

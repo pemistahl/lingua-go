@@ -40,6 +40,31 @@ func Example_basic() {
 	// Output: English
 }
 
+func Example_multipleLanguagesDetection() {
+	languages := []lingua.Language{
+		lingua.English,
+		lingua.French,
+		lingua.German,
+	}
+
+	detector := lingua.NewLanguageDetectorBuilder().
+		FromLanguages(languages...).
+		Build()
+
+	sentence := "Parlez-vous français? " +
+		"Ich spreche Französisch nur ein bisschen. " +
+		"A little bit is better than nothing."
+
+	for _, result := range detector.DetectMultipleLanguagesOf(sentence) {
+		fmt.Printf("%s: '%s'\n", result.Language(), sentence[result.StartIndex():result.EndIndex()])
+	}
+
+	// Output:
+	// French: 'Parlez-vous français? '
+	// German: 'Ich spreche Französisch nur ein bisschen. '
+	// English: 'A little bit is better than nothing.'
+}
+
 // By default, Lingua returns the most likely language for a given input text.
 // However, there are certain words that are spelled the same in more than one
 // language. The word `prologue`, for instance, is both a valid English and

@@ -3,7 +3,7 @@ module github.com/pemistahl/lingua-go
 go 1.18
 
 require (
-	github.com/pemistahl/lingua-go/serialization v0.0.0-00010101000000-000000000000
+	github.com/pemistahl/lingua-go/serialization v1.2.0
 	github.com/stretchr/testify v1.8.1
 	golang.org/x/exp v0.0.0-20221106115401-f9659909a136
 	google.golang.org/protobuf v1.28.1
