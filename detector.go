@@ -200,37 +200,9 @@ func (detector languageDetector) DetectMultipleLanguagesOf(text string) []Detect
 		)
 		results = append(results, result)
 	} else {
-		countCounts := make(map[int]int)
-		for _, count := range languageCounts {
-			countCounts[count]++
-		}
-
-		counts := maps.Values(languageCounts)
-		sort.Sort(sort.Reverse(sort.IntSlice(counts)))
-		minCount := counts[0]
-
-		if countCounts[minCount] == 1 {
-			minCount -= 1
-		}
-
-		var filteredLanguages []Language
-		for language, count := range languageCounts {
-			if count >= minCount {
-				filteredLanguages = append(filteredLanguages, language)
-			}
-		}
-
 		previousDetectorLanguages := make([]Language, len(detector.languages))
-
-		hasEnoughFilteredLanguages := len(filteredLanguages) >= 2
-
-		if hasEnoughFilteredLanguages {
-			copy(previousDetectorLanguages, detector.languages)
-			detector.languages = filteredLanguages
-		} else {
-			copy(previousDetectorLanguages, detector.languages)
-			detector.languages = languages
-		}
+		copy(previousDetectorLanguages, detector.languages)
+		detector.languages = languages
 
 		currentStartIndex := 0
 		currentEndIndex := 0
@@ -265,47 +237,27 @@ func (detector languageDetector) DetectMultipleLanguagesOf(text string) []Detect
 		}
 
 		if len(results) > 1 {
-			var removableResults []int
+			var mergeableResultIndices []int
 			for i, result := range results {
 				if result.wordCount == 1 {
-					removableResults = append(removableResults, i)
+					mergeableResultIndices = append(mergeableResultIndices, i)
 				}
 			}
 
-			sort.Sort(sort.Reverse(sort.IntSlice(removableResults)))
+			results = mergeAdjacentResults(results, mergeableResultIndices)
 
-			for _, i := range removableResults {
-				if i == 0 {
-					results[i+1].startIndex = results[i].startIndex
-				} else {
-					results[i-1].endIndex = results[i].endIndex
-				}
-				results = slices.Delete(results, i, i+1)
-			}
-
-			removableResults = nil
+			mergeableResultIndices = nil
 
 			for i := 0; i < len(results)-1; i++ {
 				if results[i].Language() == results[i+1].Language() {
-					removableResults = append(removableResults, i+1)
+					mergeableResultIndices = append(mergeableResultIndices, i+1)
 				}
 			}
 
-			sort.Sort(sort.Reverse(sort.IntSlice(removableResults)))
-
-			for _, i := range removableResults {
-				if i == 0 {
-					results[i+1].startIndex = results[i].startIndex
-				} else {
-					results[i-1].endIndex = results[i].endIndex
-				}
-				results = slices.Delete(results, i, i+1)
-			}
+			results = mergeAdjacentResults(results, mergeableResultIndices)
 		}
 
-		if hasEnoughFilteredLanguages {
-			detector.languages = previousDetectorLanguages
-		}
+		detector.languages = previousDetectorLanguages
 	}
 
 	detectionResults := make([]DetectionResult, len(results))
@@ -830,4 +782,19 @@ func collectOneLanguageAlphabets(languages []Language) map[alphabet]Language {
 		}
 	}
 	return oneLanguageAlphabets
+}
+
+func mergeAdjacentResults(results []detectionResult, mergeableResultIndices []int) []detectionResult {
+	sort.Sort(sort.Reverse(sort.IntSlice(mergeableResultIndices)))
+
+	for _, i := range mergeableResultIndices {
+		if i == 0 {
+			results[i+1].startIndex = results[i].startIndex
+		} else {
+			results[i-1].endIndex = results[i].endIndex
+		}
+		results = slices.Delete(results, i, i+1)
+	}
+
+	return results
 }
