@@ -1,3 +1,10 @@
+## Lingua 1.2.1 (released on 13 Dec 2022)
+
+### Bug Fixes
+
+- A misconfiguration in a `go.mod` file caused errors when trying to download
+  the library via the `go get` command. This has been fixed. (#23)
+
 ## Lingua 1.2.0 (released on 12 Dec 2022)
 
 ### Features
