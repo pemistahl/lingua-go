@@ -4,7 +4,7 @@
   
   [![Build Status](https://github.com/pemistahl/lingua-go/workflows/build/badge.svg?branch=main)](https://github.com/pemistahl/lingua-go/actions?query=workflow%3A%22build%22+branch%3Amain)
   [![codecov](https://codecov.io/gh/pemistahl/lingua-go/branch/main/graph/badge.svg)](https://codecov.io/gh/pemistahl/lingua-go)
-  [![supported languages](https://img.shields.io/badge/supported%20languages-75-green.svg)](#supported-languages)
+  [![supported languages](https://img.shields.io/badge/supported%20languages-75-green.svg)](#3-which-languages-are-supported)
   [![Go Reference](https://pkg.go.dev/badge/github.com/pemistahl/lingua-go.svg)](https://pkg.go.dev/github.com/pemistahl/lingua-go)
   [![Go Report Card](https://goreportcard.com/badge/github.com/pemistahl/lingua-go)](https://goreportcard.com/report/github.com/pemistahl/lingua-go)
   [![license](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)

@@ -1,3 +1,11 @@
+## Lingua 1.2.2 (released on 27 Dec 2022)
+
+### Bug Fixes
+
+- Under certain circumstances, calling the method
+  `LanguageDetector.DetectMultipleLanguagesOf()` caused an index error.
+  This has been fixed.
+
 ## Lingua 1.2.1 (released on 13 Dec 2022)
 
 ### Bug Fixes
