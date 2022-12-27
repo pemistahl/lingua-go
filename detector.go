@@ -246,15 +246,17 @@ func (detector languageDetector) DetectMultipleLanguagesOf(text string) []Detect
 
 			results = mergeAdjacentResults(results, mergeableResultIndices)
 
-			mergeableResultIndices = nil
+			if len(results) > 1 {
+				mergeableResultIndices = nil
 
-			for i := 0; i < len(results)-1; i++ {
-				if results[i].Language() == results[i+1].Language() {
-					mergeableResultIndices = append(mergeableResultIndices, i+1)
+				for i := 0; i < len(results)-1; i++ {
+					if results[i].Language() == results[i+1].Language() {
+						mergeableResultIndices = append(mergeableResultIndices, i+1)
+					}
 				}
-			}
 
-			results = mergeAdjacentResults(results, mergeableResultIndices)
+				results = mergeAdjacentResults(results, mergeableResultIndices)
+			}
 		}
 
 		detector.languages = previousDetectorLanguages
@@ -794,6 +796,10 @@ func mergeAdjacentResults(results []detectionResult, mergeableResultIndices []in
 			results[i-1].endIndex = results[i].endIndex
 		}
 		results = slices.Delete(results, i, i+1)
+
+		if len(results) == 1 {
+			break
+		}
 	}
 
 	return results
