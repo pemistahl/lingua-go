@@ -89,7 +89,7 @@ func Example_minimumRelativeDistance() {
 
 	detector := lingua.NewLanguageDetectorBuilder().
 		FromLanguages(languages...).
-		WithMinimumRelativeDistance(0.7).
+		WithMinimumRelativeDistance(0.9).
 		Build()
 
 	language, exists := detector.DetectLanguageOf("languages are awesome")
@@ -107,17 +107,11 @@ func Example_minimumRelativeDistance() {
 // comparison to the most likely one? In the example below, a slice of
 // ConfidenceValue is returned containing those languages which the calling
 // instance of LanguageDetector has been built from. The entries are sorted by
-// their confidence value in descending order. The values that this method
-// computes are part of a relative confidence metric, not of an absolute one.
-// Each value is a number between 0.0 and 1.0.
-//
-// If the language is unambiguously identified by the rule engine, the value
-// 1.0 will always be returned for this language. The other languages will
-// receive a value of 0.0. If the statistics engine is additionally needed,
-// the most likely language will be returned with value 0.99 and the least
-// likely language will be returned with value 0.01. All other languages get
-// values assigned between 0.01 and 0.99, denoting how less likely those
-// languages are in comparison to the most likely language.
+// their confidence value in descending order. Each value is a probability
+// between 0.0 and 1.0. The probabilities of all languages will sum to 1.0.
+// If the language is unambiguously identified by the rule engine, the value 1.0
+// will always be returned for this language. The other languages will receive a
+// value of 0.0.
 func Example_confidenceValues() {
 	languages := []lingua.Language{
 		lingua.English,
@@ -137,9 +131,9 @@ func Example_confidenceValues() {
 	}
 
 	// Output:
-	// English: 0.99
-	// French: 0.32
-	// German: 0.15
+	// English: 0.93
+	// French: 0.04
+	// German: 0.02
 	// Spanish: 0.01
 }
 

@@ -1891,7 +1891,7 @@ func main() {
 
     detector := lingua.NewLanguageDetectorBuilder().
         FromLanguages(languages...).
-        WithMinimumRelativeDistance(0.7).
+        WithMinimumRelativeDistance(0.9).
         Build()
 
     language, exists := detector.DetectLanguageOf("languages are awesome")
@@ -1947,9 +1947,9 @@ func main() {
     }
 
     // Output:
-    // English: 0.99
-    // French: 0.32
-    // German: 0.15
+    // English: 0.93
+    // French: 0.04
+    // German: 0.02
     // Spanish: 0.01
 }
 ```
@@ -1957,15 +1957,9 @@ func main() {
 In the example above, a slice of 
 [`ConfidenceValue`](https://github.com/pemistahl/lingua-go/blob/main/confidence.go#L21) 
 is returned containing all possible languages sorted by their confidence value in descending 
-order. The values that this method computes are part of a **relative** confidence metric, not of 
-an absolute one. Each value is a number between 0.0 and 1.0. 
-
-If the language is unambiguously identified by the rule engine, the value 1.0 will always be 
-returned for this language. The other languages will receive a value of 0.0. If the statistics 
-engine is additionally needed, the most likely language will be returned with value 0.99 and the 
-least likely language will be returned with value 0.01. All other languages get values assigned 
-between 0.01 and 0.99, denoting how less likely those languages are in comparison to the most 
-likely language.
+order. Each value is a probability between 0.0 and 1.0. The probabilities of all languages 
+will sum to 1.0. If the language is unambiguously identified by the rule engine, the value 1.0
+will always be returned for this language. The other languages will receive a value of 0.0. 
 
 There is also a method for returning the confidence value for one specific language only:
 
@@ -1974,14 +1968,13 @@ confidence := detector.ComputeLanguageConfidence("languages are awesome", lingua
 fmt.Printf("%.2f", confidence)
 
 // Output:
-// 0.32
+// 0.04
 ```
 
 The value that this method computes is a number between 0.0 and 1.0.
 If the language is unambiguously identified by the rule engine, the value
 1.0 will always be returned. If the given language is not supported by
-this detector instance, the value 0.0 will always be returned. Otherwise,
-a value between 0.01 and 0.99 will be returned.
+this detector instance, the value 0.0 will always be returned.
 
 ### 9.4 Eager loading versus lazy loading
 
@@ -2111,9 +2104,9 @@ lingua.NewLanguageDetectorBuilder().FromIsoCodes639_1(lingua.EN, lingua.DE)
 lingua.NewLanguageDetectorBuilder().FromIsoCodes639_3(lingua.ENG, lingua.DEU)
 ```
 
-## 10. What's next for version 1.3.0?
+## 10. What's next for version 1.4.0?
 
-Take a look at the [planned issues](https://github.com/pemistahl/lingua-go/milestone/4).
+Take a look at the [planned issues](https://github.com/pemistahl/lingua-go/milestone/5).
 
 ## 11. Contributions
 

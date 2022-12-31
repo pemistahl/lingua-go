@@ -68,17 +68,11 @@ type LanguageDetector interface {
 	//
 	// A slice of ConfidenceValue is returned containing those languages which
 	// the calling instance of LanguageDetector has been built from. The entries
-	// are sorted by their confidence value in descending order. The values that
-	// this method computes are part of a relative confidence metric, not of an
-	// absolute one. Each value is a number between 0.0 and 1.0.
-	//
-	// If the language is unambiguously identified by the rule engine, the value
-	// 1.0 will always be returned for this language. The other languages will
-	// receive a value of 0.0. If the statistics engine is additionally needed,
-	// the most likely language will be returned with value 0.99 and the least
-	// likely language will be returned with value 0.01. All other languages get
-	// values assigned between 0.01 and 0.99, denoting how less likely those
-	// languages are in comparison to the most likely language.
+	// are sorted by their confidence value in descending order. Each value is
+	// a probability between 0.0 and 1.0. The probabilities of all languages
+	// will sum to 1.0. If the language is unambiguously identified by the rule
+	// engine, the value 1.0 will always be returned for this language. The
+	// other languages will receive a value of 0.0.
 	ComputeLanguageConfidenceValues(text string) []ConfidenceValue
 
 	// ComputeLanguageConfidence computes the confidence value for the given
@@ -88,8 +82,7 @@ type LanguageDetector interface {
 	// The value that this method computes is a number between 0.0 and 1.0.
 	// If the language is unambiguously identified by the rule engine, the value
 	// 1.0 will always be returned. If the given language is not supported by
-	// this detector instance, the value 0.0 will always be returned. Otherwise,
-	// a value between 0.01 and 0.99 will be returned.
+	// this detector instance, the value 0.0 will always be returned.
 	ComputeLanguageConfidence(text string, language Language) float64
 }
 
@@ -354,8 +347,7 @@ func (detector languageDetector) ComputeLanguageConfidenceValues(text string) []
 		return values
 	}
 
-	highestProbability, lowestProbability := getHighestAndLowestProbability(summedUpProbabilities)
-	return detector.computeConfidenceValues(values, summedUpProbabilities, highestProbability, lowestProbability)
+	return detector.computeConfidenceValues(values, summedUpProbabilities)
 }
 
 func (detector languageDetector) ComputeLanguageConfidence(text string, language Language) float64 {
@@ -607,27 +599,19 @@ func (detector languageDetector) computeLanguageProbabilities(
 	return probabilities
 }
 
-func getHighestAndLowestProbability(probabilities map[Language]float64) (float64, float64) {
-	probabilityCount := len(probabilities)
-	keys := maps.Keys(probabilities)
-	sort.Slice(keys, func(i, j int) bool {
-		return probabilities[keys[i]] > probabilities[keys[j]]
-	})
-	return probabilities[keys[0]], probabilities[keys[probabilityCount-1]]
-}
-
 func (detector languageDetector) computeConfidenceValues(
 	confidenceValues confidenceValueSlice,
 	probabilities map[Language]float64,
-	highestProbability float64,
-	lowestProbability float64,
 ) []ConfidenceValue {
-	denominator := highestProbability - lowestProbability
+	denominator := 0.0
+	for _, probability := range probabilities {
+		denominator += probability
+	}
 	for language, probability := range probabilities {
-		// Apply min-max normalization
-		normalizedProbability := 0.98*(probability-lowestProbability)/denominator + 0.01
 		for i := range confidenceValues {
 			if confidenceValues[i].Language() == language {
+				// apply softmax function
+				normalizedProbability := probability / denominator
 				confidenceValues[i] = newConfidenceValue(language, normalizedProbability)
 				break
 			}
@@ -714,7 +698,7 @@ func sumUpProbabilities(
 			}
 		}
 		if sum != 0 {
-			summedUpProbabilities[language] = sum
+			summedUpProbabilities[language] = math.Exp(sum)
 		}
 	}
 	return summedUpProbabilities

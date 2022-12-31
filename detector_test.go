@@ -355,10 +355,10 @@ func TestComputeLanguageConfidenceValues_KnownNgrams(t *testing.T) {
 	first, second := confidenceValues[0], confidenceValues[1]
 
 	assert.Equal(t, German, first.Language())
-	assert.Equal(t, 0.99, first.Value())
+	assert.Equal(t, 0.81, roundToTwoDecimalPlaces(first.Value()))
 
 	assert.Equal(t, English, second.Language())
-	assert.Equal(t, 0.01, second.Value())
+	assert.Equal(t, 0.19, roundToTwoDecimalPlaces(second.Value()))
 }
 
 func TestComputeLanguageConfidenceValues_UnknownNgrams(t *testing.T) {
@@ -390,10 +390,10 @@ func TestComputeLanguageConfidence_LanguageDetectedByRules(t *testing.T) {
 
 func TestComputeLanguageConfidence_KnownNgrams(t *testing.T) {
 	confidence := detectorForEnglishAndGerman.ComputeLanguageConfidence("Alter", German)
-	assert.Equal(t, 0.99, confidence)
+	assert.Equal(t, 0.81, roundToTwoDecimalPlaces(confidence))
 
 	confidence = detectorForEnglishAndGerman.ComputeLanguageConfidence("Alter", English)
-	assert.Equal(t, 0.01, confidence)
+	assert.Equal(t, 0.19, roundToTwoDecimalPlaces(confidence))
 }
 
 func TestComputeLanguageConfidence_UnknownNgrams(t *testing.T) {
@@ -813,4 +813,8 @@ func BenchmarkLanguageDetection(b *testing.B) {
 			detector.DetectLanguageOf(sentence)
 		}
 	}
+}
+
+func roundToTwoDecimalPlaces(value float64) float64 {
+	return math.Round(value*100) / 100
 }
