@@ -22,6 +22,7 @@ import (
 	"embed"
 	"fmt"
 	"github.com/pemistahl/lingua-go/serialization"
+	"github.com/shopspring/decimal"
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
 	"google.golang.org/protobuf/proto"
@@ -601,18 +602,19 @@ func (detector languageDetector) computeLanguageProbabilities(
 
 func (detector languageDetector) computeConfidenceValues(
 	confidenceValues confidenceValueSlice,
-	probabilities map[Language]float64,
+	probabilities map[Language]decimal.Decimal,
 ) []ConfidenceValue {
-	denominator := 0.0
+	denominator := decimal.Zero
 	for _, probability := range probabilities {
-		denominator += probability
+		denominator = denominator.Add(probability)
 	}
 	for language, probability := range probabilities {
 		for i := range confidenceValues {
 			if confidenceValues[i].Language() == language {
 				// apply softmax function
-				normalizedProbability := probability / denominator
-				confidenceValues[i] = newConfidenceValue(language, normalizedProbability)
+				normalizedProbability := probability.Div(denominator)
+				f, _ := normalizedProbability.Float64()
+				confidenceValues[i] = newConfidenceValue(language, f)
 				break
 			}
 		}
@@ -682,8 +684,8 @@ func sumUpProbabilities(
 	probabilityMaps []map[Language]float64,
 	unigramCounts map[Language]uint32,
 	filteredLanguages []Language,
-) map[Language]float64 {
-	summedUpProbabilities := make(map[Language]float64)
+) map[Language]decimal.Decimal {
+	summedUpProbabilities := make(map[Language]decimal.Decimal)
 	hasUnigramCounts := unigramCounts != nil
 	for _, language := range filteredLanguages {
 		sum := 0.0
@@ -698,10 +700,22 @@ func sumUpProbabilities(
 			}
 		}
 		if sum != 0 {
-			summedUpProbabilities[language] = math.Exp(sum)
+			summedUpProbabilities[language] = computeExponent(sum)
 		}
 	}
 	return summedUpProbabilities
+}
+
+func computeExponent(value float64) decimal.Decimal {
+	exponent := math.Exp(value)
+	if exponent > 0 {
+		return decimal.NewFromFloat(exponent)
+	}
+	// exp(x) = exp(x / y) ** y
+	d := decimal.NewFromFloat(value / 1000)
+	e, _ := d.ExpTaylor(25)
+	p := e.Pow(decimal.NewFromInt(1000))
+	return p
 }
 
 func loadLanguageModels(
