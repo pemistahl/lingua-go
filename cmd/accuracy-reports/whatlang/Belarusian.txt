@@ -8,7 +8,7 @@ Erroneously classified as Unknown: 12.30%, Ukrainian: 7.70%, Russian: 5.10%, Ser
 
 >> Detection of 1000 word pairs (average length: 17 chars)
 Accuracy: 79.80%
-Erroneously classified as Unknown: 6.60%, Ukrainian: 4.90%, Serbian: 2.70%, Russian: 2.50%, Bulgarian: 2.00%, Macedonian: 0.80%, Azerbaijani: 0.70%
+Erroneously classified as Unknown: 6.50%, Ukrainian: 4.90%, Serbian: 2.70%, Russian: 2.50%, Bulgarian: 2.10%, Macedonian: 0.80%, Azerbaijani: 0.70%
 
 >> Detection of 1000 sentences (average length: 105 chars)
 Accuracy: 97.90%

@@ -1,6 +1,6 @@
 ##### Slovak #####
 
->>> Accuracy on average: 75.03%
+>>> Accuracy on average: 75.00%
 
 >> Detection of 1000 single words (average length: 8 chars)
 Accuracy: 49.30%
@@ -11,6 +11,6 @@ Accuracy: 78.50%
 Erroneously classified as Czech: 9.30%, Croatian: 1.50%, Bosnian: 1.30%, Slovene: 1.20%, Lithuanian: 0.60%, Yoruba: 0.60%, Polish: 0.50%, Spanish: 0.50%, Tsonga: 0.50%, Finnish: 0.40%, Turkish: 0.40%, English: 0.30%, Hungarian: 0.30%, Latvian: 0.30%, Tswana: 0.30%, Welsh: 0.30%, Afrikaans: 0.20%, Albanian: 0.20%, Basque: 0.20%, Catalan: 0.20%, Esperanto: 0.20%, French: 0.20%, Maori: 0.20%, Portuguese: 0.20%, Swahili: 0.20%, Tagalog: 0.20%, Vietnamese: 0.20%, Zulu: 0.20%, Dutch: 0.10%, Estonian: 0.10%, Ganda: 0.10%, Icelandic: 0.10%, Latin: 0.10%, Romanian: 0.10%, Sotho: 0.10%, Xhosa: 0.10%
 
 >> Detection of 1000 sentences (average length: 101 chars)
-Accuracy: 97.30%
-Erroneously classified as Czech: 1.80%, Tagalog: 0.30%, Ganda: 0.10%, Latvian: 0.10%, Polish: 0.10%, Portuguese: 0.10%, Shona: 0.10%, Swedish: 0.10%
+Accuracy: 97.20%
+Erroneously classified as Czech: 1.80%, Tagalog: 0.30%, Shona: 0.20%, Ganda: 0.10%, Latvian: 0.10%, Polish: 0.10%, Portuguese: 0.10%, Swedish: 0.10%
 

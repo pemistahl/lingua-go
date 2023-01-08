@@ -1,6 +1,6 @@
 ##### Yoruba #####
 
->>> Accuracy on average: 74.60%
+>>> Accuracy on average: 74.40%
 
 >> Detection of 1000 single words (average length: 7 chars)
 Accuracy: 50.30%
@@ -11,6 +11,6 @@ Accuracy: 76.90%
 Erroneously classified as English: 3.90%, Swahili: 1.90%, Latin: 1.80%, Spanish: 1.30%, Italian: 1.20%, Sotho: 1.10%, Basque: 1.00%, French: 1.00%, Tswana: 0.90%, Portuguese: 0.60%, Somali: 0.60%, Tagalog: 0.60%, Tsonga: 0.60%, Bokmal: 0.50%, Bosnian: 0.50%, Estonian: 0.50%, German: 0.50%, Shona: 0.50%, Xhosa: 0.50%, Catalan: 0.40%, Dutch: 0.40%, Ganda: 0.30%, Malay: 0.30%, Turkish: 0.30%, Danish: 0.20%, Icelandic: 0.20%, Indonesian: 0.20%, Romanian: 0.20%, Swedish: 0.20%, Welsh: 0.20%, Zulu: 0.20%, Afrikaans: 0.10%, Croatian: 0.10%, Finnish: 0.10%, Polish: 0.10%, Slovene: 0.10%
 
 >> Detection of 1000 sentences (average length: 86 chars)
-Accuracy: 96.60%
-Erroneously classified as Vietnamese: 1.60%, English: 0.60%, Catalan: 0.20%, Basque: 0.10%, French: 0.10%, Hungarian: 0.10%, Icelandic: 0.10%, Indonesian: 0.10%, Italian: 0.10%, Latin: 0.10%, Portuguese: 0.10%, Swahili: 0.10%, Tagalog: 0.10%
+Accuracy: 96.00%
+Erroneously classified as Vietnamese: 1.90%, English: 0.60%, Catalan: 0.50%, Portuguese: 0.20%, Basque: 0.10%, French: 0.10%, Hungarian: 0.10%, Icelandic: 0.10%, Indonesian: 0.10%, Italian: 0.10%, Latin: 0.10%, Tagalog: 0.10%
 

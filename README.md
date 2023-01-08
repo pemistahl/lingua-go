@@ -351,7 +351,7 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 82</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 81</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 65</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 64</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 77</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 71</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
@@ -368,7 +368,7 @@ including mean, median and standard deviation.
 	<tr>
 		<td>Basque</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 74</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 75</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 71</td>
@@ -380,7 +380,7 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 91</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
 	</tr>
@@ -425,7 +425,7 @@ including mean, median and standard deviation.
 	<tr>
 		<td>Bokmal</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 58</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 49</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 50</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 34</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 39</td>
@@ -435,9 +435,9 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 59</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 47</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 29</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 28</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 77</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 75</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 74</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 60</td>
 	</tr>
@@ -455,7 +455,7 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 29</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 28</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 40</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 41</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 36</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 52</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
@@ -493,8 +493,8 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 60</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 42</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 86</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 81</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 87</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 82</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
 	</tr>
@@ -519,7 +519,7 @@ including mean, median and standard deviation.
 	</tr>
 	<tr>
 		<td>Croatian</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 72</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 73</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 60</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 42</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 55</td>
@@ -532,7 +532,7 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 42</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 44</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 85</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 86</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 58</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 91</td>
 	</tr>
@@ -596,7 +596,7 @@ including mean, median and standard deviation.
 	<tr>
 		<td>English</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 81</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 63</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 54</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 49</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 55</td>
@@ -606,9 +606,9 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 89</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 44</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 36</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 35</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
 	</tr>
@@ -627,7 +627,7 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 51</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 45</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 88</td>
 	</tr>
@@ -684,7 +684,7 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 49</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 59</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
 	</tr>
@@ -816,7 +816,7 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 20</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 45</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 40</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 67</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 88</td>
@@ -830,7 +830,7 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 87</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 77</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 53</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 38</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 37</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 76</td>
@@ -861,8 +861,8 @@ including mean, median and standard deviation.
 	</tr>
 	<tr>
 		<td>Indonesian</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 60</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 48</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 61</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 47</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 46</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 67</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 39</td>
@@ -873,8 +873,8 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 46</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 45</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 66</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 81</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 72</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 83</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 71</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 66</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
 	</tr>
@@ -988,7 +988,7 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 58</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 83</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
 	</tr>
@@ -1063,8 +1063,8 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 36</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 22</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 30</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 36</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 28</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 35</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 34</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
 	</tr>
@@ -1090,11 +1090,11 @@ including mean, median and standard deviation.
 	<tr>
 		<td>Marathi</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 85</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 41</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 39</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 84</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 73</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 74</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 20</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 16</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 69</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 52</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 85</td>
@@ -1109,7 +1109,7 @@ including mean, median and standard deviation.
 	<tr>
 		<td>Mongolian</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 83</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
@@ -1139,7 +1139,7 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 49</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 24</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 91</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 81</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 69</td>
@@ -1196,7 +1196,7 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 70</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 40</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 48</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
@@ -1355,7 +1355,7 @@ including mean, median and standard deviation.
 	</tr>
 	<tr>
 		<td>Sotho</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 85</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 86</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 72</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 49</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
@@ -1367,7 +1367,7 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 75</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 33</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
@@ -1423,9 +1423,9 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 88</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 76</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 56</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 39</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 40</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 95</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 94</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 83</td>
 	</tr>
@@ -1443,7 +1443,7 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 67</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 43</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/grey.png"> -</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 90</td>
@@ -1488,9 +1488,9 @@ including mean, median and standard deviation.
 	</tr>
 	<tr>
 		<td>Thai</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
@@ -1500,8 +1500,8 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 98</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
 	</tr>
@@ -1558,7 +1558,7 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 70</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 44</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 99</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 100</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
 	</tr>
@@ -1659,7 +1659,7 @@ including mean, median and standard deviation.
 	</tr>
 	<tr>
 		<td>Yoruba</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 75</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 74</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 62</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 15</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 22</td>
@@ -1671,8 +1671,8 @@ including mean, median and standard deviation.
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/lightgreen.png"> 61</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 11</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/red.png"> 14</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 97</td>
-		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 93</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 96</td>
+		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/green.png"> 92</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/orange.png"> 28</td>
 		<td><img src="https://raw.githubusercontent.com/pemistahl/lingua-go/main/cmd/images/yellow.png"> 41</td>
 	</tr>
@@ -1741,20 +1741,20 @@ including mean, median and standard deviation.
 	</tr>
 	<tr>
 		<td>Standard Deviation</td>
-		<td>13.1</td>
-		<td>17.24</td>
+		<td>13.08</td>
+		<td>17.29</td>
 		<td>19.04</td>
 		<td>20.22</td>
 		<td>18.41</td>
-		<td>24.8</td>
+		<td>24.9</td>
 		<td>27.86</td>
 		<td>29.28</td>
 		<td>13.12</td>
 		<td>18.93</td>
 		<td>21.83</td>
-		<td>24.2</td>
+		<td>24.22</td>
 		<td>11.05</td>
-		<td>11.84</td>
+		<td>11.91</td>
 		<td>13.95</td>
 		<td>11.24</td>
 	</tr>
