@@ -29,7 +29,7 @@ type trainingDataLanguageModel struct {
 }
 
 type testDataLanguageModel struct {
-	ngrams map[ngram]struct{}
+	ngrams [][]ngram
 }
 
 func newTrainingDataLanguageModel(
@@ -66,7 +66,15 @@ func newTestDataLanguageModel(words []string, ngramLength int) testDataLanguageM
 			}
 		}
 	}
-	return testDataLanguageModel{ngrams: ngrams}
+
+	lowerOrderNgrams := make([][]ngram, len(ngrams))
+	i := 0
+	for n := range ngrams {
+		lowerOrderNgrams[i] = n.rangeOfLowerOrderNgrams()
+		i++
+	}
+
+	return testDataLanguageModel{ngrams: lowerOrderNgrams}
 }
 
 func computeAbsoluteFrequencies(

@@ -118,10 +118,14 @@ var fivegramModelForGerman = map[string]float64{
 // TEST DATA MODELS
 // ##############################
 
-func testDataModel(strs []string) testDataLanguageModel {
-	ngrams := make(map[ngram]struct{})
-	for _, s := range strs {
-		ngrams[newNgram(s)] = struct{}{}
+func testDataModel(strings [][]string) testDataLanguageModel {
+	ngrams := make([][]ngram, len(strings))
+	for i, strs := range strings {
+		n := make([]ngram, len(strs))
+		for j, s := range strs {
+			n[j] = newNgram(s)
+		}
+		ngrams[i] = n
 	}
 	return testDataLanguageModel{ngrams}
 }
@@ -244,35 +248,31 @@ func TestLookUpNgramProbability(t *testing.T) {
 
 func TestComputeSumOfNgramProbabilities(t *testing.T) {
 	testCases := []struct {
-		ngrams                     []string
+		ngramModel                 testDataLanguageModel
 		expectedSumOfProbabilities float64
 	}{
 		{
-			[]string{"a", "l", "t", "e", "r"},
+			testDataModel([][]string{{"a"}, {"l"}, {"t"}, {"e"}, {"r"}}),
 			math.Log(0.01) + math.Log(0.02) + math.Log(0.03) + math.Log(0.04) + math.Log(0.05),
 		},
 		{
 			// back off unknown Trigram("tez") to known Bigram("te")
-			[]string{"alt", "lte", "tez"},
+			testDataModel([][]string{{"alt", "al", "a"}, {"lte", "lt", "l"}, {"tez", "te", "t"}}),
 			math.Log(0.19) + math.Log(0.2) + math.Log(0.13),
 		},
 		{
 			// back off unknown Fivegram("aquas") to known Unigram("a")
-			[]string{"aquas"},
+			testDataModel([][]string{{"aquas", "aqua", "aqu", "aq", "a"}}),
 			math.Log(0.01),
 		},
 	}
 	for _, testCase := range testCases {
-		mappedNgrams := make(map[ngram]struct{})
-		for _, ngram := range testCase.ngrams {
-			mappedNgrams[newNgram(ngram)] = struct{}{}
-		}
-		sumOfProbabilities := detectorForEnglishAndGerman.computeSumOfNgramProbabilities(English, mappedNgrams)
+		sumOfProbabilities := detectorForEnglishAndGerman.computeSumOfNgramProbabilities(English, testCase.ngramModel)
 		message := fmt.Sprintf(
 			"expected sum %v for language %v and ngrams %v, got %v",
 			testCase.expectedSumOfProbabilities,
 			English,
-			testCase.ngrams,
+			testCase.ngramModel.ngrams,
 			sumOfProbabilities,
 		)
 		assert.InDelta(t, testCase.expectedSumOfProbabilities, sumOfProbabilities, delta, message)
@@ -281,25 +281,25 @@ func TestComputeSumOfNgramProbabilities(t *testing.T) {
 
 func TestComputeLanguageProbabilities(t *testing.T) {
 	testCases := []struct {
-		testDataModel         testDataLanguageModel
+		ngramModel            testDataLanguageModel
 		expectedProbabilities map[Language]float64
 	}{
 		{
-			testDataModel([]string{"a", "l", "t", "e", "r"}),
+			testDataModel([][]string{{"a"}, {"l"}, {"t"}, {"e"}, {"r"}}),
 			map[Language]float64{
 				English: math.Log(0.01) + math.Log(0.02) + math.Log(0.03) + math.Log(0.04) + math.Log(0.05),
 				German:  math.Log(0.06) + math.Log(0.07) + math.Log(0.08) + math.Log(0.09) + math.Log(0.1),
 			},
 		},
 		{
-			testDataModel([]string{"alt", "lte", "ter", "wxy"}),
+			testDataModel([][]string{{"alt", "al", "a"}, {"lte", "lt", "l"}, {"ter", "te", "t"}, {"wxy", "wx", "w"}}),
 			map[Language]float64{
 				English: math.Log(0.19) + math.Log(0.2) + math.Log(0.21),
 				German:  math.Log(0.22) + math.Log(0.23) + math.Log(0.24),
 			},
 		},
 		{
-			testDataModel([]string{"alte", "lter", "wxyz"}),
+			testDataModel([][]string{{"alte", "alt", "al", "a"}, {"lter", "lte", "lt", "l"}, {"wxyz", "wxy", "wx", "w"}}),
 			map[Language]float64{
 				English: math.Log(0.25) + math.Log(0.26),
 				German:  math.Log(0.27) + math.Log(0.28),
@@ -308,7 +308,7 @@ func TestComputeLanguageProbabilities(t *testing.T) {
 	}
 	languages := []Language{English, German}
 	for _, testCase := range testCases {
-		probabilities := detectorForEnglishAndGerman.computeLanguageProbabilities(testCase.testDataModel, languages)
+		probabilities := detectorForEnglishAndGerman.computeLanguageProbabilities(testCase.ngramModel, languages)
 
 		for language, probability := range probabilities {
 			expectedProbability := testCase.expectedProbabilities[language]

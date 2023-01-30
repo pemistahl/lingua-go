@@ -565,8 +565,8 @@ func (detector languageDetector) lookUpLanguageModels(
 	probabilityChannel chan<- map[Language]float64,
 	unigramCountChannel chan<- map[Language]uint32,
 ) {
-	testDataModel := newTestDataLanguageModel(words, ngramLength)
-	probabilities := detector.computeLanguageProbabilities(testDataModel, filteredLanguages)
+	ngramModel := newTestDataLanguageModel(words, ngramLength)
+	probabilities := detector.computeLanguageProbabilities(ngramModel, filteredLanguages)
 	probabilityChannel <- probabilities
 
 	if ngramLength == 1 {
@@ -582,17 +582,17 @@ func (detector languageDetector) lookUpLanguageModels(
 			copy(intersectedLanguages, filteredLanguages)
 		}
 
-		detector.countUnigrams(unigramCountChannel, testDataModel, intersectedLanguages)
+		detector.countUnigrams(unigramCountChannel, ngramModel, intersectedLanguages)
 	}
 }
 
 func (detector languageDetector) computeLanguageProbabilities(
-	model testDataLanguageModel,
+	ngramModel testDataLanguageModel,
 	filteredLanguages []Language,
 ) map[Language]float64 {
 	probabilities := make(map[Language]float64)
 	for _, language := range filteredLanguages {
-		sum := detector.computeSumOfNgramProbabilities(language, model.ngrams)
+		sum := detector.computeSumOfNgramProbabilities(language, ngramModel)
 		if sum < 0 {
 			probabilities[language] = sum
 		}
@@ -623,11 +623,11 @@ func (detector languageDetector) computeConfidenceValues(
 	return confidenceValues
 }
 
-func (detector languageDetector) computeSumOfNgramProbabilities(language Language, ngrams map[ngram]struct{}) float64 {
+func (detector languageDetector) computeSumOfNgramProbabilities(language Language, ngramModel testDataLanguageModel) float64 {
 	sum := 0.0
-	for ngram := range ngrams {
-		for _, elem := range ngram.rangeOfLowerOrderNgrams() {
-			probability := detector.lookUpNgramProbability(language, elem)
+	for _, ngrams := range ngramModel.ngrams {
+		for _, n := range ngrams {
+			probability := detector.lookUpNgramProbability(language, n)
 			if probability > 0 {
 				sum += math.Log(probability)
 				break
@@ -671,8 +671,8 @@ func (detector languageDetector) countUnigrams(
 ) {
 	unigramCounts := make(map[Language]uint32)
 	for _, language := range filteredLanguages {
-		for unigram := range unigramModel.ngrams {
-			if detector.lookUpNgramProbability(language, unigram) > 0 {
+		for _, unigrams := range unigramModel.ngrams {
+			if detector.lookUpNgramProbability(language, unigrams[0]) > 0 {
 				unigramCounts[language]++
 			}
 		}

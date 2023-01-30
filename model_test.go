@@ -19,6 +19,7 @@ package lingua
 import (
 	"bufio"
 	"github.com/stretchr/testify/assert"
+	"sort"
 	"strings"
 	"testing"
 )
@@ -36,9 +37,9 @@ func linesOfText(text string) []string {
 	return lines
 }
 
-var expectedUnigrams = mapStringsToNgrams(
-	"a", "b", "c", "d", "e", "f", "g", "h", "i", "l",
-	"m", "n", "o", "p", "r", "s", "t", "u", "w", "y")
+var expectedUnigrams = mapStringsToNgrams([][]string{
+	{"a"}, {"b"}, {"c"}, {"d"}, {"e"}, {"f"}, {"g"}, {"h"}, {"i"}, {"l"},
+	{"m"}, {"n"}, {"o"}, {"p"}, {"r"}, {"s"}, {"t"}, {"u"}, {"w"}, {"y"}})
 
 var expectedUnigramAbsoluteFrequencies = mapKeysToNgrams(map[string]uint32{
 	"a": 3, "b": 1, "c": 3, "d": 5, "e": 14, "f": 2, "g": 1, "h": 4, "i": 6,
@@ -53,12 +54,17 @@ var expectedUnigramRelativeFrequencies = mapKeysToNgrams(map[string]float64{
 	"s": 0.1, "t": 0.13, "u": 0.03, "w": 0.02, "y": 0.03,
 })
 
-var expectedBigrams = mapStringsToNgrams(
-	"de", "pr", "pu", "do", "uc", "ds", "du", "ur", "us", "ed", "in",
-	"io", "em", "en", "is", "al", "es", "ar", "rd", "re", "ey", "nc", "nd",
-	"ay", "ng", "ro", "rp", "no", "ns", "nt", "fo", "wa", "se", "od", "si",
-	"by", "of", "wo", "on", "st", "ce", "or", "os", "ot", "co", "ta", "te",
-	"ct", "th", "ti", "to", "he", "po")
+var expectedBigrams = mapStringsToNgrams([][]string{
+	{"al", "a"}, {"ar", "a"}, {"ay", "a"}, {"by", "b"}, {"ce", "c"}, {"co", "c"},
+	{"ct", "c"}, {"de", "d"}, {"do", "d"}, {"ds", "d"}, {"du", "d"}, {"ed", "e"},
+	{"em", "e"}, {"en", "e"}, {"es", "e"}, {"ey", "e"}, {"fo", "f"}, {"he", "h"},
+	{"in", "i"}, {"io", "i"}, {"is", "i"}, {"nc", "n"}, {"nd", "n"}, {"ng", "n"},
+	{"no", "n"}, {"ns", "n"}, {"nt", "n"}, {"od", "o"}, {"of", "o"}, {"on", "o"},
+	{"or", "o"}, {"os", "o"}, {"ot", "o"}, {"po", "p"}, {"pr", "p"}, {"pu", "p"},
+	{"rd", "r"}, {"re", "r"}, {"ro", "r"}, {"rp", "r"}, {"se", "s"}, {"si", "s"},
+	{"st", "s"}, {"ta", "t"}, {"te", "t"}, {"th", "t"}, {"ti", "t"}, {"to", "t"},
+	{"uc", "u"}, {"ur", "u"}, {"us", "u"}, {"wa", "w"}, {"wo", "w"},
+})
 
 var expectedBigramAbsoluteFrequencies = mapKeysToNgrams(map[string]uint32{
 	"de": 1, "pr": 1, "pu": 1, "do": 1, "uc": 1, "ds": 1, "du": 1,
@@ -84,13 +90,21 @@ var expectedBigramRelativeFrequencies = mapKeysToNgrams(map[string]float64{
 	"ti": 2.0 / 13, "to": 1.0 / 13, "he": 1, "po": 1.0 / 3,
 })
 
-var expectedTrigrams = mapStringsToNgrams(
-	"rds", "ose", "ded", "con", "use", "est", "ion", "ist", "pur",
-	"hem", "hes", "tin", "cti", "tio", "wor", "ten", "hey", "ota", "tal",
-	"tes", "uct", "sti", "pro", "odu", "nsi", "rod", "for", "ces", "nce",
-	"not", "are", "pos", "tot", "end", "enc", "sis", "sen", "nte", "ses",
-	"ord", "ing", "ent", "int", "nde", "way", "the", "rpo", "urp", "duc",
-	"ons", "ese")
+var expectedTrigrams = mapStringsToNgrams([][]string{
+	{"are", "ar", "a"}, {"ces", "ce", "c"}, {"con", "co", "c"}, {"cti", "ct", "c"},
+	{"ded", "de", "d"}, {"duc", "du", "d"}, {"enc", "en", "e"}, {"end", "en", "e"},
+	{"ent", "en", "e"}, {"ese", "es", "e"}, {"est", "es", "e"}, {"for", "fo", "f"},
+	{"hem", "he", "h"}, {"hes", "he", "h"}, {"hey", "he", "h"}, {"ing", "in", "i"},
+	{"int", "in", "i"}, {"ion", "io", "i"}, {"ist", "is", "i"}, {"nce", "nc", "n"},
+	{"nde", "nd", "n"}, {"not", "no", "n"}, {"nsi", "ns", "n"}, {"nte", "nt", "n"},
+	{"odu", "od", "o"}, {"ons", "on", "o"}, {"ord", "or", "o"}, {"ose", "os", "o"},
+	{"ota", "ot", "o"}, {"pos", "po", "p"}, {"pro", "pr", "p"}, {"pur", "pu", "p"},
+	{"rds", "rd", "r"}, {"rod", "ro", "r"}, {"rpo", "rp", "r"}, {"sen", "se", "s"},
+	{"ses", "se", "s"}, {"sis", "si", "s"}, {"sti", "st", "s"}, {"tal", "ta", "t"},
+	{"ten", "te", "t"}, {"tes", "te", "t"}, {"the", "th", "t"}, {"tin", "ti", "t"},
+	{"tio", "ti", "t"}, {"tot", "to", "t"}, {"uct", "uc", "u"}, {"urp", "ur", "u"},
+	{"use", "us", "u"}, {"way", "wa", "w"}, {"wor", "wo", "w"},
+})
 
 var expectedTrigramAbsoluteFrequencies = mapKeysToNgrams(map[string]uint32{
 	"rds": 1, "ose": 1, "ded": 1, "con": 1, "use": 1, "est": 1, "ion": 1,
@@ -114,12 +128,21 @@ var expectedTrigramRelativeFrequencies = mapKeysToNgrams(map[string]float64{
 	"int": 0.25, "rpo": 1, "the": 1, "urp": 1, "duc": 1, "ons": 0.5, "ese": 0.25,
 })
 
-var expectedQuadrigrams = mapStringsToNgrams(
-	"onsi", "sist", "ende", "ords", "esti", "tenc", "nces", "oduc",
-	"tend", "thes", "rpos", "ting", "nten", "nsis", "they", "tota", "cons",
-	"tion", "prod", "ence", "test", "otal", "pose", "nded", "oses", "inte",
-	"urpo", "them", "sent", "duct", "stin", "ente", "ucti", "purp", "ctio",
-	"rodu", "word", "hese")
+var expectedQuadrigrams = mapStringsToNgrams([][]string{
+	{"cons", "con", "co", "c"}, {"ctio", "cti", "ct", "c"}, {"duct", "duc", "du", "d"},
+	{"ence", "enc", "en", "e"}, {"ende", "end", "en", "e"}, {"ente", "ent", "en", "e"},
+	{"esti", "est", "es", "e"}, {"hese", "hes", "he", "h"}, {"inte", "int", "in", "i"},
+	{"nces", "nce", "nc", "n"}, {"nded", "nde", "nd", "n"}, {"nsis", "nsi", "ns", "n"},
+	{"nten", "nte", "nt", "n"}, {"oduc", "odu", "od", "o"}, {"onsi", "ons", "on", "o"},
+	{"ords", "ord", "or", "o"}, {"oses", "ose", "os", "o"}, {"otal", "ota", "ot", "o"},
+	{"pose", "pos", "po", "p"}, {"prod", "pro", "pr", "p"}, {"purp", "pur", "pu", "p"},
+	{"rodu", "rod", "ro", "r"}, {"rpos", "rpo", "rp", "r"}, {"sent", "sen", "se", "s"},
+	{"sist", "sis", "si", "s"}, {"stin", "sti", "st", "s"}, {"tenc", "ten", "te", "t"},
+	{"tend", "ten", "te", "t"}, {"test", "tes", "te", "t"}, {"them", "the", "th", "t"},
+	{"thes", "the", "th", "t"}, {"they", "the", "th", "t"}, {"ting", "tin", "ti", "t"},
+	{"tion", "tio", "ti", "t"}, {"tota", "tot", "to", "t"}, {"ucti", "uct", "uc", "u"},
+	{"urpo", "urp", "ur", "u"}, {"word", "wor", "wo", "w"},
+})
 
 var expectedQuadrigramAbsoluteFrequencies = mapKeysToNgrams(map[string]uint32{
 	"onsi": 1, "sist": 1, "ende": 1, "ords": 1, "esti": 1, "oduc": 1,
@@ -140,11 +163,22 @@ var expectedQuadrigramRelativeFrequencies = mapKeysToNgrams(map[string]float64{
 	"ente": 1, "purp": 1, "ctio": 1, "rodu": 1, "word": 1, "hese": 1,
 })
 
-var expectedFivegrams = mapStringsToNgrams(
-	"testi", "sente", "ences", "tende", "these", "ntenc", "ducti",
-	"ntend", "onsis", "total", "uctio", "enten", "poses", "ction", "produ",
-	"inten", "nsist", "words", "sting", "tence", "purpo", "estin", "roduc",
-	"urpos", "ended", "rpose", "oduct", "consi")
+var expectedFivegrams = mapStringsToNgrams([][]string{
+	{"consi", "cons", "con", "co", "c"}, {"ction", "ctio", "cti", "ct", "c"},
+	{"ducti", "duct", "duc", "du", "d"}, {"ences", "ence", "enc", "en", "e"},
+	{"ended", "ende", "end", "en", "e"}, {"enten", "ente", "ent", "en", "e"},
+	{"estin", "esti", "est", "es", "e"}, {"inten", "inte", "int", "in", "i"},
+	{"nsist", "nsis", "nsi", "ns", "n"}, {"ntenc", "nten", "nte", "nt", "n"},
+	{"ntend", "nten", "nte", "nt", "n"}, {"oduct", "oduc", "odu", "od", "o"},
+	{"onsis", "onsi", "ons", "on", "o"}, {"poses", "pose", "pos", "po", "p"},
+	{"produ", "prod", "pro", "pr", "p"}, {"purpo", "purp", "pur", "pu", "p"},
+	{"roduc", "rodu", "rod", "ro", "r"}, {"rpose", "rpos", "rpo", "rp", "r"},
+	{"sente", "sent", "sen", "se", "s"}, {"sting", "stin", "sti", "st", "s"},
+	{"tence", "tenc", "ten", "te", "t"}, {"tende", "tend", "ten", "te", "t"},
+	{"testi", "test", "tes", "te", "t"}, {"these", "thes", "the", "th", "t"},
+	{"total", "tota", "tot", "to", "t"}, {"uctio", "ucti", "uct", "uc", "u"},
+	{"urpos", "urpo", "urp", "ur", "u"}, {"words", "word", "wor", "wo", "w"},
+})
 
 var expectedFivegramAbsoluteFrequencies = mapKeysToNgrams(map[string]uint32{
 	"testi": 1, "sente": 1, "ences": 1, "tende": 1, "ducti": 1,
@@ -194,7 +228,7 @@ func TestNewTrainingDataLanguageModel(t *testing.T) {
 func TestNewTestDataLanguageModel(t *testing.T) {
 	params := []struct {
 		ngramLength    int
-		expectedNgrams map[ngram]struct{}
+		expectedNgrams [][]ngram
 	}{
 		{1, expectedUnigrams},
 		{2, expectedBigrams},
@@ -203,15 +237,22 @@ func TestNewTestDataLanguageModel(t *testing.T) {
 		{5, expectedFivegrams},
 	}
 	for i := range params {
-		model := newTestDataLanguageModel(splitTextIntoWords(text), params[i].ngramLength)
-		assert.Equal(t, params[i].expectedNgrams, model.ngrams)
+		ngramModel := newTestDataLanguageModel(splitTextIntoWords(text), params[i].ngramLength)
+		sort.Slice(ngramModel.ngrams, func(i, j int) bool {
+			return ngramModel.ngrams[i][0].value < ngramModel.ngrams[j][0].value
+		})
+		assert.Equal(t, params[i].expectedNgrams, ngramModel.ngrams)
 	}
 }
 
-func mapStringsToNgrams(strings ...string) map[ngram]struct{} {
-	ngrams := make(map[ngram]struct{})
-	for _, s := range strings {
-		ngrams[newNgram(s)] = struct{}{}
+func mapStringsToNgrams(strings [][]string) [][]ngram {
+	ngrams := make([][]ngram, len(strings))
+	for i, strs := range strings {
+		n := make([]ngram, len(strs))
+		for j, s := range strs {
+			n[j] = newNgram(s)
+		}
+		ngrams[i] = n
 	}
 	return ngrams
 }
