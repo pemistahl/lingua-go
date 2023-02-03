@@ -348,7 +348,7 @@ func (detector languageDetector) ComputeLanguageConfidenceValues(text string) []
 		return values
 	}
 
-	return detector.computeConfidenceValues(values, summedUpProbabilities)
+	return detector.computeConfidenceValues(values, probabilityMaps, summedUpProbabilities)
 }
 
 func (detector languageDetector) ComputeLanguageConfidence(text string, language Language) float64 {
@@ -602,20 +602,47 @@ func (detector languageDetector) computeLanguageProbabilities(
 
 func (detector languageDetector) computeConfidenceValues(
 	confidenceValues confidenceValueSlice,
+	probabilityMaps []map[Language]float64,
 	probabilities map[Language]decimal.Decimal,
 ) []ConfidenceValue {
 	denominator := decimal.Zero
 	for _, probability := range probabilities {
 		denominator = denominator.Add(probability)
 	}
-	for language, probability := range probabilities {
+
+	// If the denominator is still zero, the exponent of the summed
+	// log probabilities is too large to be computed for very long input strings.
+	// So we simply set the probability of the most likely language to 1.0 and
+	// leave the other languages at 0.0.
+	if denominator.IsZero() {
+		// For very long inputs, only trigrams are used, so we safely access them at index 0.
+		probabilityMap := probabilityMaps[0]
+
+		var languages []Language
+		for language := range probabilityMap {
+			languages = append(languages, language)
+		}
+		sort.Slice(languages, func(i, j int) bool {
+			return probabilityMap[languages[i]] > probabilityMap[languages[j]]
+		})
+		mostLikelyLanguage := languages[0]
+
 		for i := range confidenceValues {
-			if confidenceValues[i].Language() == language {
-				// apply softmax function
-				normalizedProbability := probability.Div(denominator)
-				f, _ := normalizedProbability.Float64()
-				confidenceValues[i] = newConfidenceValue(language, f)
+			if confidenceValues[i].Language() == mostLikelyLanguage {
+				confidenceValues[i] = newConfidenceValue(mostLikelyLanguage, 1.0)
 				break
+			}
+		}
+	} else {
+		for language, probability := range probabilities {
+			for i := range confidenceValues {
+				if confidenceValues[i].Language() == language {
+					// apply softmax function
+					normalizedProbability := probability.Div(denominator)
+					f, _ := normalizedProbability.Float64()
+					confidenceValues[i] = newConfidenceValue(language, f)
+					break
+				}
 			}
 		}
 	}
