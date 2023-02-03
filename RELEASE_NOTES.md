@@ -1,3 +1,10 @@
+## Lingua 1.3.3 (released on 03 Feb 2023)
+
+### Bug Fixes
+
+- For long input texts, a panic occurred while computing the confidence
+  values due to an accidental division by zero. This has been fixed. (#27)
+
 ## Lingua 1.3.2 (released on 30 Jan 2023)
 
 ### Improvements
@@ -10,7 +17,7 @@
 
 ### Bug Fixes
 
-- For long input texts, an error occurred whiled computing the confidence 
+- For long input texts, an error occurred while computing the confidence 
   values due to numerical underflow when converting probabilities. 
   This has been fixed.
 
