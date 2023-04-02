@@ -140,7 +140,7 @@ func testDataModel(strings [][]string) testDataLanguageModel {
 // DETECTORS
 // ##############################
 
-func newCustomizedDetectorForEnglishAndGerman() languageDetector {
+func newDetectorForEnglishAndGerman() languageDetector {
 	languages := []Language{English, German}
 
 	var unigramLanguageModels sync.Map
@@ -177,8 +177,7 @@ func newCustomizedDetectorForEnglishAndGerman() languageDetector {
 	}
 }
 
-var customizedDetectorForEnglishAndGerman = newCustomizedDetectorForEnglishAndGerman()
-var detectorForEnglishAndGerman = newLanguageDetector([]Language{English, German}, 0.0, true, false)
+var detectorForEnglishAndGerman = newDetectorForEnglishAndGerman()
 var detectorForAllLanguages = newLanguageDetector(AllLanguages(), 0.0, true, false)
 
 // ##############################
@@ -237,7 +236,7 @@ func TestLookUpNgramProbability(t *testing.T) {
 		{German, "alter", 0.3},
 	}
 	for _, testCase := range testCases {
-		probability := customizedDetectorForEnglishAndGerman.lookUpNgramProbability(testCase.language, newNgram(testCase.ngram))
+		probability := detectorForEnglishAndGerman.lookUpNgramProbability(testCase.language, newNgram(testCase.ngram))
 		message := fmt.Sprintf(
 			"expected probability %v for language %v and ngram '%s', got %v",
 			testCase.expectedProbability,
@@ -249,7 +248,7 @@ func TestLookUpNgramProbability(t *testing.T) {
 	}
 
 	assert.Panicsf(t, func() {
-		customizedDetectorForEnglishAndGerman.lookUpNgramProbability(English, newNgram(""))
+		detectorForEnglishAndGerman.lookUpNgramProbability(English, newNgram(""))
 	}, "zerogram detected")
 }
 
@@ -274,7 +273,7 @@ func TestComputeSumOfNgramProbabilities(t *testing.T) {
 		},
 	}
 	for _, testCase := range testCases {
-		sumOfProbabilities := customizedDetectorForEnglishAndGerman.computeSumOfNgramProbabilities(English, testCase.ngramModel)
+		sumOfProbabilities := detectorForEnglishAndGerman.computeSumOfNgramProbabilities(English, testCase.ngramModel)
 		message := fmt.Sprintf(
 			"expected sum %v for language %v and ngrams %v, got %v",
 			testCase.expectedSumOfProbabilities,
@@ -315,7 +314,7 @@ func TestComputeLanguageProbabilities(t *testing.T) {
 	}
 	languages := []Language{English, German}
 	for _, testCase := range testCases {
-		probabilities := customizedDetectorForEnglishAndGerman.computeLanguageProbabilities(testCase.ngramModel, languages)
+		probabilities := detectorForEnglishAndGerman.computeLanguageProbabilities(testCase.ngramModel, languages)
 
 		for language, probability := range probabilities {
 			expectedProbability := testCase.expectedProbabilities[language]
@@ -330,202 +329,226 @@ func TestComputeLanguageProbabilities(t *testing.T) {
 	}
 }
 
-func TestComputeLanguageConfidenceValues_LanguageDetectedByRules(t *testing.T) {
-	confidenceValues := customizedDetectorForEnglishAndGerman.ComputeLanguageConfidenceValues("groß")
+func TestComputeLanguageConfidenceValues(t *testing.T) {
+	testCases := []struct {
+		text                     string
+		expectedConfidenceValues []ConfidenceValue
+	}{
+		{
+			"groß",
+			[]ConfidenceValue{
+				newConfidenceValue(German, 1.0),
+				newConfidenceValue(English, 0.0),
+			},
+		},
+		{
+			"Alter",
+			[]ConfidenceValue{
+				newConfidenceValue(German, 0.81),
+				newConfidenceValue(English, 0.19),
+			},
+		},
+		{
+			"проарплап",
+			[]ConfidenceValue{
+				newConfidenceValue(English, 0.0),
+				newConfidenceValue(German, 0.0),
+			},
+		},
+		{
+			veryLargeInputText,
+			[]ConfidenceValue{
+				newConfidenceValue(German, 1.0),
+				newConfidenceValue(English, 0.0),
+			},
+		},
+	}
 
-	assert.Equal(
-		t,
-		2,
-		len(confidenceValues),
-		fmt.Sprintf("expected 2 confidence values, got %v", len(confidenceValues)),
-	)
+	for _, testCase := range testCases {
+		confidenceValues := detectorForEnglishAndGerman.ComputeLanguageConfidenceValues(testCase.text)
+		assert.Equal(t, 2, len(confidenceValues))
 
-	first, second := confidenceValues[0], confidenceValues[1]
+		for i, confidence := range confidenceValues {
+			confidenceValues[i] = newConfidenceValue(confidence.Language(), roundToTwoDecimalPlaces(confidence.Value()))
+		}
 
-	assert.Equal(t, German, first.Language())
-	assert.Equal(t, 1.0, first.Value())
-
-	assert.Equal(t, English, second.Language())
-	assert.Equal(t, 0.0, second.Value())
+		assert.Equal(
+			t,
+			testCase.expectedConfidenceValues,
+			confidenceValues,
+			fmt.Sprintf("wrong confidence values for text '%v'", testCase.text),
+		)
+	}
 }
 
-func TestComputeLanguageConfidenceValues_KnownNgrams(t *testing.T) {
-	confidenceValues := customizedDetectorForEnglishAndGerman.ComputeLanguageConfidenceValues("Alter")
+func TestComputeLanguageConfidence(t *testing.T) {
+	testCases := []struct {
+		text               string
+		language           Language
+		expectedConfidence float64
+	}{
+		{
+			"groß", German, 1.0,
+		},
+		{
+			"groß", English, 0.0,
+		},
+		{
+			"Alter", German, 0.81,
+		},
+		{
+			"Alter", English, 0.19,
+		},
+		{
+			"проарплап", German, 0.0,
+		},
+		{
+			"проарплап", English, 0.0,
+		},
+		{
+			"groß", French, 0.0,
+		},
+		{
+			veryLargeInputText, German, 1.0,
+		},
+		{
+			veryLargeInputText, English, 0.0,
+		},
+	}
 
-	assert.Equal(
-		t,
-		2,
-		len(confidenceValues),
-		fmt.Sprintf("expected 2 confidence values, got %v", len(confidenceValues)),
-	)
-
-	first, second := confidenceValues[0], confidenceValues[1]
-
-	assert.Equal(t, German, first.Language())
-	assert.Equal(t, 0.81, roundToTwoDecimalPlaces(first.Value()))
-
-	assert.Equal(t, English, second.Language())
-	assert.Equal(t, 0.19, roundToTwoDecimalPlaces(second.Value()))
-}
-
-func TestComputeLanguageConfidenceValues_UnknownNgrams(t *testing.T) {
-	confidenceValues := customizedDetectorForEnglishAndGerman.ComputeLanguageConfidenceValues("проарплап")
-
-	assert.Equal(
-		t,
-		2,
-		len(confidenceValues),
-		fmt.Sprintf("expected 2 confidence values, got %v", len(confidenceValues)),
-	)
-
-	first, second := confidenceValues[0], confidenceValues[1]
-
-	assert.Equal(t, English, first.Language())
-	assert.Equal(t, 0.0, first.Value())
-
-	assert.Equal(t, German, second.Language())
-	assert.Equal(t, 0.0, second.Value())
-}
-
-func TestComputeLanguageConfidenceValues_VeryLargeInputText(t *testing.T) {
-	confidenceValues := detectorForEnglishAndGerman.ComputeLanguageConfidenceValues(veryLargeInputText)
-
-	assert.Equal(
-		t,
-		2,
-		len(confidenceValues),
-		fmt.Sprintf("expected 2 confidence values, got %v", len(confidenceValues)),
-	)
-
-	first, second := confidenceValues[0], confidenceValues[1]
-
-	assert.Equal(t, German, first.Language())
-	assert.Equal(t, 1.0, first.Value())
-
-	assert.Equal(t, English, second.Language())
-	assert.Equal(t, 0.0, second.Value())
-}
-
-func TestComputeLanguageConfidence_LanguageDetectedByRules(t *testing.T) {
-	confidence := customizedDetectorForEnglishAndGerman.ComputeLanguageConfidence("groß", German)
-	assert.Equal(t, 1.0, confidence)
-
-	confidence = customizedDetectorForEnglishAndGerman.ComputeLanguageConfidence("groß", English)
-	assert.Equal(t, 0.0, confidence)
-}
-
-func TestComputeLanguageConfidence_KnownNgrams(t *testing.T) {
-	confidence := customizedDetectorForEnglishAndGerman.ComputeLanguageConfidence("Alter", German)
-	assert.Equal(t, 0.81, roundToTwoDecimalPlaces(confidence))
-
-	confidence = customizedDetectorForEnglishAndGerman.ComputeLanguageConfidence("Alter", English)
-	assert.Equal(t, 0.19, roundToTwoDecimalPlaces(confidence))
-}
-
-func TestComputeLanguageConfidence_UnknownNgrams(t *testing.T) {
-	confidence := customizedDetectorForEnglishAndGerman.ComputeLanguageConfidence("проарплап", German)
-	assert.Equal(t, 0.0, confidence)
-
-	confidence = customizedDetectorForEnglishAndGerman.ComputeLanguageConfidence("проарплап", English)
-	assert.Equal(t, 0.0, confidence)
-}
-
-func TestComputeLanguageConfidence_UnknownLanguage(t *testing.T) {
-	confidence := customizedDetectorForEnglishAndGerman.ComputeLanguageConfidence("groß", French)
-	assert.Equal(t, 0.0, confidence)
-}
-
-func TestComputeLanguageConfidence_VeryLargeInputText(t *testing.T) {
-	confidence := detectorForEnglishAndGerman.ComputeLanguageConfidence(veryLargeInputText, German)
-	assert.Equal(t, 1.0, confidence)
-
-	confidence = detectorForEnglishAndGerman.ComputeLanguageConfidence(veryLargeInputText, English)
-	assert.Equal(t, 0.0, confidence)
+	for _, testCase := range testCases {
+		confidence := detectorForEnglishAndGerman.ComputeLanguageConfidence(testCase.text, testCase.language)
+		assert.Equal(t, testCase.expectedConfidence, roundToTwoDecimalPlaces(confidence))
+	}
 }
 
 func TestDetectLanguage(t *testing.T) {
-	language, exists := customizedDetectorForEnglishAndGerman.DetectLanguageOf("Alter")
-	assert.Equal(t, German, language)
-	assert.True(t, exists)
+	testCases := []struct {
+		text             string
+		expectedLanguage Language
+		expectedExists   bool
+	}{
+		{
+			"Alter", German, true,
+		},
+		{
+			"проарплап", Unknown, false,
+		},
+	}
 
-	language, exists = customizedDetectorForEnglishAndGerman.DetectLanguageOf("проарплап")
-	assert.Equal(t, Unknown, language)
-	assert.False(t, exists)
+	for _, testCase := range testCases {
+		language, exists := detectorForEnglishAndGerman.DetectLanguageOf(testCase.text)
+		assert.Equal(t, testCase.expectedLanguage, language)
+		assert.Equal(t, testCase.expectedExists, exists)
+	}
 }
 
 func TestDetectMultipleLanguages_EmptyString(t *testing.T) {
 	assert.Empty(t, detectorForAllLanguages.DetectMultipleLanguagesOf(""))
 }
 
-func TestDetectMultipleLanguages_English(t *testing.T) {
-	sentence := "I'm really not sure whether multi-language detection is a good idea."
+func TestDetectMultipleLanguages_OneLanguage(t *testing.T) {
+	testCases := []struct {
+		sentence         string
+		expectedLanguage Language
+	}{
+		{
+			"I'm really not sure whether multi-language detection is a good idea.",
+			English,
+		},
+	}
 
-	results := detectorForAllLanguages.DetectMultipleLanguagesOf(sentence)
-	assert.Equal(t, 1, len(results))
+	for _, testCase := range testCases {
+		results := detectorForAllLanguages.DetectMultipleLanguagesOf(testCase.sentence)
+		assert.Equal(t, 1, len(results))
 
-	result := results[0]
-	substring := sentence[result.StartIndex():result.EndIndex()]
-	assert.Equal(t, sentence, substring)
-	assert.Equal(t, English, result.Language())
+		result := results[0]
+		substring := testCase.sentence[result.StartIndex():result.EndIndex()]
+		assert.Equal(t, testCase.sentence, substring)
+		assert.Equal(t, testCase.expectedLanguage, result.Language())
+	}
 }
 
-func TestDetectMultipleLanguages_EnglishGerman(t *testing.T) {
-	sentence := "  He   turned around and asked: " +
-		"\"Entschuldigen Sie, sprechen Sie Deutsch?\""
+func TestDetectMultipleLanguages_TwoLanguages(t *testing.T) {
+	testCases := []struct {
+		sentence                string
+		expectedFirstSubstring  string
+		expectedFirstLanguage   Language
+		expectedSecondSubstring string
+		expectedSecondLanguage  Language
+	}{
+		{
+			"  He   turned around and asked: \"Entschuldigen Sie, sprechen Sie Deutsch?\"",
+			"  He   turned around and asked: ",
+			English,
+			"\"Entschuldigen Sie, sprechen Sie Deutsch?\"",
+			German,
+		},
+		{
+			"上海大学是一个好大学. It is such a great university.",
+			"上海大学是一个好大学. ",
+			Chinese,
+			"It is such a great university.",
+			English,
+		},
+	}
 
-	results := detectorForAllLanguages.DetectMultipleLanguagesOf(sentence)
-	assert.Equal(t, 2, len(results))
+	for _, testCase := range testCases {
+		results := detectorForAllLanguages.DetectMultipleLanguagesOf(testCase.sentence)
+		assert.Equal(t, 2, len(results))
 
-	firstResult := results[0]
-	firstSubstring := sentence[firstResult.StartIndex():firstResult.EndIndex()]
-	assert.Equal(t, "  He   turned around and asked: ", firstSubstring)
-	assert.Equal(t, English, firstResult.Language())
+		firstResult := results[0]
+		firstSubstring := testCase.sentence[firstResult.StartIndex():firstResult.EndIndex()]
+		assert.Equal(t, testCase.expectedFirstSubstring, firstSubstring)
+		assert.Equal(t, testCase.expectedFirstLanguage, firstResult.Language())
 
-	secondResult := results[1]
-	secondSubstring := sentence[secondResult.StartIndex():secondResult.EndIndex()]
-	assert.Equal(t, "\"Entschuldigen Sie, sprechen Sie Deutsch?\"", secondSubstring)
-	assert.Equal(t, German, secondResult.Language())
+		secondResult := results[1]
+		secondSubstring := testCase.sentence[secondResult.StartIndex():secondResult.EndIndex()]
+		assert.Equal(t, testCase.expectedSecondSubstring, secondSubstring)
+		assert.Equal(t, testCase.expectedSecondLanguage, secondResult.Language())
+	}
 }
 
-func TestDetectMultipleLanguages_ChineseEnglish(t *testing.T) {
-	sentence := "上海大学是一个好大学. It is such a great university."
+func TestDetectMultipleLanguages_ThreeLanguages(t *testing.T) {
+	testCases := []struct {
+		sentence                string
+		expectedFirstSubstring  string
+		expectedFirstLanguage   Language
+		expectedSecondSubstring string
+		expectedSecondLanguage  Language
+		expectedThirdSubstring  string
+		expectedThirdLanguage   Language
+	}{
+		{
+			"Parlez-vous français? Ich spreche Französisch nur ein bisschen. A little bit is better than nothing.",
+			"Parlez-vous français? ",
+			French,
+			"Ich spreche Französisch nur ein bisschen. ",
+			German,
+			"A little bit is better than nothing.",
+			English,
+		},
+	}
 
-	results := detectorForAllLanguages.DetectMultipleLanguagesOf(sentence)
-	assert.Equal(t, 2, len(results))
+	for _, testCase := range testCases {
+		results := detectorForAllLanguages.DetectMultipleLanguagesOf(testCase.sentence)
+		assert.Equal(t, 3, len(results))
 
-	firstResult := results[0]
-	firstSubstring := sentence[firstResult.StartIndex():firstResult.EndIndex()]
-	assert.Equal(t, "上海大学是一个好大学. ", firstSubstring)
-	assert.Equal(t, Chinese, firstResult.Language())
+		firstResult := results[0]
+		firstSubstring := testCase.sentence[firstResult.StartIndex():firstResult.EndIndex()]
+		assert.Equal(t, testCase.expectedFirstSubstring, firstSubstring)
+		assert.Equal(t, testCase.expectedFirstLanguage, firstResult.Language())
 
-	secondResult := results[1]
-	secondSubstring := sentence[secondResult.StartIndex():secondResult.EndIndex()]
-	assert.Equal(t, "It is such a great university.", secondSubstring)
-	assert.Equal(t, English, secondResult.Language())
-}
+		secondResult := results[1]
+		secondSubstring := testCase.sentence[secondResult.StartIndex():secondResult.EndIndex()]
+		assert.Equal(t, testCase.expectedSecondSubstring, secondSubstring)
+		assert.Equal(t, testCase.expectedSecondLanguage, secondResult.Language())
 
-func TestDetectMultipleLanguages_FrenchGermanEnglish(t *testing.T) {
-	sentence := "Parlez-vous français? " +
-		"Ich spreche Französisch nur ein bisschen. " +
-		"A little bit is better than nothing."
-
-	results := detectorForAllLanguages.DetectMultipleLanguagesOf(sentence)
-	assert.Equal(t, 3, len(results))
-
-	firstResult := results[0]
-	firstSubstring := sentence[firstResult.StartIndex():firstResult.EndIndex()]
-	assert.Equal(t, "Parlez-vous français? ", firstSubstring)
-	assert.Equal(t, French, firstResult.Language())
-
-	secondResult := results[1]
-	secondSubstring := sentence[secondResult.StartIndex():secondResult.EndIndex()]
-	assert.Equal(t, "Ich spreche Französisch nur ein bisschen. ", secondSubstring)
-	assert.Equal(t, German, secondResult.Language())
-
-	thirdResult := results[2]
-	thirdSubstring := sentence[thirdResult.StartIndex():thirdResult.EndIndex()]
-	assert.Equal(t, "A little bit is better than nothing.", thirdSubstring)
-	assert.Equal(t, English, thirdResult.Language())
+		thirdResult := results[2]
+		thirdSubstring := testCase.sentence[thirdResult.StartIndex():thirdResult.EndIndex()]
+		assert.Equal(t, testCase.expectedThirdSubstring, thirdSubstring)
+		assert.Equal(t, testCase.expectedThirdLanguage, thirdResult.Language())
+	}
 }
 
 func TestDetectLanguageWithRules(t *testing.T) {
