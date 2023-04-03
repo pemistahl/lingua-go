@@ -355,13 +355,6 @@ func TestComputeLanguageConfidenceValues(t *testing.T) {
 				newConfidenceValue(German, 0.0),
 			},
 		},
-		{
-			veryLargeInputText,
-			[]ConfidenceValue{
-				newConfidenceValue(German, 1.0),
-				newConfidenceValue(English, 0.0),
-			},
-		},
 	}
 
 	for _, testCase := range testCases {
@@ -379,6 +372,16 @@ func TestComputeLanguageConfidenceValues(t *testing.T) {
 			fmt.Sprintf("wrong confidence values for text '%v'", testCase.text),
 		)
 	}
+}
+
+func TestComputeLanguageConfidenceValues_VeryLargeInputText(t *testing.T) {
+	detector := newLanguageDetector([]Language{English, German}, 0.0, true, false)
+	confidenceValues := detector.ComputeLanguageConfidenceValues(veryLargeInputText)
+	expectedConfidenceValues := []ConfidenceValue{
+		newConfidenceValue(German, 1.0),
+		newConfidenceValue(English, 0.0),
+	}
+	assert.Equal(t, expectedConfidenceValues, confidenceValues)
 }
 
 func TestComputeLanguageConfidence(t *testing.T) {
@@ -407,12 +410,6 @@ func TestComputeLanguageConfidence(t *testing.T) {
 		},
 		{
 			"groß", French, 0.0,
-		},
-		{
-			veryLargeInputText, German, 1.0,
-		},
-		{
-			veryLargeInputText, English, 0.0,
 		},
 	}
 
