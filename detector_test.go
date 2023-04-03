@@ -802,10 +802,7 @@ func TestLanguageDetectionIsDeterministic(t *testing.T) {
 		},
 	}
 	for _, testCase := range testCases {
-		detector := NewLanguageDetectorBuilder().
-			FromLanguages(testCase.languages...).
-			WithPreloadedLanguageModels().
-			Build()
+		detector := newLanguageDetector(testCase.languages, 0.0, true, false)
 		detectedLanguages := make(map[Language]bool)
 		for i := 0; i < 100; i++ {
 			language, _ := detector.DetectLanguageOf(testCase.text)
@@ -821,11 +818,7 @@ func TestLanguageDetectionIsDeterministic(t *testing.T) {
 }
 
 func TestLowAccuracyModeReportsUnknownLanguageForUnigramsAndBigrams(t *testing.T) {
-	detector := NewLanguageDetectorBuilder().
-		FromLanguages(English, German).
-		WithPreloadedLanguageModels().
-		WithLowAccuracyMode().
-		Build()
+	detector := newLanguageDetector([]Language{English, German}, 0.0, true, true)
 
 	languageForTrigram, exists := detector.DetectLanguageOf("bed")
 	assert.NotEqual(t, Unknown, languageForTrigram)
@@ -845,11 +838,7 @@ func TestLowAccuracyModeReportsUnknownLanguageForUnigramsAndBigrams(t *testing.T
 }
 
 func BenchmarkLanguageDetectionInLowAccuracyMode(b *testing.B) {
-	detector := NewLanguageDetectorBuilder().
-		FromAllLanguages().
-		WithLowAccuracyMode().
-		WithPreloadedLanguageModels().
-		Build()
+	detector := newLanguageDetector(AllLanguages(), 0.0, true, true)
 	sentences := []string{
 		"ربما يبتعد العقرب عن بعض الذين يخيبون أمله، أو يشعر بالحاجة إلى الانتقاء، وعدم البحث عن النشاطات التي ترهق أكثر مما تسعده.",
 		"Επί της ουσίας τόσο οι υφιστάμενες ενισχύσεις που οφείλονται στους κτηνοτρόφους όσο και αυτές της νέας προγραμματικής περιόδου παραμένουν στον αέρα.",
@@ -871,10 +860,7 @@ func BenchmarkLanguageDetectionInLowAccuracyMode(b *testing.B) {
 }
 
 func BenchmarkLanguageDetectionInHighAccuracyMode(b *testing.B) {
-	detector := NewLanguageDetectorBuilder().
-		FromAllLanguages().
-		WithPreloadedLanguageModels().
-		Build()
+	detector := newLanguageDetector(AllLanguages(), 0.0, true, false)
 	sentences := []string{
 		"ربما يبتعد العقرب عن بعض الذين يخيبون أمله، أو يشعر بالحاجة إلى الانتقاء، وعدم البحث عن النشاطات التي ترهق أكثر مما تسعده.",
 		"Επί της ουσίας τόσο οι υφιστάμενες ενισχύσεις που οφείλονται στους κτηνοτρόφους όσο και αυτές της νέας προγραμματικής περιόδου παραμένουν στον αέρα.",
