@@ -23,9 +23,9 @@ import (
 )
 
 type trainingDataLanguageModel struct {
-	language            Language
 	absoluteFrequencies map[ngram]uint32
 	relativeFrequencies map[ngram]float64
+	language            Language
 }
 
 type testDataLanguageModel struct {

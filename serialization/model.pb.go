@@ -310,13 +310,12 @@ func (SerializableLanguage) EnumDescriptor() ([]byte, []int) {
 // It is used only internally for serialization and deserialization.
 type SerializableLanguageModel struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	Language    SerializableLanguage    `protobuf:"varint,1,opt,name=language,proto3,enum=lingua.SerializableLanguage" json:"language,omitempty"`
-	NgramLength uint32                  `protobuf:"varint,2,opt,name=ngram_length,json=ngramLength,proto3" json:"ngram_length,omitempty"`
-	TotalNgrams uint32                  `protobuf:"varint,3,opt,name=total_ngrams,json=totalNgrams,proto3" json:"total_ngrams,omitempty"`
-	NgramSets   []*SerializableNgramSet `protobuf:"bytes,4,rep,name=ngram_sets,json=ngramSets,proto3" json:"ngram_sets,omitempty"`
+	NgramSets     []*SerializableNgramSet `protobuf:"bytes,4,rep,name=ngram_sets,json=ngramSets,proto3" json:"ngram_sets,omitempty"`
+	sizeCache     protoimpl.SizeCache
+	Language      SerializableLanguage `protobuf:"varint,1,opt,name=language,proto3,enum=lingua.SerializableLanguage" json:"language,omitempty"`
+	NgramLength   uint32               `protobuf:"varint,2,opt,name=ngram_length,json=ngramLength,proto3" json:"ngram_length,omitempty"`
+	TotalNgrams   uint32               `protobuf:"varint,3,opt,name=total_ngrams,json=totalNgrams,proto3" json:"total_ngrams,omitempty"`
 }
 
 func (x *SerializableLanguageModel) Reset() {
@@ -386,11 +385,10 @@ func (x *SerializableLanguageModel) GetNgramSets() []*SerializableNgramSet {
 // serialization and deserialization.
 type SerializableNgramSet struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	Probability float64  `protobuf:"fixed64,1,opt,name=probability,proto3" json:"probability,omitempty"`
-	Ngrams      []string `protobuf:"bytes,2,rep,name=ngrams,proto3" json:"ngrams,omitempty"`
+	Ngrams        []string `protobuf:"bytes,2,rep,name=ngrams,proto3" json:"ngrams,omitempty"`
+	Probability   float64  `protobuf:"fixed64,1,opt,name=probability,proto3" json:"probability,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *SerializableNgramSet) Reset() {

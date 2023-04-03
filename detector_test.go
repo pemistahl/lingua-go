@@ -220,8 +220,8 @@ func TestSplitTextIntoWords(t *testing.T) {
 
 func TestLookUpNgramProbability(t *testing.T) {
 	testCases := []struct {
-		language            Language
 		ngram               string
+		language            Language
 		expectedProbability float64
 	}{
 		{English, "a", 0.01},
@@ -287,8 +287,8 @@ func TestComputeSumOfNgramProbabilities(t *testing.T) {
 
 func TestComputeLanguageProbabilities(t *testing.T) {
 	testCases := []struct {
-		ngramModel            testDataLanguageModel
 		expectedProbabilities map[Language]float64
+		ngramModel            testDataLanguageModel
 	}{
 		{
 			testDataModel([][]string{{"a"}, {"l"}, {"t"}, {"e"}, {"r"}}),
@@ -470,8 +470,8 @@ func TestDetectMultipleLanguages_TwoLanguages(t *testing.T) {
 	testCases := []struct {
 		sentence                string
 		expectedFirstSubstring  string
-		expectedFirstLanguage   Language
 		expectedSecondSubstring string
+		expectedFirstLanguage   Language
 		expectedSecondLanguage  Language
 	}{
 		{
@@ -510,10 +510,10 @@ func TestDetectMultipleLanguages_ThreeLanguages(t *testing.T) {
 	testCases := []struct {
 		sentence                string
 		expectedFirstSubstring  string
-		expectedFirstLanguage   Language
 		expectedSecondSubstring string
-		expectedSecondLanguage  Language
 		expectedThirdSubstring  string
+		expectedFirstLanguage   Language
+		expectedSecondLanguage  Language
 		expectedThirdLanguage   Language
 	}{
 		{

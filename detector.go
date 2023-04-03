@@ -88,16 +88,16 @@ type LanguageDetector interface {
 }
 
 type languageDetector struct {
-	languages                     []Language
-	minimumRelativeDistance       float64
-	isLowAccuracyModeEnabled      bool
-	languagesWithUniqueCharacters []Language
 	oneLanguageAlphabets          map[alphabet]Language
 	unigramLanguageModels         *sync.Map
 	bigramLanguageModels          *sync.Map
 	trigramLanguageModels         *sync.Map
 	quadrigramLanguageModels      *sync.Map
 	fivegramLanguageModels        *sync.Map
+	languages                     []Language
+	languagesWithUniqueCharacters []Language
+	minimumRelativeDistance       float64
+	isLowAccuracyModeEnabled      bool
 }
 
 func newLanguageDetector(

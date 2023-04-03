@@ -199,10 +199,10 @@ var expectedFivegramRelativeFrequencies = mapKeysToNgrams(map[string]float64{
 
 func TestNewTrainingDataLanguageModel(t *testing.T) {
 	params := []struct {
-		ngramLength                   int
 		expectedAbsoluteFrequencies   map[ngram]uint32
 		expectedRelativeFrequencies   map[ngram]float64
 		lowerNgramAbsoluteFrequencies map[ngram]uint32
+		ngramLength                   int
 	}{
 		{1, expectedUnigramAbsoluteFrequencies, expectedUnigramRelativeFrequencies, map[ngram]uint32{}},
 		{2, expectedBigramAbsoluteFrequencies, expectedBigramRelativeFrequencies, expectedUnigramAbsoluteFrequencies},
@@ -227,8 +227,8 @@ func TestNewTrainingDataLanguageModel(t *testing.T) {
 
 func TestNewTestDataLanguageModel(t *testing.T) {
 	params := []struct {
-		ngramLength    int
 		expectedNgrams [][]ngram
+		ngramLength    int
 	}{
 		{1, expectedUnigrams},
 		{2, expectedBigrams},
