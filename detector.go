@@ -21,17 +21,18 @@ import (
 	"bytes"
 	"embed"
 	"fmt"
-	"github.com/pemistahl/lingua-go/serialization"
-	"github.com/shopspring/decimal"
-	"golang.org/x/exp/maps"
-	"golang.org/x/exp/slices"
-	"google.golang.org/protobuf/proto"
 	"io"
 	"math"
 	"sort"
 	"strings"
 	"sync"
 	"unicode/utf8"
+
+	"github.com/pemistahl/lingua-go/serialization"
+	"github.com/shopspring/decimal"
+	"golang.org/x/exp/maps"
+	"golang.org/x/exp/slices"
+	"google.golang.org/protobuf/proto"
 )
 
 //go:embed language-models
@@ -107,16 +108,16 @@ func newLanguageDetector(
 	isLowAccuracyModeEnabled bool,
 ) languageDetector {
 	detector := languageDetector{
-		languages,
-		minimumRelativeDistance,
-		isLowAccuracyModeEnabled,
-		collectLanguagesWithUniqueCharacters(languages),
 		collectOneLanguageAlphabets(languages),
 		&unigramModels,
 		&bigramModels,
 		&trigramModels,
 		&quadrigramModels,
 		&fivegramModels,
+		languages,
+		collectLanguagesWithUniqueCharacters(languages),
+		minimumRelativeDistance,
+		isLowAccuracyModeEnabled,
 	}
 	if isEveryLanguageModelPreloaded {
 		detector.preloadLanguageModels(languages)
