@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/shopspring/decimal v1.3.1
-	github.com/stretchr/testify v1.8.2
+	github.com/stretchr/testify v1.8.3
 	golang.org/x/exp v0.0.0-20221106115401-f9659909a136
 	google.golang.org/protobuf v1.28.1
 )
