@@ -1,3 +1,10 @@
+## Lingua 1.3.4 (released on 09 Jun 2023)
+
+### Bug Fixes
+
+- When trying to detect multiple languages in a text consisting of only a
+  single word, a panic occurred. This has been fixed. (#41)
+
 ## Lingua 1.3.3 (released on 03 Feb 2023)
 
 ### Bug Fixes
