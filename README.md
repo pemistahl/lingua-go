@@ -2104,9 +2104,9 @@ lingua.NewLanguageDetectorBuilder().FromIsoCodes639_1(lingua.EN, lingua.DE)
 lingua.NewLanguageDetectorBuilder().FromIsoCodes639_3(lingua.ENG, lingua.DEU)
 ```
 
-## 10. What's next for version 1.4.0?
+## 10. What's next for version 1.5.0?
 
-Take a look at the [planned issues](https://github.com/pemistahl/lingua-go/milestone/5).
+Take a look at the [planned issues](https://github.com/pemistahl/lingua-go/milestone/6).
 
 ## 11. Contributions
 

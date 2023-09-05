@@ -1,3 +1,22 @@
+## Lingua 1.4.0 (released on 05 Sep 2023)
+
+### Features
+
+- The new functions `GetIsoCode639_1FromValue()` and `GetIsoCode639_3FromValue()`
+  have been introduced to return the proper `IsoCode639_1` and `IsoCode639_3` for
+  a given name string. (#44)
+
+### Changes
+
+- The functions `GetLanguageFromIsoCode639_1()` and `GetLanguageFromIsoCode639_3()`
+  now correctly return `Unknown` instead of `-1` if a language cannot be found for the
+  given iso code. (#44)
+
+### Bug Fixes
+
+- The method `LanguageDetector.DetectMultipleLanguagesOf()` returned wrong values for
+  start and end indices for texts consisting of only a single word. This has been fixed. (#43)
+
 ## Lingua 1.3.4 (released on 09 Jun 2023)
 
 ### Bug Fixes
