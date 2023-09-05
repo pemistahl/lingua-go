@@ -259,3 +259,15 @@ func TestAllLanguagesWithLatinScript(t *testing.T) {
 		},
 		AllLanguagesWithLatinScript())
 }
+
+func TestGetLanguageFromIsoCode639_1(t *testing.T) {
+	assert.Equal(t, Afrikaans, GetLanguageFromIsoCode639_1(AF))
+	assert.Equal(t, Zulu, GetLanguageFromIsoCode639_1(ZU))
+	assert.Equal(t, Unknown, GetLanguageFromIsoCode639_1(UnknownIsoCode639_1))
+}
+
+func TestGetLanguageFromIsoCode639_3(t *testing.T) {
+	assert.Equal(t, Afrikaans, GetLanguageFromIsoCode639_3(AFR))
+	assert.Equal(t, Zulu, GetLanguageFromIsoCode639_3(ZUL))
+	assert.Equal(t, Unknown, GetLanguageFromIsoCode639_3(UnknownIsoCode639_3))
+}

@@ -16,6 +16,8 @@
 
 package lingua
 
+import "strings"
+
 // IsoCode639_1 is the type used for enumerating the ISO 639-1 code
 // representations of the supported languages.
 //
@@ -487,3 +489,35 @@ const (
 	// UnknownIsoCode639_3 is the ISO 639-3 code for Unknown.
 	UnknownIsoCode639_3
 )
+
+// GetIsoCode639_1FromValue returns the ISO 639-1 code for the given name.
+func GetIsoCode639_1FromValue(name string) IsoCode639_1 {
+	if isoCodeEnum, ok := stringToIsoCode639_1[strings.ToLower(name)]; ok {
+		return isoCodeEnum
+	}
+	return UnknownIsoCode639_1
+}
+
+// GetIsoCode639_3FromValue returns the ISO 639-3 code for the given name.
+func GetIsoCode639_3FromValue(name string) IsoCode639_3 {
+	if isoCodeEnum, ok := stringToIsoCode639_3[strings.ToLower(name)]; ok {
+		return isoCodeEnum
+	}
+	return UnknownIsoCode639_3
+}
+
+var stringToIsoCode639_1 = func() map[string]IsoCode639_1 {
+	m := make(map[string]IsoCode639_1)
+	for isoCode := AF; isoCode <= ZU; isoCode++ {
+		m[strings.ToLower(isoCode.String())] = isoCode
+	}
+	return m
+}()
+
+var stringToIsoCode639_3 = func() map[string]IsoCode639_3 {
+	m := make(map[string]IsoCode639_3)
+	for isoCode := AFR; isoCode <= ZUL; isoCode++ {
+		m[strings.ToLower(isoCode.String())] = isoCode
+	}
+	return m
+}()

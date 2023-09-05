@@ -146,25 +146,25 @@ func AllLanguagesWithLatinScript() []Language {
 }
 
 // GetLanguageFromIsoCode639_1 returns the language for the given
-// ISO 639-1 code.
+// ISO 639-1 code enum value.
 func GetLanguageFromIsoCode639_1(isoCode IsoCode639_1) Language {
 	for _, language := range AllLanguages() {
 		if language.IsoCode639_1() == isoCode {
 			return language
 		}
 	}
-	return -1
+	return Unknown
 }
 
 // GetLanguageFromIsoCode639_3 returns the language for the given
-// ISO 639-3 code.
+// ISO 639-3 code enum value.
 func GetLanguageFromIsoCode639_3(isoCode IsoCode639_3) Language {
 	for _, language := range AllLanguages() {
 		if language.IsoCode639_3() == isoCode {
 			return language
 		}
 	}
-	return -1
+	return Unknown
 }
 
 func allLanguagesWithScript(script alphabet) (languages []Language) {
