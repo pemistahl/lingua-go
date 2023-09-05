@@ -453,6 +453,10 @@ func TestDetectMultipleLanguages_OneLanguage(t *testing.T) {
 			"I'm really not sure whether multi-language detection is a good idea.",
 			English,
 		},
+		{
+			"français",
+			French,
+		},
 	}
 
 	for _, testCase := range testCases {

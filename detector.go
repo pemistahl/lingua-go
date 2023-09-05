@@ -188,7 +188,7 @@ func (detector languageDetector) DetectMultipleLanguagesOf(text string) []Detect
 	if len(languages) == 1 {
 		result := newDetectionResult(
 			0,
-			len([]rune(text)),
+			len(text),
 			len(tokenWithoutWhitespaceIndices),
 			languages[0],
 		)
