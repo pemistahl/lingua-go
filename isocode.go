@@ -256,7 +256,7 @@ const (
 	// ZU is the ISO 639-1 code for Zulu.
 	ZU
 
-	// ML is the ISO 639-1 code for Macedonian.
+	// ML is the ISO 639-1 code for Malayalam.
 	ML
 
 	// UnknownIsoCode639_1 is the ISO 639-1 code for Unknown.
