@@ -178,7 +178,7 @@ func allLanguagesWithScript(script alphabet) (languages []Language) {
 }
 
 func amountOfSupportedLanguages() int {
-	return int(Zulu + 1)
+	return int(Malayalam + 1)
 }
 
 // IsoCode639_1 returns a language's ISO 639-1 code.
