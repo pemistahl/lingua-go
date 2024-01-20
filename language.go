@@ -98,6 +98,7 @@ const (
 	Xhosa
 	Yoruba
 	Zulu
+	Malayalam
 	Unknown
 )
 
@@ -177,7 +178,7 @@ func allLanguagesWithScript(script alphabet) (languages []Language) {
 }
 
 func amountOfSupportedLanguages() int {
-	return int(Zulu + 1)
+	return int(Malayalam + 1)
 }
 
 // IsoCode639_1 returns a language's ISO 639-1 code.
@@ -333,6 +334,8 @@ func (language Language) IsoCode639_1() IsoCode639_1 {
 		return YO
 	case Zulu:
 		return ZU
+	case Malayalam:
+		return ML
 	case Unknown:
 		return UnknownIsoCode639_1
 	default:
@@ -493,6 +496,8 @@ func (language Language) IsoCode639_3() IsoCode639_3 {
 		return YOR
 	case Zulu:
 		return ZUL
+	case Malayalam:
+		return MAL
 	case Unknown:
 		return UnknownIsoCode639_3
 	default:
@@ -593,6 +598,8 @@ func (language Language) alphabets() []alphabet {
 		return []alphabet{telugu}
 	case Thai:
 		return []alphabet{thai}
+	case Malayalam:
+		return []alphabet{malayalam}
 	default:
 		return []alphabet{}
 	}
@@ -640,6 +647,8 @@ func (language Language) uniqueCharacters() string {
 		return "ẰằẦầẲẳẨẩẴẵẪẫẮắẤấẠạẶặẬậỀềẺẻỂểẼẽỄễẾếỆệỈỉĨĩỊịƠơỒồỜờỎỏỔổỞởỖỗỠỡỐốỚớỘộỢợƯưỪừỦủỬửŨũỮữỨứỤụỰựỲỳỶỷỸỹỴỵ"
 	case Yoruba:
 		return "ŌōṢṣ"
+	case Malayalam:
+		return "അആഇഈഉഊഋഌഎഏഐഒഓഔകഖഗഘങചഛജഝഞടഠഡഢണതഥദധനഩപഫബഭമയരറലളഴവശഷസഹഺഽൠൡ൦൧൨൩൪൫൬൭൮൯൰൱൲൳൴൵൹ൺൻർൽൾൿ"
 	default:
 		return ""
 	}

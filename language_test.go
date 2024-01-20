@@ -100,6 +100,7 @@ func TestAllLanguages(t *testing.T) {
 			Xhosa,
 			Yoruba,
 			Zulu,
+			Malayalam,
 		},
 		AllLanguages())
 }
@@ -182,6 +183,7 @@ func TestAllSpokenLanguages(t *testing.T) {
 			Xhosa,
 			Yoruba,
 			Zulu,
+			Malayalam,
 		},
 		AllSpokenLanguages())
 }
