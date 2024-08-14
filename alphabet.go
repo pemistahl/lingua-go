@@ -42,6 +42,7 @@ const (
 	tamil
 	telugu
 	thai
+	malayalam
 )
 
 func (alphabet alphabet) matches(text string) bool {
@@ -82,6 +83,8 @@ func (alphabet alphabet) matches(text string) bool {
 		return teluguChars.MatchString(text)
 	case thai:
 		return thaiChars.MatchString(text)
+	case malayalam:
+		return malayalamChars.MatchString(text)
 	default:
 		return false
 	}
@@ -136,6 +139,7 @@ var (
 	tamilChars      = createRegexp("Tamil")
 	teluguChars     = createRegexp("Telugu")
 	thaiChars       = createRegexp("Thai")
+	malayalamChars  = createRegexp("Malayalam")
 )
 
 func createRegexp(charClass string) *regexp.Regexp {

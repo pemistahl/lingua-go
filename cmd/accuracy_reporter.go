@@ -598,6 +598,8 @@ func mapWhatlangToLingua(language whatlanggo.Lang) lingua.Language {
 		return lingua.Yoruba
 	case whatlanggo.Zul:
 		return lingua.Zulu
+	case whatlanggo.Mal:
+		return lingua.Malayalam
 	default:
 		return lingua.Unknown
 	}
