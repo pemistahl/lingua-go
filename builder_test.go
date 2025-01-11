@@ -137,6 +137,7 @@ func TestLanguageDetectorBuilder_FromAllLanguagesWithout(t *testing.T) {
 			Xhosa,
 			Yoruba,
 			Zulu,
+			Malayalam,
 		},
 		builder.getLanguages(),
 	)
